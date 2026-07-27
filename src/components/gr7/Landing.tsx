@@ -1044,7 +1044,7 @@ function Testimonials() {
             / depoimentos
           </div>
         </Reveal>
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} variant="fall">
           <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
             Marcas que já vivem no próximo nível.
           </h2>
