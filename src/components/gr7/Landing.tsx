@@ -1362,22 +1362,26 @@ export default function Landing() {
         {loading && <Loader done={() => setLoading(false)} />}
       </AnimatePresence>
 
+      <AnimatedBackground />
+
       <ScrollProgress />
       <CustomCursor />
-      <Nav />
+      <div className="relative z-10">
+        <Nav />
 
-      <main>
-        <Hero />
-        <Services />
-        <Difference />
-        <Process />
-        <Portfolio />
-        <Testimonials />
-        <Results />
-        <CTA />
-      </main>
+        <main>
+          <Hero />
+          <Services />
+          <Difference />
+          <Process />
+          <Portfolio />
+          <Testimonials />
+          <Results />
+          <CTA />
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 }
