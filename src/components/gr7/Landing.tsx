@@ -212,8 +212,9 @@ type RevealVariant =
 
 const REVEAL_VARIANTS: Record<
   RevealVariant,
-  { hidden: Record<string, unknown>; shown: Record<string, unknown> }
+  { hidden: Record<string, any>; shown: Record<string, any> }
 > = {
+
   rise: {
     hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
     shown: { opacity: 1, y: 0, filter: "blur(0px)" },
