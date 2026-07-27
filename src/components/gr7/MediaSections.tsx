@@ -853,7 +853,7 @@ export function InstagramProfile() {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative aspect-square overflow-hidden bg-neutral-100"
+                  className="group relative aspect-[16/9] overflow-hidden bg-neutral-100"
                 >
                   <MediaSlot
                     src={p.src}
