@@ -1089,7 +1089,7 @@ function Results() {
 /* ------------------------------------------------------------------ */
 function CTA() {
   return (
-    <section id="cta" className="relative overflow-hidden py-32 md:py-48">
+    <section id="cta" className="relative isolate overflow-hidden py-32 md:py-48">
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-br from-[#ff1a1a] via-[#c9000f] to-[#7a0000]" />
         <div
