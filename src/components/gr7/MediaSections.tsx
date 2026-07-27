@@ -821,18 +821,24 @@ export function InstagramProfile() {
               <div className="flex-1 text-center md:text-left">
                 <div className="flex flex-wrap items-center justify-center gap-3 md:justify-start">
                   <span className="text-lg font-light">{instagram.handle}</span>
-                  <button className="rounded-lg bg-[#0a0a0a] px-4 py-1.5 text-xs font-semibold text-white">
+                  <button className="rounded-lg bg-[#4f46e5] px-6 py-1.5 text-xs font-semibold text-white">
                     Seguir
+                  </button>
+                  <button className="rounded-lg bg-black/5 px-4 py-1.5 text-xs font-semibold text-[#0a0a0a]">
+                    Enviar mensagem
                   </button>
                 </div>
                 <div className="mt-4 flex items-center justify-center gap-8 text-sm md:justify-start">
-                  <div><b>128</b> posts</div>
-                  <div><b>12.4k</b> seguidores</div>
-                  <div><b>340</b> seguindo</div>
+                  <div><b>{instagram.stats.posts}</b> posts</div>
+                  <div><b>{instagram.stats.followers}</b> seguidores</div>
+                  <div><b>{instagram.stats.following}</b> seguindo</div>
                 </div>
-                <div className="mt-4 max-w-md text-sm text-black/70">
-                  <div className="font-semibold">GR7 Company</div>
-                  {instagram.bio}
+                <div className="mt-4 max-w-md space-y-1 text-sm text-black/80">
+                  <div className="font-semibold">{instagram.name}</div>
+                  <div className="text-black/60">{instagram.category}</div>
+                  {instagram.bio.map((line, i) => (
+                    <div key={i}>{line}</div>
+                  ))}
                 </div>
               </div>
             </div>
