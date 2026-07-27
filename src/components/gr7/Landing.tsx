@@ -858,7 +858,8 @@ function Process() {
                 / processo
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="fall">
+
               <h2 className="max-w-xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
                 Um método afinado em cinco atos.
               </h2>
@@ -870,7 +871,7 @@ function Process() {
           <div className="absolute left-0 right-0 top-14 hidden h-px bg-gradient-to-r from-transparent via-white/20 to-transparent md:block" />
           <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
             {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.1}>
+              <Reveal key={s.n} delay={i * 0.1} variant="fall">
                 <div className="group relative">
                   <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white text-[10px] font-semibold text-black/60 transition-all group-hover:border-[#ff1a1a] group-hover:text-[#0a0a0a] group-hover:shadow-[0_0_20px_rgba(255,26,26,0.5)]">
                     {i + 1}
