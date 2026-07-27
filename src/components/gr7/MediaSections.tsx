@@ -853,13 +853,13 @@ export function InstagramProfile() {
                   href={p.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative aspect-[16/9] overflow-hidden bg-neutral-100"
+                  className="group relative aspect-square overflow-hidden bg-neutral-100"
                 >
-                  <img
+                  <MediaSlot
                     src={p.src}
-                    alt=""
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
+                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
+                    label=""
+                    ornate={false}
                   />
                 </a>
               ))}
