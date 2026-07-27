@@ -1111,11 +1111,11 @@ function CTA() {
 
       <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
         <Reveal>
-          <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[0.98] tracking-[-0.03em] text-[#0a0a0a] md:text-7xl">
+          <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[0.98] tracking-[-0.03em] text-white md:text-7xl">
             Sua empresa pode continuar sendo{" "}
-            <span className="italic font-light text-black/70">mais uma...</span>
+            <span className="italic font-light text-white/70">mais uma...</span>
             <br />
-            ou pode se tornar <span className="underline decoration-white/50 decoration-2 underline-offset-8">referência.</span>
+            ou pode se tornar <span className="underline decoration-white/70 decoration-2 underline-offset-8">referência.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.2}>
