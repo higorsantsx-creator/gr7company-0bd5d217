@@ -760,10 +760,11 @@ function Difference() {
                         "radial-gradient(200px circle at 20% 50%, rgba(255,26,26,0.4), transparent)",
                     }}
                   />
-                  <div className="relative font-display text-5xl font-bold tracking-tight text-[#0a0a0a] md:text-6xl">
+                  <div className="relative font-display text-4xl font-bold tracking-tight text-[#0a0a0a] md:text-5xl">
                     <Counter to={k.n} suffix={k.s} />
                   </div>
-                  <div className="relative mt-2 text-sm text-black/50">{k.label}</div>
+                  <div className="relative mt-1 text-sm text-black/50">{k.label}</div>
+
                 </div>
               </Reveal>
             ))}
