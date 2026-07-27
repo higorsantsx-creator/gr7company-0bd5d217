@@ -32,6 +32,21 @@ import {
   Play,
 } from "lucide-react";
 import logoImg from "@/assets/gr7-logo.png";
+import {
+  ProjectsGrid,
+  ReelsSection,
+  StoriesRow,
+  ArtsMasonry,
+  BrandIdentity,
+  CinematicVideo,
+  BackstageGrid,
+  ClientsMarquee,
+  CasesShowcase,
+  DashboardsSection,
+  VideoTestimonialsSection,
+  InstagramProfile,
+  GR7InAction,
+} from "./MediaSections";
 
 /* ------------------------------------------------------------------ */
 /*  GR7 wordmark (SVG, used on dark backgrounds)                       */
@@ -1373,10 +1388,21 @@ export default function Landing() {
           <Hero />
           <Services />
           <Difference />
+          <ProjectsGrid />
+          <CinematicVideo />
+          <ReelsSection />
+          <StoriesRow />
+          <ArtsMasonry />
+          <BrandIdentity />
+          <BackstageGrid />
+          <ClientsMarquee />
+          <CasesShowcase />
+          <DashboardsSection />
+          <VideoTestimonialsSection />
+          <InstagramProfile />
           <Process />
-          <Portfolio />
-          <Testimonials />
           <Results />
+          <GR7InAction />
           <CTA />
         </main>
 
