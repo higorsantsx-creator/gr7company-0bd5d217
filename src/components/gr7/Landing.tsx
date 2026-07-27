@@ -445,7 +445,8 @@ function Hero() {
               Marketing de alta performance
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="mask">
+
             <h1
               className="font-display text-[44px] leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] sm:text-6xl md:text-7xl lg:text-[92px]"
             >
@@ -690,7 +691,8 @@ function Services() {
                 / o que fazemos
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="fall">
+
               <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
                 Um ecossistema completo para escalar sua marca.
               </h2>
@@ -785,7 +787,8 @@ function Difference() {
                 / diferencial
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="slide-right">
+
               <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-[#0a0a0a] md:text-6xl lg:text-7xl">
                 Você não precisa de mais marketing.
                 <br />
@@ -1097,7 +1100,8 @@ function Results() {
             / resultados
           </div>
         </Reveal>
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} variant="mask">
+
           <h2 className="mx-auto max-w-4xl font-display text-5xl leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] md:text-8xl">
             Não entregamos <span className="italic font-light text-black/50">curtidas.</span>
             <br />
