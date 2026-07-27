@@ -841,9 +841,6 @@ export function InstagramProfile() {
               <div className="flex items-center gap-2 border-t-2 border-[#0a0a0a] pt-3 text-[#0a0a0a]">
                 <Grid3x3 className="h-3.5 w-3.5" /> Posts
               </div>
-              <div className="flex items-center gap-2 pt-3">
-                <Bookmark className="h-3.5 w-3.5" />
-              </div>
             </div>
 
             <div className="mt-4 grid grid-cols-3 gap-1 md:gap-2">
