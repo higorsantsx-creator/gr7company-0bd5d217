@@ -88,7 +88,7 @@ export function ProjectsGrid() {
               href={p.href ?? "#"}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ margin: "-80px" }}
               transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
               className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white ${
                 i % 5 === 0 ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""
@@ -149,7 +149,7 @@ export function ReelsSection() {
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
               whileHover={{ scale: 1.04 }}
               className="mx-auto w-full max-w-[220px]"
@@ -322,7 +322,7 @@ export function ArtsMasonry() {
               key={i}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ margin: "-40px" }}
               transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
               className={`group relative mb-4 break-inside-avoid overflow-hidden rounded-xl border border-black/10 bg-white`}
             >
@@ -536,7 +536,7 @@ export function BackstageGrid() {
               key={i}
               initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
               className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white ${spans[b.span]}`}
             >
@@ -626,7 +626,7 @@ export function CasesShowcase() {
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ margin: "-80px" }}
               transition={{ duration: 0.6 }}
               className={`grid grid-cols-1 gap-8 rounded-3xl border border-black/10 bg-white p-6 md:p-10 lg:grid-cols-12 ${
                 i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
@@ -711,7 +711,7 @@ export function DashboardsSection() {
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <NotebookFrame>
@@ -761,7 +761,7 @@ export function VideoTestimonialsSection() {
             key={i}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+            viewport={{ margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
             className="group relative aspect-[9/16] w-[280px] shrink-0 overflow-hidden rounded-3xl border border-black/10 bg-neutral-900"
           >
@@ -906,7 +906,7 @@ export function GR7InAction() {
                 key={i}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-40px" }}
+                viewport={{ margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.04 }}
                 className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white ${patterns[i]}`}
               >
