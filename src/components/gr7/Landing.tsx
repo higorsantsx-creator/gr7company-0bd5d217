@@ -321,27 +321,25 @@ function Hero() {
         />
       </motion.div>
 
-      {/* particles */}
-      {Array.from({ length: 22 }).map((_, i) => (
+      {/* particles — lightweight */}
+      {Array.from({ length: 8 }).map((_, i) => (
         <motion.span
           key={i}
-          className="absolute h-1 w-1 rounded-full bg-[#ff1a1a]/60"
+          className="absolute h-1 w-1 rounded-full bg-[#ff1a1a]/60 will-change-transform"
           style={{
             left: `${(i * 53) % 100}%`,
             top: `${(i * 37) % 100}%`,
           }}
-          animate={{
-            y: [0, -20, 0],
-            opacity: [0.15, 0.9, 0.15],
-          }}
+          animate={{ y: [0, -20, 0], opacity: [0.2, 0.8, 0.2] }}
           transition={{
-            duration: 4 + (i % 5),
+            duration: 5 + (i % 3),
             repeat: Infinity,
-            delay: i * 0.2,
+            delay: i * 0.3,
             ease: "easeInOut",
           }}
         />
       ))}
+
 
       {/* abstract lines */}
       <svg
