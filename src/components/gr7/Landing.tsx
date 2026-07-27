@@ -1140,7 +1140,7 @@ function CTA() {
           </div>
         </Reveal>
         <Reveal delay={0.35}>
-          <div className="mt-8 text-xs uppercase tracking-[0.35em] text-black/60">
+          <div className="mt-8 text-xs uppercase tracking-[0.35em] text-white/70">
             Resposta em até 24h · Sem compromisso
           </div>
         </Reveal>
