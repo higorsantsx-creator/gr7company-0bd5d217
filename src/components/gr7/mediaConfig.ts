@@ -225,13 +225,25 @@ export const videoTestimonials: VideoTestimonial[] = [
 ];
 
 /* ------------------------------------------------------------------ */
-/*  INSTAGRAM — perfil simulado                                        */
+/*  INSTAGRAM — perfil real @gr7company                                */
 /* ------------------------------------------------------------------ */
 export const instagram = {
-  handle: "@gr7.company",
-  bio: "Marketing que transforma empresas em referências. · Branding, Performance, Vídeo & Direção Criativa.",
+  handle: "gr7company",
+  name: "GR7 Company",
+  category: "Advertising/Marketing",
+  stats: {
+    posts: 12,
+    followers: "2.065",
+    following: 53,
+  },
+  bio: [
+    "1. A solução certa para o crescimento do seu negócio. 🏆",
+    "2. O marketing que conecta, engaja e vende 📊",
+    "3. audiência, distribuição, aumento de receita 💹",
+  ],
   avatar: { src: "", alt: "GR7 Company" } as MediaItem,
-  posts: Array.from({ length: 9 }).map(() => ({ src: "" } as MediaItem)),
+  // 12 slots — preencha com as capas dos posts quando enviar os links.
+  posts: Array.from({ length: 12 }).map(() => ({ src: "" } as MediaItem)),
 };
 
 /* ------------------------------------------------------------------ */
