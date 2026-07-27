@@ -931,7 +931,8 @@ function Portfolio() {
               / portfólio
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="mask">
+
             <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
               Cases reais. Números que falam por si.
             </h2>
@@ -940,7 +941,7 @@ function Portfolio() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.08}>
+            <Reveal key={p.title} delay={i * 0.08} variant="scale">
               <div
                 data-cursor="hover"
                 className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-black/10"
