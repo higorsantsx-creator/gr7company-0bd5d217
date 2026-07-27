@@ -1236,7 +1236,8 @@ function CTA() {
       </div>
 
       <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
-        <Reveal>
+        <Reveal variant="mask">
+
           <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[0.98] tracking-[-0.03em] text-white md:text-7xl">
             Sua empresa pode continuar sendo{" "}
             <span className="italic font-light text-white/70">mais uma...</span>
