@@ -18,6 +18,7 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import { MediaSlot, PhoneFrame, NotebookFrame } from "./MediaSlot";
+import gr7Logo from "@/assets/gr7-logo.png";
 import {
   projects,
   reels,
@@ -808,11 +809,10 @@ export function InstagramProfile() {
               <div className="rounded-full bg-gradient-to-tr from-[#ff1a1a] via-[#ff6b6b] to-[#ff1a1a] p-1">
                 <div className="rounded-full bg-white p-1">
                   <div className="relative h-28 w-28 overflow-hidden rounded-full md:h-32 md:w-32">
-                    <MediaSlot
-                      src={instagram.avatar.src}
+                    <img
+                      src={instagram.avatar.src || gr7Logo}
                       alt={instagram.avatar.alt}
-                      className="absolute inset-0"
-                      ornate={false}
+                      className="absolute inset-0 h-full w-full object-contain p-3"
                     />
                   </div>
                 </div>
