@@ -32,6 +32,21 @@ import {
   Play,
 } from "lucide-react";
 import logoImg from "@/assets/gr7-logo.png";
+import {
+  ProjectsGrid,
+  ReelsSection,
+  StoriesRow,
+  ArtsMasonry,
+  BrandIdentity,
+  CinematicVideo,
+  BackstageGrid,
+  ClientsMarquee,
+  CasesShowcase,
+  DashboardsSection,
+  VideoTestimonialsSection,
+  InstagramProfile,
+  GR7InAction,
+} from "./MediaSections";
 
 /* ------------------------------------------------------------------ */
 /*  GR7 wordmark (SVG, used on dark backgrounds)                       */
