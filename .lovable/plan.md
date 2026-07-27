@@ -1,53 +1,51 @@
-## Objetivo
-Fazer com que cada bloco (títulos, cards, imagens, seções) **entre em cena ao descer** e **saia ao subir**, cada um com uma animação única, elegante e chamativa — sem quebrar layout nem transformar o site em algo pesado.
-
 ## Diagnóstico
-Hoje o helper `Reveal` (em `Landing.tsx`) usa `useInView(..., { once: true })` e as seções em `MediaSections.tsx` usam `viewport={{ once: true }}`. Ou seja: quando o elemento entra, anima uma única vez e nunca mais reage ao scroll — inclusive quando sai/volta. É por isso que a página parece "estática" ao rolar de volta.
+Hoje a landing tem **12 seções seguidas de mídia** entre `ProjectsGrid` e `InstagramProfile`, sem respiro. O olho satura porque tudo vira "grid de imagem" e o conteúdo estratégico (números, processo, resultados) só aparece depois. A sensação é de portfólio pesado, não de agência com discurso.
 
 ## Estratégia
+Duas frentes, aplicadas juntas:
 
-### 1. Reveal bidirecional
-Alterar `Reveal` para animar em ambas as direções, usando `whileInView`/`useInView` sem `once: true`:
-- entrada (visível): `opacity: 1, y: 0, filter: blur(0)`
-- saída (fora): `opacity: 0, y: <valor>, filter: blur(4px)`
+### 1. Intercalar mídia com seções "de leitura"
+Reordenar o `Landing.tsx` para que nunca haja mais de 2 blocos de mídia seguidos. Blocos de leitura (Services, Difference, Process, Results, Cases textuais, novos abaixo) entram entre as sequências de mídia.
 
-Aceitar uma prop `variant` para escolher entre estilos únicos — mantendo a API atual (todos os locais que hoje usam `<Reveal>` continuam funcionando).
+Nova ordem proposta:
 
-### 2. Catálogo de variantes (para dar personalidade única)
-Criar variantes reutilizáveis:
-- `rise` — sobe suave com leve blur (padrão de parágrafos).
-- `fall` — desce do topo com leve rotação (títulos de seção).
-- `slide-left` / `slide-right` — entra lateralmente (usada em pares de colunas: hero copy vs. hero visual, difference vs. counters).
-- `scale` — leve zoom-in + fade (usada em cards de serviço e imagens grandes).
-- `mask` — clip-path revelando de baixo pra cima (usada em títulos display grandes e cards de portfólio).
-- `tilt` — pequena rotação 3D + fade (usada em depoimentos e Instagram).
+```text
+Hero
+Services              (leitura)
+ProjectsGrid          (mídia)
+Difference            (leitura, números)
+CinematicVideo        (mídia)
+Manifesto             (NOVO — leitura)
+ReelsSection          (mídia)
+StoriesRow            (mídia leve)
+Process               (leitura)
+ArtsMasonry           (mídia)
+Stack & Ferramentas   (NOVO — leitura)
+BackstageGrid         (mídia)
+CasesShowcase         (misto)
+Results               (leitura)
+DashboardsSection     (mídia)
+FAQ                   (NOVO — leitura)
+VideoTestimonialsSection (mídia)
+ClientsMarquee        (mídia leve)
+InstagramProfile      (mídia)
+GR7InAction           (mídia)
+CTA
+```
 
-Todas com easing `[0.22, 1, 0.36, 1]` e duração 0.7–0.9s, respeitando `prefers-reduced-motion`.
+### 2. Adicionar 3 seções sem mídia
+Para dar densidade editorial e quebrar o ritmo:
 
-### 3. Aplicação
-- Trocar todos `once: true`/`viewport={{ once: true }}` em `Landing.tsx` e `MediaSections.tsx` para bidirecional.
-- Escolher variante por seção (não por elemento individual, pra manter coerência):
-  - Hero: `rise` no copy, `scale` no visual.
-  - Services: `rise` no header, `scale` nos cards (stagger por índice).
-  - Difference/Counters: `slide-right`/`slide-left`.
-  - Process (timeline): `fall` nos steps.
-  - Projects/Arts/Backstage: `mask` nas mídias.
-  - Reels/Stories: `scale` com stagger.
-  - Cases/Video Testimonials/Instagram: `tilt`.
-  - Dashboards: `slide-right` no notebook, `rise` no texto.
-  - CTA/Footer: `rise`.
+- **Manifesto** — bloco tipográfico grande ("O que a GR7 acredita"), 3-4 frases curtas em Archivo Black, com uma palavra em vermelho por linha. Zero imagem.
+- **Stack & Ferramentas** — grid enxuto (2 linhas × 6 colunas) listando as ferramentas que a agência usa: Meta Ads Manager, Google Ads, GA4, Looker Studio, HubSpot, Notion, Figma, CapCut, Premiere, Photoshop, Illustrator, WhatsApp Business. Só nome + ícone monocromático (Lucide) — não conta como mídia.
+- **FAQ** — 5-6 perguntas comuns ("Vocês trabalham com qual porte de cliente?", "Como funciona o onboarding?", "Prazo médio de resultado?", "Vocês fecham contrato mensal?", "Como é o relatório?"), em acordeão minimalista preto sobre branco.
 
-### 4. Guardas de performance
-- Manter `margin: "-80px"` para disparar antes de aparecer no viewport.
-- Usar `will-change: transform, opacity` só nos elementos que animam.
-- Respeitar `prefers-reduced-motion` (fallback = fade curto sem transform).
-- Não aplicar em elementos gigantes de fundo (background/gradientes seguem contínuos).
-
-### 5. Verificação
-Rolar a página inteira via preview, subir e descer para confirmar que:
-- animações entram ao descer e saem ao subir sem "engasgar".
-- cada seção tem uma personalidade visível (não é o mesmo fade em todo lugar).
-- FPS continua fluido (as animações são só `transform`/`opacity`/`filter: blur`).
+Todas seguem o mesmo padrão visual das seções atuais de leitura (Services, Difference): fundo branco/preto puro, tipografia forte, `Reveal` bidirecional, nenhuma dependência nova.
 
 ## Escopo
-Somente `src/components/gr7/Landing.tsx` e `src/components/gr7/MediaSections.tsx`. Nada de conteúdo, layout macro, paleta ou tipografia muda. Nenhuma nova dependência.
+- `src/components/gr7/Landing.tsx`: reordenar seções e criar `Manifesto`, `Stack`, `FAQ` no mesmo arquivo (padrão dos outros blocos internos).
+- Nenhuma alteração em `MediaSections.tsx`, `mediaConfig.ts`, paleta, fonte ou dependências.
+- Conteúdo textual das novas seções em português, no tom já usado (curto, direto, com acento vermelho).
+
+## Verificação
+Rolar do topo ao CTA e confirmar: nunca 3 seções de mídia seguidas, o olho encontra texto/números a cada ~2 blocos, e as 3 novas seções têm personalidade própria (não parecem repetição de "Diferenciais").
