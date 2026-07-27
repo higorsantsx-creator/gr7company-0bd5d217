@@ -61,115 +61,47 @@ function GR7Mark({ className = "h-8" }: { className?: string }) {
 /*  Animated global background — floating blobs + grid + aurora        */
 /* ------------------------------------------------------------------ */
 function AnimatedBackground() {
-  const { scrollYProgress } = useScroll();
-  const rot = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const shift = useTransform(scrollYProgress, [0, 1], [0, -120]);
-
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
       {/* base wash */}
       <div className="absolute inset-0 bg-white" />
 
-      {/* animated aurora blobs */}
+      {/* static red aurora — GPU-friendly transform-only float */}
       <motion.div
-        style={{ rotate: rot }}
-        className="absolute -left-40 -top-40 h-[46rem] w-[46rem] rounded-full opacity-70 blur-3xl"
-        animate={{
-          x: [0, 120, -40, 0],
-          y: [0, 60, 140, 0],
-          scale: [1, 1.15, 0.95, 1],
-        }}
-        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,#ff1a1a_0%,transparent_60%)]" />
-      </motion.div>
-
-      <motion.div
-        className="absolute -right-40 top-1/3 h-[38rem] w-[38rem] rounded-full opacity-60 blur-3xl"
-        animate={{
-          x: [0, -120, 40, 0],
-          y: [0, -80, 60, 0],
-          scale: [1, 1.2, 0.9, 1],
-        }}
-        transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,#ff4d4d_0%,transparent_65%)]" />
-      </motion.div>
-
-      <motion.div
-        className="absolute left-1/2 top-2/3 h-[42rem] w-[42rem] -translate-x-1/2 rounded-full opacity-50 blur-3xl"
-        animate={{
-          x: [-40, 80, -60, -40],
-          y: [0, -60, 40, 0],
-          scale: [1, 1.1, 1.05, 1],
-        }}
+        className="absolute -left-40 -top-40 h-[46rem] w-[46rem] rounded-full opacity-60 blur-3xl will-change-transform"
+        animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
         transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,#000000_0%,transparent_55%)] opacity-30" />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-[-10rem] left-[10%] h-[34rem] w-[34rem] rounded-full opacity-55 blur-3xl"
-        animate={{
-          x: [0, 100, -30, 0],
-          y: [0, -40, 20, 0],
-          scale: [1, 1.15, 0.95, 1],
+        style={{
+          background:
+            "radial-gradient(circle at center, #ff1a1a 0%, transparent 60%)",
         }}
-        transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <div className="h-full w-full rounded-full bg-[radial-gradient(circle_at_center,#ff6b6b_0%,transparent_60%)]" />
-      </motion.div>
-
-      {/* animated conic sweep */}
+      />
       <motion.div
-        style={{ y: shift }}
-        className="absolute left-1/2 top-1/2 h-[70rem] w-[70rem] -translate-x-1/2 -translate-y-1/2 opacity-[0.08]"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      >
-        <div className="h-full w-full rounded-full bg-[conic-gradient(from_0deg,#ff1a1a,transparent_25%,#000_50%,transparent_75%,#ff1a1a)] blur-2xl" />
-      </motion.div>
+        className="absolute -right-40 top-1/2 h-[38rem] w-[38rem] rounded-full opacity-50 blur-3xl will-change-transform"
+        animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
+        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          background:
+            "radial-gradient(circle at center, #ff4d4d 0%, transparent 65%)",
+        }}
+      />
 
-      {/* moving grid */}
-      <motion.div
-        className="absolute inset-0 opacity-[0.05]"
+      {/* subtle static grid */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(0,0,0,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.6) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
-        animate={{ backgroundPosition: ["0px 0px", "60px 60px"] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
       />
 
-      {/* floating red particles */}
-      {Array.from({ length: 18 }).map((_, i) => (
-        <motion.span
-          key={i}
-          className="absolute h-1.5 w-1.5 rounded-full bg-[#ff1a1a]"
-          style={{
-            left: `${(i * 53) % 100}%`,
-            top: `${(i * 37) % 100}%`,
-            boxShadow: "0 0 12px #ff1a1a",
-          }}
-          animate={{
-            y: [0, -30 - (i % 5) * 6, 0],
-            opacity: [0.2, 0.9, 0.2],
-          }}
-          transition={{
-            duration: 6 + (i % 5),
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: i * 0.3,
-          }}
-        />
-      ))}
-
-      {/* soft top/bottom vignette to keep text readable */}
+      {/* soft vignette to keep text readable */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,255,255,0.55)_100%)]" />
     </div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  Scroll progress bar + custom cursor                                */
