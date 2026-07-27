@@ -37,7 +37,7 @@ import {
   ReelsSection,
   StoriesRow,
   ArtsMasonry,
-  BrandIdentity,
+  
   CinematicVideo,
   BackstageGrid,
   ClientsMarquee,
@@ -1391,7 +1391,7 @@ export default function Landing() {
           <ReelsSection />
           <StoriesRow />
           <ArtsMasonry />
-          <BrandIdentity />
+          
           <BackstageGrid />
           <ClientsMarquee />
           <CasesShowcase />
