@@ -215,14 +215,18 @@ export const dashboards: DashboardItem[] = [
 export interface VideoTestimonial extends MediaItem {
   name: string;
   company: string;
+  href?: string;
 }
 
 export const videoTestimonials: VideoTestimonial[] = [
-  { name: "Marina Souza", company: "Studio Vértice", kind: "video", src: "", poster: "" },
-  { name: "Rafael Prado", company: "Elva Cosméticos", kind: "video", src: "", poster: "" },
-  { name: "Camila Nunes", company: "Nova Corretora", kind: "video", src: "", poster: "" },
-  { name: "Diego Aro", company: "Restaurante Aro", kind: "video", src: "", poster: "" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-03.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-04.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
+  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-05.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
+  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-06.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
 ];
+
 
 /* ------------------------------------------------------------------ */
 /*  INSTAGRAM — perfil real @gr7company                                */

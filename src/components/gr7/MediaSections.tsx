@@ -752,14 +752,17 @@ export function VideoTestimonialsSection() {
               Quem viveu <span className="italic text-black/50">conta melhor.</span>
             </>
           }
-          lead="Vídeos verticais e horizontais de clientes reais. Cada card recebe MP4/WebM + thumbnail personalizada."
+          lead="Clientes reais falando sobre a experiência com a GR7. Toque em qualquer card para assistir no Instagram."
         />
       </div>
 
       <div className="mt-16 flex gap-6 overflow-x-auto px-6 pb-6 md:px-10 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {videoTestimonials.map((v, i) => (
-          <motion.div
+          <motion.a
             key={i}
+            href={v.href}
+            target="_blank"
+            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ margin: "-60px" }}
@@ -768,24 +771,24 @@ export function VideoTestimonialsSection() {
           >
             <MediaSlot
               src={v.src}
-              poster={v.poster}
-              kind="video"
+              kind="image"
               alt={`${v.name} — ${v.company}`}
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
               icon="reel"
               label="Depoimento"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-            <button className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 p-4 backdrop-blur transition group-hover:scale-110">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 p-4 backdrop-blur transition group-hover:scale-110">
               <Play className="h-5 w-5 translate-x-0.5 fill-[#0a0a0a] text-[#0a0a0a]" />
-            </button>
+            </div>
             <div className="absolute inset-x-0 bottom-0 p-5 text-white">
               <div className="font-display text-lg">{v.name}</div>
               <div className="text-xs opacity-80">{v.company}</div>
             </div>
-          </motion.div>
+          </motion.a>
         ))}
       </div>
+
     </section>
   );
 }
