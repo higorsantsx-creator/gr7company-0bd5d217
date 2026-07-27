@@ -848,8 +848,11 @@ export function InstagramProfile() {
 
             <div className="mt-4 grid grid-cols-3 gap-1 md:gap-2">
               {instagram.posts.map((p, i) => (
-                <div
+                <a
                   key={i}
+                  href={p.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group relative aspect-square overflow-hidden bg-neutral-100"
                 >
                   <MediaSlot
@@ -858,7 +861,7 @@ export function InstagramProfile() {
                     label=""
                     ornate={false}
                   />
-                </div>
+                </a>
               ))}
             </div>
           </div>
