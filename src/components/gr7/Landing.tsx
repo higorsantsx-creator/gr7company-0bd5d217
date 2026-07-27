@@ -201,31 +201,91 @@ function Loader({ done }: { done: () => void }) {
 /* ------------------------------------------------------------------ */
 /*  Reveal helper                                                      */
 /* ------------------------------------------------------------------ */
+type RevealVariant =
+  | "rise"
+  | "fall"
+  | "slide-left"
+  | "slide-right"
+  | "scale"
+  | "mask"
+  | "tilt";
+
+const REVEAL_VARIANTS: Record<
+  RevealVariant,
+  { hidden: Record<string, any>; shown: Record<string, any> }
+> = {
+
+  rise: {
+    hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
+    shown: { opacity: 1, y: 0, filter: "blur(0px)" },
+  },
+  fall: {
+    hidden: { opacity: 0, y: -40, rotate: -1.5, filter: "blur(4px)" },
+    shown: { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" },
+  },
+  "slide-left": {
+    hidden: { opacity: 0, x: -60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  "slide-right": {
+    hidden: { opacity: 0, x: 60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  scale: {
+    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    shown: { opacity: 1, scale: 1, y: 0 },
+  },
+  mask: {
+    hidden: {
+      opacity: 0,
+      y: 60,
+      clipPath: "inset(100% 0 0 0)",
+    },
+    shown: {
+      opacity: 1,
+      y: 0,
+      clipPath: "inset(0% 0 0 0)",
+    },
+  },
+  tilt: {
+    hidden: { opacity: 0, rotate: -3, scale: 0.96, y: 24 },
+    shown: { opacity: 1, rotate: 0, scale: 1, y: 0 },
+  },
+};
+
 function Reveal({
   children,
   delay = 0,
   y = 24,
   className = "",
+  variant = "rise",
 }: {
   children: React.ReactNode;
   delay?: number;
   y?: number;
   className?: string;
+  variant?: RevealVariant;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px" });
+  const v = REVEAL_VARIANTS[variant];
+  // permite override do deslocamento vertical no rise clássico
+  const hidden =
+    variant === "rise" ? { ...v.hidden, y } : v.hidden;
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={hidden}
+      animate={inView ? v.shown : hidden}
+      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
+      style={{ willChange: "transform, opacity, filter" }}
       className={className}
     >
       {children}
     </motion.div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  NAV                                                                */
@@ -385,7 +445,8 @@ function Hero() {
               Marketing de alta performance
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="mask">
+
             <h1
               className="font-display text-[44px] leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] sm:text-6xl md:text-7xl lg:text-[92px]"
             >
@@ -630,7 +691,8 @@ function Services() {
                 / o que fazemos
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="fall">
+
               <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
                 Um ecossistema completo para escalar sua marca.
               </h2>
@@ -656,19 +718,19 @@ function Services() {
 
 function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { margin: "-60px" });
   const Icon = s.icon;
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 30, scale: 0.92 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.92 }}
       transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       className="group relative overflow-hidden rounded-2xl border border-black/15 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-colors hover:border-[#ff1a1a]/60"
-      style={{ minHeight: 180 }}
-
+      style={{ minHeight: 180, willChange: "transform, opacity" }}
     >
+
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
@@ -725,7 +787,8 @@ function Difference() {
                 / diferencial
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="slide-right">
+
               <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-[#0a0a0a] md:text-6xl lg:text-7xl">
                 Você não precisa de mais marketing.
                 <br />
@@ -795,7 +858,8 @@ function Process() {
                 / processo
               </div>
             </Reveal>
-            <Reveal delay={0.1}>
+            <Reveal delay={0.1} variant="fall">
+
               <h2 className="max-w-xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
                 Um método afinado em cinco atos.
               </h2>
@@ -807,7 +871,7 @@ function Process() {
           <div className="absolute left-0 right-0 top-14 hidden h-px bg-gradient-to-r from-transparent via-white/20 to-transparent md:block" />
           <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
             {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 0.1}>
+              <Reveal key={s.n} delay={i * 0.1} variant="fall">
                 <div className="group relative">
                   <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white text-[10px] font-semibold text-black/60 transition-all group-hover:border-[#ff1a1a] group-hover:text-[#0a0a0a] group-hover:shadow-[0_0_20px_rgba(255,26,26,0.5)]">
                     {i + 1}
@@ -867,7 +931,8 @@ function Portfolio() {
               / portfólio
             </div>
           </Reveal>
-          <Reveal delay={0.1}>
+          <Reveal delay={0.1} variant="mask">
+
             <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
               Cases reais. Números que falam por si.
             </h2>
@@ -876,7 +941,7 @@ function Portfolio() {
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {projects.map((p, i) => (
-            <Reveal key={p.title} delay={i * 0.08}>
+            <Reveal key={p.title} delay={i * 0.08} variant="scale">
               <div
                 data-cursor="hover"
                 className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-black/10"
@@ -979,7 +1044,7 @@ function Testimonials() {
             / depoimentos
           </div>
         </Reveal>
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} variant="fall">
           <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
             Marcas que já vivem no próximo nível.
           </h2>
@@ -1037,7 +1102,8 @@ function Results() {
             / resultados
           </div>
         </Reveal>
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} variant="mask">
+
           <h2 className="mx-auto max-w-4xl font-display text-5xl leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] md:text-8xl">
             Não entregamos <span className="italic font-light text-black/50">curtidas.</span>
             <br />
@@ -1170,7 +1236,8 @@ function CTA() {
       </div>
 
       <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
-        <Reveal>
+        <Reveal variant="mask">
+
           <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[0.98] tracking-[-0.03em] text-white md:text-7xl">
             Sua empresa pode continuar sendo{" "}
             <span className="italic font-light text-white/70">mais uma...</span>
