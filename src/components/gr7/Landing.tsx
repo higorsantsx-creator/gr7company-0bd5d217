@@ -1355,6 +1355,206 @@ function Footer() {
 }
 
 /* ------------------------------------------------------------------ */
+/*  MANIFESTO — bloco puramente tipográfico                            */
+/* ------------------------------------------------------------------ */
+function Manifesto() {
+  const lines: { text: string; red: string }[] = [
+    { text: "Marketing não é sorte.", red: "sorte" },
+    { text: "É método aplicado com repertório.", red: "método" },
+    { text: "É criativo que respeita o dado.", red: "criativo" },
+    { text: "É consistência todo santo dia.", red: "consistência" },
+  ];
+  return (
+    <section id="manifesto" className="relative border-y border-black/5 bg-white py-32 md:py-44">
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <Reveal>
+          <div className="mb-10 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+            / manifesto
+          </div>
+        </Reveal>
+        <div className="space-y-4 md:space-y-6">
+          {lines.map((l, i) => (
+            <Reveal key={l.text} delay={i * 0.08} variant="mask">
+              <h2 className="font-display text-3xl leading-[1.05] tracking-[-0.02em] text-[#0a0a0a] md:text-6xl">
+                {l.text.split(l.red).map((chunk, idx, arr) => (
+                  <span key={idx}>
+                    {chunk}
+                    {idx < arr.length - 1 && (
+                      <span className="text-[#ff1a1a]">{l.red}</span>
+                    )}
+                  </span>
+                ))}
+              </h2>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal delay={0.4}>
+          <p className="mt-14 max-w-xl text-sm leading-relaxed text-black/50">
+            É por isso que a GR7 opera diferente. Nada de improviso, nada de
+            "achismo". Cada decisão passa por estratégia, execução e leitura de
+            dado — no mesmo time, no mesmo padrão.
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  STACK & FERRAMENTAS — grid enxuto                                  */
+/* ------------------------------------------------------------------ */
+const stack: { name: string; icon: typeof Target }[] = [
+  { name: "Meta Ads", icon: Target },
+  { name: "Google Ads", icon: LineChart },
+  { name: "GA4", icon: BarChart3 },
+  { name: "Looker Studio", icon: TrendingUp },
+  { name: "HubSpot", icon: BrainCircuit },
+  { name: "Notion", icon: FileText },
+  { name: "Figma", icon: Layers },
+  { name: "CapCut", icon: Video },
+  { name: "Premiere", icon: Play },
+  { name: "Photoshop", icon: Palette },
+  { name: "Illustrator", icon: Sparkles },
+  { name: "WhatsApp Business", icon: MessageCircle },
+];
+
+function Stack() {
+  return (
+    <section id="stack" className="relative py-32 md:py-40">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <Reveal>
+              <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+                / stack &amp; ferramentas
+              </div>
+            </Reveal>
+            <Reveal delay={0.1} variant="fall">
+              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+                As mesmas ferramentas que as grandes agências usam.
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={0.2}>
+            <p className="max-w-sm text-sm leading-relaxed text-black/50">
+              Do criativo à mensuração, operamos com o topo de mercado — sem
+              atalho, sem improviso.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {stack.map((t, i) => (
+            <Reveal key={t.name} delay={i * 0.03} variant="scale">
+              <div className="group flex items-center gap-3 rounded-xl border border-black/10 bg-white px-4 py-4 ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff1a1a]/40 hover:ring-[#ff1a1a]/20">
+                <t.icon className="h-4 w-4 text-black/70 transition-colors group-hover:text-[#ff1a1a]" />
+                <span className="text-sm font-medium tracking-tight text-[#0a0a0a]">
+                  {t.name}
+                </span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  FAQ — acordeão minimalista                                         */
+/* ------------------------------------------------------------------ */
+const faq: { q: string; a: string }[] = [
+  {
+    q: "Vocês trabalham com qual porte de cliente?",
+    a: "Trabalhamos com marcas que já faturam e querem escalar com previsibilidade — de negócios locais consolidados a empresas nacionais. Não atendemos quem busca apenas 'testar marketing'.",
+  },
+  {
+    q: "Como funciona o onboarding?",
+    a: "Nas duas primeiras semanas mergulhamos no seu negócio: diagnóstico de marca, auditoria de canais, plano estratégico e cronograma de produção. A partir daí, execução contínua com rituais semanais.",
+  },
+  {
+    q: "Em quanto tempo aparecem os primeiros resultados?",
+    a: "Mídia paga tem leitura em 15–30 dias. Marca, conteúdo e SEO começam a compor entre 60–90 dias. Sempre com metas claras e relatório mensurável desde o primeiro mês.",
+  },
+  {
+    q: "Vocês fecham contrato mensal?",
+    a: "Sim. Contrato de 6 meses no mínimo — é o prazo em que a estratégia amadurece e o resultado se estabiliza. Marketing sério não cabe em ciclo de 30 dias.",
+  },
+  {
+    q: "Como é o relatório entregue?",
+    a: "Dashboard ao vivo no Looker Studio + reunião mensal de leitura com o time. Você acompanha número, criativo e decisão — sem planilha confusa, sem métrica de vaidade.",
+  },
+  {
+    q: "Vocês assumem o marketing inteiro ou complementam time interno?",
+    a: "Os dois formatos. Podemos operar como seu departamento de marketing completo ou integrar com seu time atual, cobrindo o que estiver faltando (criativo, mídia, dados, estratégia).",
+  },
+];
+
+function FAQItem({ item, i }: { item: (typeof faq)[number]; i: number }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <Reveal delay={i * 0.05}>
+      <div className="border-b border-black/10">
+        <button
+          onClick={() => setOpen((v) => !v)}
+          className="group flex w-full items-center justify-between gap-6 py-6 text-left"
+        >
+          <span className="font-display text-lg leading-snug tracking-tight text-[#0a0a0a] md:text-2xl">
+            {item.q}
+          </span>
+          <span
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/15 text-black/60 transition-all duration-300 group-hover:border-[#ff1a1a] group-hover:text-[#ff1a1a] ${open ? "rotate-45 border-[#ff1a1a] text-[#ff1a1a]" : ""}`}
+          >
+            <span className="text-lg leading-none">+</span>
+          </span>
+        </button>
+        <AnimatePresence initial={false}>
+          {open && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden"
+            >
+              <p className="max-w-3xl pb-6 pr-12 text-sm leading-relaxed text-black/60 md:text-base">
+                {item.a}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </Reveal>
+  );
+}
+
+function FAQ() {
+  return (
+    <section id="faq" className="relative py-32 md:py-40">
+      <div className="mx-auto max-w-5xl px-6 md:px-10">
+        <div className="mb-14">
+          <Reveal>
+            <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+              / perguntas frequentes
+            </div>
+          </Reveal>
+          <Reveal delay={0.1} variant="fall">
+            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+              O que perguntam antes de contratar a GR7.
+            </h2>
+          </Reveal>
+        </div>
+        <div>
+          {faq.map((f, i) => (
+            <FAQItem key={f.q} item={f} i={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  ROOT                                                               */
 /* ------------------------------------------------------------------ */
 export default function Landing() {
@@ -1385,21 +1585,23 @@ export default function Landing() {
         <main>
           <Hero />
           <Services />
-          <Difference />
           <ProjectsGrid />
+          <Difference />
           <CinematicVideo />
+          <Manifesto />
           <ReelsSection />
           <StoriesRow />
-          <ArtsMasonry />
-          
-          <BackstageGrid />
-          <ClientsMarquee />
-          <CasesShowcase />
-          <DashboardsSection />
-          <VideoTestimonialsSection />
-          <InstagramProfile />
           <Process />
+          <ArtsMasonry />
+          <Stack />
+          <BackstageGrid />
+          <CasesShowcase />
           <Results />
+          <DashboardsSection />
+          <FAQ />
+          <VideoTestimonialsSection />
+          <ClientsMarquee />
+          <InstagramProfile />
           <GR7InAction />
           <CTA />
         </main>
