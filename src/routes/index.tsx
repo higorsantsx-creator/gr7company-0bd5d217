@@ -1,24 +1,44 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Landing from "@/components/gr7/Landing";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
-  component: Index,
+  component: Landing,
+  head: () => ({
+    meta: [
+      { title: "GR7 Company — Marketing que transforma empresas em referências" },
+      {
+        name: "description",
+        content:
+          "Agência de marketing estratégico. Posicionamento, tráfego pago, criativo e vendas para marcas que querem dominar o mercado.",
+      },
+      { property: "og:title", content: "GR7 Company — Marketing de alta performance" },
+      {
+        property: "og:description",
+        content:
+          "Não criamos apenas posts. Construímos posicionamentos, aumentamos vendas e transformamos marcas em negócios que dominam o mercado.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "/" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "GR7 Company" },
+      {
+        name: "twitter:description",
+        content: "Marketing estratégico de alta performance.",
+      },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "GR7 Company",
+          description:
+            "Agência de marketing estratégico focada em posicionamento, tráfego pago e vendas.",
+          url: "/",
+        }),
+      },
+    ],
+  }),
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}
