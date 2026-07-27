@@ -665,8 +665,9 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-black/[0.01] p-6 backdrop-blur transition-colors hover:border-[#ff1a1a]/40"
+      className="group relative overflow-hidden rounded-2xl border border-black/15 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-colors hover:border-[#ff1a1a]/60"
       style={{ minHeight: 180 }}
+
     >
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
