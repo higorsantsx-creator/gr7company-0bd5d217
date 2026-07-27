@@ -855,11 +855,11 @@ export function InstagramProfile() {
                   rel="noopener noreferrer"
                   className="group relative aspect-[16/9] overflow-hidden bg-neutral-100"
                 >
-                  <MediaSlot
+                  <img
                     src={p.src}
-                    className="absolute inset-0 transition-transform duration-700 group-hover:scale-110"
-                    label=""
-                    ornate={false}
+                    alt=""
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-contain bg-black transition-transform duration-700 group-hover:scale-105"
                   />
                 </a>
               ))}
