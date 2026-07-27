@@ -842,7 +842,7 @@ export function InstagramProfile() {
                 <Grid3x3 className="h-3.5 w-3.5" /> Posts
               </div>
               <div className="flex items-center gap-2 pt-3">
-                <Bookmark className="h-3.5 w-3.5" /> Salvos
+                <Bookmark className="h-3.5 w-3.5" />
               </div>
             </div>
 
