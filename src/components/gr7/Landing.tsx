@@ -1,0 +1,1288 @@
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+  useMotionValue,
+  animate,
+  AnimatePresence,
+} from "motion/react";
+import {
+  ArrowRight,
+  MessageCircle,
+  Instagram,
+  Mail,
+  Share2,
+  Palette,
+  Video,
+  Camera,
+  Target,
+  LineChart,
+  Compass,
+  BrainCircuit,
+  TrendingUp,
+  Sparkles,
+  FileText,
+  Layers,
+  BarChart3,
+  ChevronRight,
+  Star,
+  Play,
+} from "lucide-react";
+import logoImg from "@/assets/gr7-logo.jpg";
+
+/* ------------------------------------------------------------------ */
+/*  GR7 wordmark (SVG, used on dark backgrounds)                       */
+/* ------------------------------------------------------------------ */
+function GR7Mark({ className = "h-8" }: { className?: string }) {
+  return (
+    <div className={`flex items-center gap-2 ${className}`}>
+      <svg viewBox="0 0 64 64" className="h-full w-auto" aria-hidden>
+        <defs>
+          <linearGradient id="gr7g" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0" stopColor="#ff2a2a" />
+            <stop offset="1" stopColor="#b30000" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M32 6 C16 6 6 18 6 32 C6 46 16 58 32 58 C40 58 46 55 50 50 L44 44 C41 47 37 49 32 49 C22 49 15 42 15 32 C15 22 22 15 32 15 C37 15 41 17 44 20 L50 14 C46 9 40 6 32 6 Z M34 30 L54 30 L54 40 L44 40 L44 50 L34 50 Z"
+          fill="url(#gr7g)"
+        />
+      </svg>
+      <span
+        className="font-display text-lg font-bold tracking-tight text-white"
+        style={{ letterSpacing: "-0.02em" }}
+      >
+        GR7<span className="text-white/40 font-medium"> Company</span>
+      </span>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scroll progress bar + custom cursor                                */
+/* ------------------------------------------------------------------ */
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const w = useSpring(scrollYProgress, { stiffness: 120, damping: 30, restDelta: 0.001 });
+  return (
+    <motion.div
+      className="fixed left-0 top-0 z-[80] h-[2px] w-full origin-left bg-gradient-to-r from-[#ff1a1a] via-[#ff4d4d] to-[#ff1a1a]"
+      style={{ scaleX: w, boxShadow: "0 0 20px rgba(255,26,26,0.6)" }}
+    />
+  );
+}
+
+function CustomCursor() {
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const [hover, setHover] = useState(false);
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    const over = (e: MouseEvent) => {
+      const t = e.target as HTMLElement;
+      setHover(!!t.closest("a,button,[data-cursor='hover']"));
+    };
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseover", over);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseover", over);
+    };
+  }, [x, y]);
+  const sx = useSpring(x, { stiffness: 400, damping: 30 });
+  const sy = useSpring(y, { stiffness: 400, damping: 30 });
+  return (
+    <>
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff1a1a] md:block"
+        style={{ x: sx, y: sy }}
+      />
+      <motion.div
+        className="pointer-events-none fixed left-0 top-0 z-[89] hidden -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ff1a1a]/40 md:block"
+        style={{ x: sx, y: sy }}
+        animate={{ width: hover ? 56 : 28, height: hover ? 56 : 28, opacity: hover ? 1 : 0.5 }}
+        transition={{ type: "spring", stiffness: 250, damping: 25 }}
+      />
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Loader                                                             */
+/* ------------------------------------------------------------------ */
+function Loader({ done }: { done: () => void }) {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setP((v) => {
+        const n = v + Math.random() * 12 + 4;
+        if (n >= 100) {
+          clearInterval(id);
+          setTimeout(done, 350);
+          return 100;
+        }
+        return n;
+      });
+    }, 90);
+    return () => clearInterval(id);
+  }, [done]);
+  return (
+    <motion.div
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]"
+      exit={{ opacity: 0, transition: { duration: 0.6 } }}
+    >
+      <div className="absolute inset-0 opacity-30" style={{
+        background:
+          "radial-gradient(600px circle at 50% 50%, rgba(255,26,26,0.25), transparent 60%)",
+      }} />
+      <GR7Mark className="h-9 mb-10 relative z-10" />
+      <div className="relative z-10 w-64 h-[2px] bg-white/10 overflow-hidden rounded-full">
+        <motion.div
+          className="h-full bg-gradient-to-r from-[#ff1a1a] to-[#ff6b6b]"
+          style={{ width: `${p}%` }}
+          transition={{ ease: "easeOut" }}
+        />
+      </div>
+      <div className="mt-4 font-mono text-xs tracking-[0.3em] text-white/40 relative z-10">
+        {Math.round(p).toString().padStart(3, "0")}%
+      </div>
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reveal helper                                                      */
+/* ------------------------------------------------------------------ */
+function Reveal({
+  children,
+  delay = 0,
+  y = 24,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  y?: number;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  NAV                                                                */
+/* ------------------------------------------------------------------ */
+function Nav() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 40);
+    on();
+    window.addEventListener("scroll", on);
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <motion.header
+      initial={{ y: -30, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.2 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "backdrop-blur-xl bg-black/50 border-b border-white/5"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
+        <GR7Mark className="h-7" />
+        <nav className="hidden items-center gap-9 text-sm text-white/60 md:flex">
+          {[
+            ["Serviços", "servicos"],
+            ["Diferencial", "diferencial"],
+            ["Processo", "processo"],
+            ["Portfólio", "portfolio"],
+            ["Depoimentos", "depoimentos"],
+          ].map(([label, id]) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className="relative transition hover:text-white"
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a
+          href="#cta"
+          className="group hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-xs font-medium text-white backdrop-blur-md transition hover:border-[#ff1a1a]/50 hover:bg-[#ff1a1a]/10 md:inline-flex"
+        >
+          Fale com a GR7
+          <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </div>
+    </motion.header>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  HERO                                                               */
+/* ------------------------------------------------------------------ */
+function Hero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative isolate min-h-screen w-full overflow-hidden pt-32 md:pt-40"
+    >
+      {/* grid */}
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "70px 70px",
+          maskImage:
+            "radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%)",
+        }}
+      />
+      {/* red glow */}
+      <motion.div
+        style={{ y: y1 }}
+        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-[900px] w-[900px] -translate-x-1/2 rounded-full"
+      >
+        <div
+          className="h-full w-full rounded-full"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(255,26,26,0.35), rgba(255,26,26,0.08) 40%, transparent 70%)",
+            filter: "blur(30px)",
+          }}
+        />
+      </motion.div>
+
+      {/* particles */}
+      {Array.from({ length: 22 }).map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute h-1 w-1 rounded-full bg-white/40"
+          style={{
+            left: `${(i * 53) % 100}%`,
+            top: `${(i * 37) % 100}%`,
+          }}
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0.15, 0.9, 0.15],
+          }}
+          transition={{
+            duration: 4 + (i % 5),
+            repeat: Infinity,
+            delay: i * 0.2,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+
+      {/* abstract lines */}
+      <svg
+        className="absolute inset-0 -z-10 h-full w-full opacity-40"
+        preserveAspectRatio="none"
+        viewBox="0 0 1200 800"
+      >
+        <motion.path
+          d="M 0 600 C 300 500 500 700 700 550 S 1100 400 1200 500"
+          stroke="url(#lineg)"
+          strokeWidth="1"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3, ease: "easeInOut" }}
+        />
+        <motion.path
+          d="M 0 200 C 200 350 400 100 700 250 S 1000 400 1200 300"
+          stroke="url(#lineg)"
+          strokeWidth="0.7"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 3.5, ease: "easeInOut", delay: 0.5 }}
+        />
+        <defs>
+          <linearGradient id="lineg" x1="0" x2="1">
+            <stop offset="0" stopColor="rgba(255,26,26,0)" />
+            <stop offset="0.5" stopColor="rgba(255,26,26,0.5)" />
+            <stop offset="1" stopColor="rgba(255,26,26,0)" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <motion.div
+        style={{ opacity }}
+        className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 pb-32 md:px-10 lg:grid-cols-12"
+      >
+        <div className="lg:col-span-7 lg:pt-12">
+          <Reveal>
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] uppercase tracking-[0.25em] text-white/60 backdrop-blur">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] shadow-[0_0_10px_#ff1a1a]" />
+              Marketing de alta performance
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h1
+              className="font-display text-[44px] leading-[0.95] tracking-[-0.03em] text-white sm:text-6xl md:text-7xl lg:text-[92px]"
+            >
+              Marketing que{" "}
+              <span className="relative inline-block">
+                <span
+                  className="bg-gradient-to-r from-[#ff2a2a] via-[#ff6b6b] to-[#ff2a2a] bg-clip-text text-transparent"
+                >
+                  transforma
+                </span>
+              </span>{" "}
+              empresas em <span className="italic font-light text-white/90">referências</span>.
+            </h1>
+          </Reveal>
+          <Reveal delay={0.25}>
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
+              Nós não criamos apenas posts. Construímos posicionamentos, aumentamos vendas e
+              transformamos marcas em negócios que dominam o mercado.
+            </p>
+          </Reveal>
+          <Reveal delay={0.4}>
+            <div className="mt-10 flex flex-wrap items-center gap-4">
+              <a
+                href="#cta"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[#ff1a1a] px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(255,26,26,0.7)] transition hover:shadow-[0_20px_60px_-10px_rgba(255,26,26,0.9)]"
+              >
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
+                Quero crescer
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+              <a
+                href="https://wa.me/5500000000000"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.02] px-7 py-4 text-sm font-medium text-white backdrop-blur-md transition hover:border-white/30 hover:bg-white/[0.06]"
+              >
+                <MessageCircle className="h-4 w-4 text-[#ff6b6b]" />
+                Falar no WhatsApp
+              </a>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.6}>
+            <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 text-xs uppercase tracking-widest text-white/40">
+              <span>Meta Business Partner</span>
+              <span className="h-px w-6 bg-white/20" />
+              <span>Google Ads Certified</span>
+              <span className="h-px w-6 bg-white/20" />
+              <span>+200 Marcas escaladas</span>
+            </div>
+          </Reveal>
+        </div>
+
+        {/* Right dashboard composition */}
+        <motion.div style={{ y: y2 }} className="relative lg:col-span-5">
+          <HeroDashboard />
+        </motion.div>
+      </motion.div>
+
+      {/* scroll cue */}
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-white/40"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        Scroll
+      </motion.div>
+    </section>
+  );
+}
+
+function HeroDashboard() {
+  return (
+    <div className="relative mx-auto w-full max-w-md">
+      {/* main card */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 0.5 }}
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.06] to-white/[0.01] p-6 backdrop-blur-xl"
+        style={{
+          boxShadow:
+            "0 40px 120px -20px rgba(255,26,26,0.25), inset 0 1px 0 rgba(255,255,255,0.08)",
+        }}
+      >
+        <div className="flex items-center justify-between">
+          <div>
+            <div className="text-[10px] uppercase tracking-widest text-white/40">Campanha ativa</div>
+            <div className="mt-1 font-display text-lg font-semibold text-white">
+              Meta Ads · Conversão
+            </div>
+          </div>
+          <div className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-[10px] font-medium text-emerald-300">
+            LIVE
+          </div>
+        </div>
+
+        <div className="mt-6 grid grid-cols-3 gap-3">
+          {[
+            ["ROAS", "6.4x", "+38%"],
+            ["CTR", "3.9%", "+12%"],
+            ["CPL", "R$4,20", "-27%"],
+          ].map(([label, v, d], i) => (
+            <motion.div
+              key={label}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 + i * 0.15 }}
+              className="rounded-xl border border-white/5 bg-black/30 p-3"
+            >
+              <div className="text-[9px] uppercase tracking-wider text-white/40">{label}</div>
+              <div className="mt-1 font-display text-lg font-bold text-white">{v}</div>
+              <div className="text-[10px] text-emerald-300">{d}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* mini chart */}
+        <div className="mt-6 h-32 rounded-xl border border-white/5 bg-black/30 p-3">
+          <svg viewBox="0 0 200 80" className="h-full w-full">
+            <defs>
+              <linearGradient id="ch1" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stopColor="rgba(255,26,26,0.5)" />
+                <stop offset="1" stopColor="rgba(255,26,26,0)" />
+              </linearGradient>
+            </defs>
+            <motion.path
+              d="M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6 L200 80 L0 80 Z"
+              fill="url(#ch1)"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5, duration: 1 }}
+            />
+            <motion.path
+              d="M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6"
+              stroke="#ff4d4d"
+              strokeWidth="1.5"
+              fill="none"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ delay: 1.2, duration: 1.6, ease: "easeInOut" }}
+            />
+            {[20, 60, 100, 140, 180].map((x, i) => (
+              <motion.circle
+                key={i}
+                cx={x}
+                cy={[55, 45, 42, 25, 12][i]}
+                r="2"
+                fill="#fff"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 2 + i * 0.1 }}
+              />
+            ))}
+          </svg>
+        </div>
+      </motion.div>
+
+      {/* floating instagram card */}
+      <motion.div
+        initial={{ opacity: 0, x: 30, y: 20 }}
+        animate={{ opacity: 1, x: 0, y: 0 }}
+        transition={{ duration: 1, delay: 1 }}
+        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-black/70 p-3 backdrop-blur-xl md:-right-10"
+        style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
+      >
+        <div className="flex items-center gap-2">
+          <div className="h-7 w-7 rounded-full bg-gradient-to-tr from-[#ff1a1a] via-fuchsia-500 to-amber-400" />
+          <div>
+            <div className="text-[10px] font-semibold text-white">@sua.marca</div>
+            <div className="text-[9px] text-white/40">alcance +512%</div>
+          </div>
+        </div>
+        <div className="mt-2 grid grid-cols-3 gap-1">
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <motion.div
+              key={i}
+              className="aspect-square rounded bg-gradient-to-br from-white/10 to-white/[0.02]"
+              animate={{ opacity: [0.4, 0.9, 0.4] }}
+              transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+            />
+          ))}
+        </div>
+      </motion.div>
+
+      {/* floating google ads pill */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.3 }}
+        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/70 px-4 py-3 backdrop-blur-xl md:-left-8"
+        style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
+      >
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-white/5">
+          <TrendingUp className="h-4 w-4 text-emerald-300" />
+        </div>
+        <div>
+          <div className="text-[10px] uppercase tracking-widest text-white/40">Google Ads</div>
+          <div className="font-display text-sm font-semibold text-white">
+            +312% conversões
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  SERVICES                                                           */
+/* ------------------------------------------------------------------ */
+const services = [
+  { icon: Share2, title: "Gestão de redes sociais", desc: "Presença consistente e magnética em todas as plataformas." },
+  { icon: Palette, title: "Criação de artes", desc: "Design com identidade, feito para converter." },
+  { icon: Video, title: "Produção de Reels", desc: "Vídeos que prendem e viralizam com propósito." },
+  { icon: Camera, title: "Captação de imagens", desc: "Fotografia e vídeo com direção cinematográfica." },
+  { icon: Target, title: "Meta Ads", desc: "Campanhas cirúrgicas em Facebook e Instagram." },
+  { icon: LineChart, title: "Google Ads", desc: "Tráfego pago com CPA imbatível." },
+  { icon: Compass, title: "Planejamento estratégico", desc: "Direção clara guiada por dados e mercado." },
+  { icon: BrainCircuit, title: "Consultoria", desc: "Diagnóstico e correção do que trava o crescimento." },
+  { icon: BarChart3, title: "Análise de vendas", desc: "Do clique ao fechamento — funil sob controle." },
+  { icon: Sparkles, title: "Posicionamento de marca", desc: "Sua marca ocupando o lugar que merece." },
+  { icon: FileText, title: "Roteiros", desc: "Copywriting e roteiros que conduzem à ação." },
+  { icon: Layers, title: "Identidade visual", desc: "Sistemas visuais consistentes e memoráveis." },
+  { icon: TrendingUp, title: "Relatórios inteligentes", desc: "Métricas que importam, apresentadas com clareza." },
+];
+
+function Services() {
+  return (
+    <section id="servicos" className="relative py-32 md:py-44">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-40"
+        style={{
+          background:
+            "radial-gradient(1000px circle at 80% 20%, rgba(255,26,26,0.08), transparent 60%)",
+        }}
+      />
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+          <div>
+            <Reveal>
+              <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+                / o que fazemos
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
+                Um ecossistema completo para escalar sua marca.
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delay={0.2}>
+            <p className="max-w-sm text-sm leading-relaxed text-white/50">
+              Estratégia, criativo, mídia e dados — operando juntos, dentro do mesmo padrão de
+              excelência.
+            </p>
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((s, i) => (
+            <ServiceCard key={s.title} s={s} i={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const Icon = s.icon;
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6 }}
+      className="group relative overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-6 backdrop-blur transition-colors hover:border-[#ff1a1a]/40"
+      style={{ minHeight: 180 }}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background:
+            "radial-gradient(400px circle at 50% 0%, rgba(255,26,26,0.15), transparent 60%)",
+        }}
+      />
+      <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-black/40 transition-all duration-500 group-hover:border-[#ff1a1a]/40 group-hover:bg-[#ff1a1a]/10">
+        <Icon className="h-5 w-5 text-white/80 transition-transform duration-500 group-hover:scale-110 group-hover:text-[#ff6b6b]" />
+      </div>
+      <h3 className="mt-6 font-display text-lg font-semibold text-white">{s.title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-white/50">{s.desc}</p>
+      <ChevronRight className="absolute right-5 top-5 h-4 w-4 -translate-x-2 text-white/20 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-[#ff6b6b] group-hover:opacity-100" />
+    </motion.div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  DIFFERENCE + Counters                                              */
+/* ------------------------------------------------------------------ */
+function Counter({ to, suffix = "", duration = 2 }: { to: number; suffix?: string; duration?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true });
+  const [v, setV] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(0, to, {
+      duration,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (x) => setV(x),
+    });
+    return () => controls.stop();
+  }, [inView, to, duration]);
+  return (
+    <span ref={ref}>
+      {to >= 1000000
+        ? (v / 1000000).toFixed(1) + "M"
+        : to >= 1000
+        ? Math.round(v).toLocaleString("pt-BR")
+        : Math.round(v)}
+      {suffix}
+    </span>
+  );
+}
+
+function Difference() {
+  return (
+    <section id="diferencial" className="relative py-32 md:py-44">
+      <div className="mx-auto max-w-6xl px-6 md:px-10">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <Reveal>
+              <div className="mb-6 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+                / diferencial
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
+                Você não precisa de mais marketing.
+                <br />
+                <span className="text-white/40">Você precisa de </span>
+                <span className="italic font-light text-[#ff6b6b]">estratégia.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.25}>
+              <p className="mt-10 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
+                A GR7 opera na intersecção de <span className="text-white">dados</span>,{" "}
+                <span className="text-white">posicionamento</span>,{" "}
+                <span className="text-white">criatividade</span> e{" "}
+                <span className="text-white">vendas</span>. Cada decisão é validada por métrica,
+                cada criativo é pensado para converter, cada campanha existe para gerar receita —
+                não vaidade.
+              </p>
+            </Reveal>
+          </div>
+          <div className="grid grid-cols-1 gap-5 lg:col-span-5">
+            {[
+              { n: 200, s: "+", label: "Projetos realizados" },
+              { n: 5000000, s: "+", label: "Alcance gerado" },
+              { n: 98, s: "%", label: "Clientes satisfeitos" },
+            ].map((k, i) => (
+              <Reveal key={k.label} delay={i * 0.1}>
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7 backdrop-blur">
+                  <div
+                    className="pointer-events-none absolute -inset-1 opacity-30 blur-3xl"
+                    style={{
+                      background:
+                        "radial-gradient(200px circle at 20% 50%, rgba(255,26,26,0.4), transparent)",
+                    }}
+                  />
+                  <div className="relative font-display text-5xl font-bold tracking-tight text-white md:text-6xl">
+                    <Counter to={k.n} suffix={k.s} />
+                  </div>
+                  <div className="relative mt-2 text-sm text-white/50">{k.label}</div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  PROCESS                                                            */
+/* ------------------------------------------------------------------ */
+const steps = [
+  { n: "01", t: "Diagnóstico", d: "Mergulho profundo em marca, mercado e concorrência." },
+  { n: "02", t: "Planejamento", d: "Estratégia sob medida, com metas e KPIs claros." },
+  { n: "03", t: "Execução", d: "Criativo e mídia em ritmo de alta performance." },
+  { n: "04", t: "Otimização", d: "Ajuste fino contínuo baseado em dados reais." },
+  { n: "05", t: "Escala", d: "Multiplicamos o que funciona, com previsibilidade." },
+];
+
+function Process() {
+  return (
+    <section id="processo" className="relative py-32 md:py-44">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <div>
+            <Reveal>
+              <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+                / processo
+              </div>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <h2 className="max-w-xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
+                Um método afinado em cinco atos.
+              </h2>
+            </Reveal>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="absolute left-0 right-0 top-14 hidden h-px bg-gradient-to-r from-transparent via-white/20 to-transparent md:block" />
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
+            {steps.map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.1}>
+                <div className="group relative">
+                  <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-black text-[10px] font-semibold text-white/60 transition-all group-hover:border-[#ff1a1a] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,26,26,0.5)]">
+                    {i + 1}
+                  </div>
+                  <div className="font-mono text-[11px] tracking-widest text-[#ff6b6b]">
+                    {s.n}
+                  </div>
+                  <h3 className="mt-2 font-display text-xl font-semibold text-white">{s.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/50">{s.d}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  PORTFOLIO                                                          */
+/* ------------------------------------------------------------------ */
+const projects = [
+  {
+    title: "Lumina Cosméticos",
+    tag: "Branding · Meta Ads",
+    metric: "+380% em vendas",
+    color: "from-rose-500/40 to-fuchsia-500/40",
+  },
+  {
+    title: "Núcleo Fitness",
+    tag: "Social · Reels",
+    metric: "1.2M alcance orgânico",
+    color: "from-amber-500/40 to-red-500/40",
+  },
+  {
+    title: "Vertex Imóveis",
+    tag: "Google Ads · Landing",
+    metric: "CPL reduzido em 62%",
+    color: "from-sky-500/40 to-indigo-500/40",
+  },
+  {
+    title: "Orla Restaurante",
+    tag: "Identidade · Conteúdo",
+    metric: "Reservas 4x maiores",
+    color: "from-emerald-500/40 to-teal-500/40",
+  },
+];
+
+function Portfolio() {
+  return (
+    <section id="portfolio" className="relative py-32 md:py-44">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <div className="mb-16">
+          <Reveal>
+            <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+              / portfólio
+            </div>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
+              Cases reais. Números que falam por si.
+            </h2>
+          </Reveal>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {projects.map((p, i) => (
+            <Reveal key={p.title} delay={i * 0.08}>
+              <div
+                data-cursor="hover"
+                className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${p.color}`} />
+                <div
+                  className="absolute inset-0 opacity-70"
+                  style={{
+                    backgroundImage:
+                      "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 60%), radial-gradient(circle at 80% 80%, rgba(0,0,0,0.6), transparent 60%)",
+                  }}
+                />
+                <div
+                  className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                    backgroundSize: "30px 30px",
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/60" />
+                <div className="absolute inset-0 flex flex-col justify-between p-8">
+                  <div className="flex items-center justify-between">
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-white/80">
+                      {p.tag}
+                    </div>
+                    <div className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-[10px] font-medium text-white backdrop-blur">
+                      {p.metric}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-3xl font-semibold text-white md:text-4xl">
+                      {p.title}
+                    </h3>
+                    <div className="mt-4 flex translate-y-4 items-center gap-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black">
+                        Ver projeto <ArrowRight className="h-3.5 w-3.5" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  TESTIMONIALS                                                       */
+/* ------------------------------------------------------------------ */
+const testimonials = [
+  {
+    name: "Ana Ribeiro",
+    company: "CEO · Lumina",
+    text:
+      "A GR7 mudou completamente nossa curva de crescimento. Estratégia impecável, execução cirúrgica.",
+  },
+  {
+    name: "Rafael Marques",
+    company: "Diretor · Vertex",
+    text:
+      "Reduziram nosso CPL em mais de 60% em três meses. Nunca vi um time tão obcecado por dados.",
+  },
+  {
+    name: "Camila Duarte",
+    company: "Founder · Orla",
+    text:
+      "Não é agência. É extensão do nosso time. Posicionamento e presença ficaram outros.",
+  },
+  {
+    name: "Bruno Teixeira",
+    company: "COO · Núcleo",
+    text:
+      "Criativos com identidade forte e resultado real. O ROI fala por si.",
+  },
+  {
+    name: "Marina Souza",
+    company: "Founder · Atrio",
+    text:
+      "Profissionalismo raro. Cada campanha entregue no timing e no padrão prometidos.",
+  },
+];
+
+function Testimonials() {
+  return (
+    <section id="depoimentos" className="relative overflow-hidden py-32 md:py-44">
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-50"
+        style={{
+          background:
+            "radial-gradient(800px circle at 20% 50%, rgba(255,26,26,0.06), transparent 60%)",
+        }}
+      />
+      <div className="mx-auto mb-16 max-w-7xl px-6 md:px-10">
+        <Reveal>
+          <div className="mb-4 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+            / depoimentos
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
+            Marcas que já vivem no próximo nível.
+          </h2>
+        </Reveal>
+      </div>
+
+      <div className="relative">
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-[#050505] to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-[#050505] to-transparent" />
+        <motion.div
+          className="flex gap-6"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        >
+          {[...testimonials, ...testimonials].map((t, i) => (
+            <div
+              key={i}
+              className="relative w-[360px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl"
+              style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)" }}
+            >
+              <div className="flex gap-1 text-[#ff6b6b]">
+                {Array.from({ length: 5 }).map((_, k) => (
+                  <Star key={k} className="h-3.5 w-3.5 fill-current" />
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-white/80">"{t.text}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#ff1a1a] to-[#b30000] font-display text-sm font-bold text-white">
+                  {t.name[0]}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-white">{t.name}</div>
+                  <div className="text-xs text-white/50">{t.company}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  RESULTS                                                            */
+/* ------------------------------------------------------------------ */
+function Results() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  return (
+    <section className="relative overflow-hidden py-32 md:py-48">
+      <div className="mx-auto max-w-6xl px-6 text-center md:px-10">
+        <Reveal>
+          <div className="mb-6 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
+            / resultados
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <h2 className="mx-auto max-w-4xl font-display text-5xl leading-[0.95] tracking-[-0.03em] text-white md:text-8xl">
+            Não entregamos <span className="italic font-light text-white/40">curtidas.</span>
+            <br />
+            Entregamos <span className="bg-gradient-to-r from-[#ff2a2a] to-[#ff6b6b] bg-clip-text text-transparent">crescimento.</span>
+          </h2>
+        </Reveal>
+
+        <div ref={ref} className="relative mx-auto mt-20 max-w-5xl">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6 backdrop-blur md:p-10">
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div className="flex items-center gap-4">
+                {[
+                  ["Conversões", "#ff4d4d"],
+                  ["CTR", "#f97316"],
+                  ["ROI", "#10b981"],
+                ].map(([l, c]) => (
+                  <div key={l} className="flex items-center gap-2 text-white/60">
+                    <span className="h-2 w-2 rounded-full" style={{ background: c }} />
+                    {l}
+                  </div>
+                ))}
+              </div>
+              <div className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-3 py-1 text-[10px] font-medium text-emerald-300">
+                +412% em 90 dias
+              </div>
+            </div>
+
+            <svg viewBox="0 0 800 260" className="h-64 w-full md:h-80">
+              <defs>
+                <linearGradient id="rg1" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0" stopColor="rgba(255,77,77,0.4)" />
+                  <stop offset="1" stopColor="rgba(255,77,77,0)" />
+                </linearGradient>
+              </defs>
+              {/* grid */}
+              {[0, 1, 2, 3, 4].map((i) => (
+                <line
+                  key={i}
+                  x1="0"
+                  y1={40 + i * 50}
+                  x2="800"
+                  y2={40 + i * 50}
+                  stroke="rgba(255,255,255,0.05)"
+                />
+              ))}
+              {/* area */}
+              <motion.path
+                d="M0 220 L60 200 L120 210 L180 180 L240 170 L300 150 L360 155 L420 120 L480 100 L540 85 L600 60 L660 55 L720 30 L780 20 L800 15 L800 260 L0 260 Z"
+                fill="url(#rg1)"
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ delay: 0.4, duration: 1 }}
+              />
+              {/* red line */}
+              <motion.path
+                d="M0 220 L60 200 L120 210 L180 180 L240 170 L300 150 L360 155 L420 120 L480 100 L540 85 L600 60 L660 55 L720 30 L780 20"
+                stroke="#ff4d4d"
+                strokeWidth="2"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={inView ? { pathLength: 1 } : {}}
+                transition={{ duration: 2, ease: "easeInOut" }}
+              />
+              {/* orange line */}
+              <motion.path
+                d="M0 200 L100 190 L200 175 L300 165 L400 140 L500 130 L600 105 L700 90 L800 70"
+                stroke="#f97316"
+                strokeWidth="1.5"
+                fill="none"
+                strokeDasharray="4 4"
+                initial={{ pathLength: 0 }}
+                animate={inView ? { pathLength: 1 } : {}}
+                transition={{ duration: 2.2, delay: 0.2, ease: "easeInOut" }}
+              />
+              {/* green line */}
+              <motion.path
+                d="M0 230 L100 225 L200 210 L300 195 L400 175 L500 155 L600 130 L700 105 L800 80"
+                stroke="#10b981"
+                strokeWidth="1.5"
+                fill="none"
+                initial={{ pathLength: 0 }}
+                animate={inView ? { pathLength: 1 } : {}}
+                transition={{ duration: 2.4, delay: 0.4, ease: "easeInOut" }}
+              />
+            </svg>
+
+            <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+              {[
+                ["ROI médio", "6.4x"],
+                ["CTR", "3.9%"],
+                ["Conversões", "12.4k"],
+                ["Alcance", "5.2M"],
+              ].map(([l, v]) => (
+                <div key={l} className="rounded-xl border border-white/5 bg-black/30 p-4 text-left">
+                  <div className="text-[10px] uppercase tracking-widest text-white/40">{l}</div>
+                  <div className="mt-1 font-display text-2xl font-bold text-white">{v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  CTA                                                                */
+/* ------------------------------------------------------------------ */
+function CTA() {
+  return (
+    <section id="cta" className="relative overflow-hidden py-32 md:py-48">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#ff1a1a] via-[#c9000f] to-[#7a0000]" />
+        <div
+          className="absolute inset-0 opacity-30 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4), transparent 40%), radial-gradient(circle at 80% 70%, rgba(0,0,0,0.5), transparent 50%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+      </div>
+
+      <div className="mx-auto max-w-5xl px-6 text-center md:px-10">
+        <Reveal>
+          <h2 className="mx-auto max-w-4xl font-display text-4xl leading-[0.98] tracking-[-0.03em] text-white md:text-7xl">
+            Sua empresa pode continuar sendo{" "}
+            <span className="italic font-light text-white/70">mais uma...</span>
+            <br />
+            ou pode se tornar <span className="underline decoration-white/50 decoration-2 underline-offset-8">referência.</span>
+          </h2>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="mt-12 flex justify-center">
+            <motion.a
+              href="https://wa.me/5500000000000"
+              target="_blank"
+              rel="noreferrer"
+              className="group relative inline-flex items-center gap-3 rounded-full bg-black px-10 py-6 font-display text-base font-semibold text-white md:text-lg"
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(0,0,0,0.4)",
+                  "0 0 0 24px rgba(0,0,0,0)",
+                ],
+              }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
+              whileHover={{ scale: 1.03 }}
+            >
+              Quero falar com a GR7
+              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+            </motion.a>
+          </div>
+        </Reveal>
+        <Reveal delay={0.35}>
+          <div className="mt-8 text-xs uppercase tracking-[0.35em] text-white/60">
+            Resposta em até 24h · Sem compromisso
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  FOOTER                                                             */
+/* ------------------------------------------------------------------ */
+function Footer() {
+  return (
+    <footer className="relative border-t border-white/5 bg-[#050505] py-16">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-3 md:px-10">
+        <div>
+          <div className="inline-block rounded-2xl bg-white p-3">
+            <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" />
+          </div>
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
+            Marketing estratégico e criativo para marcas que decidiram dominar seu mercado.
+          </p>
+        </div>
+        <div>
+          <div className="text-[11px] uppercase tracking-[0.3em] text-white/40">Navegação</div>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
+            {[
+              ["Serviços", "#servicos"],
+              ["Diferencial", "#diferencial"],
+              ["Processo", "#processo"],
+              ["Portfólio", "#portfolio"],
+              ["Depoimentos", "#depoimentos"],
+            ].map(([l, h]) => (
+              <li key={h}>
+                <a href={h} className="transition hover:text-[#ff6b6b]">
+                  {l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <div className="text-[11px] uppercase tracking-[0.3em] text-white/40">Contato</div>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
+            <li>
+              <a
+                href="https://wa.me/5500000000000"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 transition hover:text-[#ff6b6b]"
+              >
+                <MessageCircle className="h-4 w-4" /> WhatsApp
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com/gr7.company"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 transition hover:text-[#ff6b6b]"
+              >
+                <Instagram className="h-4 w-4" /> @gr7.company
+              </a>
+            </li>
+            <li>
+              <a
+                href="mailto:contato@gr7.company"
+                className="inline-flex items-center gap-2 transition hover:text-[#ff6b6b]"
+              >
+                <Mail className="h-4 w-4" /> contato@gr7.company
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-white/5 px-6 pt-8 text-xs text-white/40 md:flex-row md:px-10">
+        <div>© {new Date().getFullYear()} GR7 Company. Todos os direitos reservados.</div>
+        <div className="flex items-center gap-2">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] shadow-[0_0_10px_#ff1a1a]" />
+          Operando em tempo real
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  ROOT                                                               */
+/* ------------------------------------------------------------------ */
+export default function Landing() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => {
+      document.documentElement.style.scrollBehavior = "";
+    };
+  }, []);
+
+  return (
+    <div
+      className="relative min-h-screen w-full overflow-x-hidden bg-[#050505] font-sans text-white antialiased"
+      style={{ cursor: "auto" }}
+    >
+      <AnimatePresence>
+        {loading && <Loader done={() => setLoading(false)} />}
+      </AnimatePresence>
+
+      <ScrollProgress />
+      <CustomCursor />
+      <Nav />
+
+      <main>
+        <Hero />
+        <Services />
+        <Difference />
+        <Process />
+        <Portfolio />
+        <Testimonials />
+        <Results />
+        <CTA />
+      </main>
+
+      <Footer />
+    </div>
+  );
+}
