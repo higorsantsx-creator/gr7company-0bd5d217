@@ -555,7 +555,7 @@ const services = [
 
 function Services() {
   return (
-    <section id="servicos" className="relative py-32 md:py-44">
+    <section id="servicos" className="relative isolate py-32 md:py-44">
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-40"
         style={{
@@ -905,7 +905,7 @@ const testimonials = [
 
 function Testimonials() {
   return (
-    <section id="depoimentos" className="relative overflow-hidden py-32 md:py-44">
+    <section id="depoimentos" className="relative isolate overflow-hidden py-32 md:py-44">
       <div
         className="pointer-events-none absolute inset-0 -z-10 opacity-50"
         style={{
