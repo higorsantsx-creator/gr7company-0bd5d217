@@ -201,31 +201,90 @@ function Loader({ done }: { done: () => void }) {
 /* ------------------------------------------------------------------ */
 /*  Reveal helper                                                      */
 /* ------------------------------------------------------------------ */
+type RevealVariant =
+  | "rise"
+  | "fall"
+  | "slide-left"
+  | "slide-right"
+  | "scale"
+  | "mask"
+  | "tilt";
+
+const REVEAL_VARIANTS: Record<
+  RevealVariant,
+  { hidden: Record<string, unknown>; shown: Record<string, unknown> }
+> = {
+  rise: {
+    hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
+    shown: { opacity: 1, y: 0, filter: "blur(0px)" },
+  },
+  fall: {
+    hidden: { opacity: 0, y: -40, rotate: -1.5, filter: "blur(4px)" },
+    shown: { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" },
+  },
+  "slide-left": {
+    hidden: { opacity: 0, x: -60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  "slide-right": {
+    hidden: { opacity: 0, x: 60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  scale: {
+    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    shown: { opacity: 1, scale: 1, y: 0 },
+  },
+  mask: {
+    hidden: {
+      opacity: 0,
+      y: 60,
+      clipPath: "inset(100% 0 0 0)",
+    },
+    shown: {
+      opacity: 1,
+      y: 0,
+      clipPath: "inset(0% 0 0 0)",
+    },
+  },
+  tilt: {
+    hidden: { opacity: 0, rotate: -3, scale: 0.96, y: 24 },
+    shown: { opacity: 1, rotate: 0, scale: 1, y: 0 },
+  },
+};
+
 function Reveal({
   children,
   delay = 0,
   y = 24,
   className = "",
+  variant = "rise",
 }: {
   children: React.ReactNode;
   delay?: number;
   y?: number;
   className?: string;
+  variant?: RevealVariant;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px" });
+  const v = REVEAL_VARIANTS[variant];
+  // permite override do deslocamento vertical no rise clássico
+  const hidden =
+    variant === "rise" ? { ...v.hidden, y } : v.hidden;
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={hidden}
+      animate={inView ? v.shown : hidden}
+      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
+      style={{ willChange: "transform, opacity, filter" }}
       className={className}
     >
       {children}
     </motion.div>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  NAV                                                                */
