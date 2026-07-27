@@ -1373,10 +1373,21 @@ export default function Landing() {
           <Hero />
           <Services />
           <Difference />
+          <ProjectsGrid />
+          <CinematicVideo />
+          <ReelsSection />
+          <StoriesRow />
+          <ArtsMasonry />
+          <BrandIdentity />
+          <BackstageGrid />
+          <ClientsMarquee />
+          <CasesShowcase />
+          <DashboardsSection />
+          <VideoTestimonialsSection />
+          <InstagramProfile />
           <Process />
-          <Portfolio />
-          <Testimonials />
           <Results />
+          <GR7InAction />
           <CTA />
         </main>
 
