@@ -716,19 +716,19 @@ function Services() {
 
 function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+  const inView = useInView(ref, { margin: "-60px" });
   const Icon = s.icon;
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
+      initial={{ opacity: 0, y: 30, scale: 0.92 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.92 }}
       transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
       className="group relative overflow-hidden rounded-2xl border border-black/15 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-colors hover:border-[#ff1a1a]/60"
-      style={{ minHeight: 180 }}
-
+      style={{ minHeight: 180, willChange: "transform, opacity" }}
     >
+
       <div
         className="pointer-events-none absolute -inset-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
