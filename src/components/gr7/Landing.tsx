@@ -744,14 +744,15 @@ function Difference() {
               </p>
             </Reveal>
           </div>
-          <div className="grid grid-cols-1 gap-5 lg:col-span-5">
+          <div className="grid grid-cols-1 gap-3 lg:col-span-5">
             {[
               { n: 200, s: "+", label: "Projetos realizados" },
               { n: 5000000, s: "+", label: "Alcance gerado" },
               { n: 98, s: "%", label: "Clientes satisfeitos" },
             ].map((k, i) => (
               <Reveal key={k.label} delay={i * 0.1}>
-                <div className="group relative overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7 backdrop-blur">
+                <div className="group relative overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-br from-white/[0.05] to-transparent px-5 py-4 backdrop-blur">
+
                   <div
                     className="pointer-events-none absolute -inset-1 opacity-30 blur-3xl"
                     style={{
