@@ -25,7 +25,7 @@ interface SlotProps extends MediaItem {
 function Placeholder({
   icon = "image",
   label,
-  ornate = true,
+  ornate = false,
 }: {
   icon?: "image" | "video" | "reel";
   label?: string;
@@ -35,28 +35,14 @@ function Placeholder({
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-black/[0.04] via-black/[0.02] to-[#ff1a1a]/[0.04]">
       {ornate && (
-        <>
-          <motion.div
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-            animate={{ backgroundPosition: ["0px 0px", "24px 24px"] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          />
-          <motion.div
-            className="absolute -inset-1/4 rounded-full bg-[radial-gradient(circle,#ff1a1a_0%,transparent_60%)] opacity-20 blur-3xl"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute h-px w-1/3 bg-gradient-to-r from-transparent via-[#ff1a1a]/60 to-transparent"
-            animate={{ y: [0, 200, 0], opacity: [0, 0.6, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </>
+        <div
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
+          }}
+        />
       )}
       <div className="relative z-10 flex flex-col items-center gap-2 text-black/40">
         <div className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/70 backdrop-blur">
@@ -70,6 +56,7 @@ function Placeholder({
   );
 }
 
+
 /* ------------------------------------------------------------------ */
 /*  MediaSlot — imagem, vídeo ou placeholder                           */
 /* ------------------------------------------------------------------ */
@@ -81,7 +68,7 @@ export function MediaSlot({
   className = "",
   icon,
   label,
-  ornate = true,
+  ornate = false,
 }: SlotProps) {
   const [loaded, setLoaded] = useState(false);
 
