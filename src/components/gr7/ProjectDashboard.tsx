@@ -636,7 +636,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             {data.gallery.map((g, i) => {
               const inner = g.src ? (
-                <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl ring-1 ring-black/10">
+                <div className="relative w-full overflow-hidden rounded-2xl ring-1 ring-black/10" style={{ aspectRatio: g.aspect ?? "9/16" }}>
                   <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   {g.label && (
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white">
