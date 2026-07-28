@@ -634,18 +634,34 @@ function DashboardContent({ data }: { data: ProjectData }) {
             </h2>
           </div>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-            {data.gallery.map((g, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: i * 0.05 }}
-                className="cursor-zoom-in transition-transform hover:-translate-y-0.5"
-              >
+            {data.gallery.map((g, i) => {
+              const inner = g.src ? (
+                <div className="relative aspect-[9/16] w-full overflow-hidden rounded-2xl ring-1 ring-black/10">
+                  <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  {g.label && (
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white">
+                      {g.label}
+                    </div>
+                  )}
+                </div>
+              ) : (
                 <MediaPlaceholder label={g.label} ratio={i % 3 === 0 ? "4/5" : "4/3"} />
-              </motion.div>
-            ))}
+              );
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ duration: 0.5, delay: i * 0.05 }}
+                  className="group cursor-pointer transition-transform hover:-translate-y-0.5"
+                >
+                  {g.href ? (
+                    <a href={g.href} target="_blank" rel="noopener noreferrer">{inner}</a>
+                  ) : inner}
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
