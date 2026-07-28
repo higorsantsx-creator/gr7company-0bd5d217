@@ -633,7 +633,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
               Mídias do projeto
             </h2>
           </div>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="columns-2 gap-4 space-y-4 md:columns-3">
             {data.gallery.map((g, i) => {
               const inner = g.src ? (
                 <div className="relative w-full overflow-hidden rounded-2xl ring-1 ring-black/10" style={{ aspectRatio: g.aspect ?? "9/16" }}>
@@ -654,7 +654,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.5, delay: i * 0.05 }}
-                  className="group cursor-pointer transition-transform hover:-translate-y-0.5"
+                  className="group cursor-pointer break-inside-avoid transition-transform hover:-translate-y-0.5"
                 >
                   {g.href ? (
                     <a href={g.href} target="_blank" rel="noopener noreferrer">{inner}</a>
