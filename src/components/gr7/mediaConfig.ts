@@ -35,7 +35,7 @@ export interface ProjectCard extends MediaItem {
 }
 
 export const projects: ProjectCard[] = [
-  { client: "Studio Vértice", category: "Branding · Meta Ads", src: "" },
+  { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: "" },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
