@@ -436,33 +436,36 @@ function BeforeAfterSlider({ label }: { label: string }) {
 /* ------------------------------------------------------------------ */
 /*  Timeline vertical revelada por scroll                              */
 /* ------------------------------------------------------------------ */
+function TimelineItem({ step, i }: { step: ProjectData["timeline"][number]; i: number }) {
+  const ref = useRef<HTMLLIElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-40px" });
+  return (
+    <motion.li
+      ref={ref}
+      initial={{ opacity: 0, x: -12 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, delay: i * 0.05 }}
+      className="relative mb-8 last:mb-0"
+    >
+      <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-black/10 bg-white">
+        <span className="h-2 w-2 rounded-full bg-[#ff1a1a]" />
+      </span>
+      <div className="font-display text-lg text-[#0a0a0a]">{step.title}</div>
+      <div className="mt-1 text-sm text-black/55">{step.detail}</div>
+    </motion.li>
+  );
+}
+
 function Timeline({ steps }: { steps: ProjectData["timeline"] }) {
   return (
     <ol className="relative border-l border-black/10 pl-6">
-      {steps.map((s, i) => {
-        const ref = useRef<HTMLLIElement>(null);
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const inView = useInView(ref, { once: true, margin: "-40px" });
-        return (
-          <motion.li
-            key={s.title}
-            ref={ref}
-            initial={{ opacity: 0, x: -12 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.05 }}
-            className="relative mb-8 last:mb-0"
-          >
-            <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-black/10 bg-white">
-              <span className="h-2 w-2 rounded-full bg-[#ff1a1a]" />
-            </span>
-            <div className="font-display text-lg text-[#0a0a0a]">{s.title}</div>
-            <div className="mt-1 text-sm text-black/55">{s.detail}</div>
-          </motion.li>
-        );
-      })}
+      {steps.map((s, i) => (
+        <TimelineItem key={s.title} step={s} i={i} />
+      ))}
     </ol>
   );
 }
+
 
 /* ------------------------------------------------------------------ */
 /*  DASHBOARD — conteúdo (após loader)                                 */
