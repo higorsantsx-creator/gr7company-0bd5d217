@@ -123,9 +123,13 @@ function CustomCursor() {
   const [hover, setHover] = useState(false);
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
+      // Compensate for the html { zoom: 0.8 } on desktop, which scales
+      // fixed-position coordinates and desyncs the cursor from the pointer.
+      const zoom = window.matchMedia("(min-width: 1024px)").matches ? 0.8 : 1;
+      x.set(e.clientX / zoom);
+      y.set(e.clientY / zoom);
     };
+
     const over = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
       setHover(!!t.closest("a,button,[data-cursor='hover']"));
