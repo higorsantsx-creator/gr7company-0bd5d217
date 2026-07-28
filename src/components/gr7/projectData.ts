@@ -124,8 +124,8 @@ export const projectDataset: ProjectData[] = [
       { label: "Campanha" },
     ],
     gallery: [
-      { label: "Campanha \"Perto de você\"", src: new URL("../../assets/projects/totalgiro/perto.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DN-q2nxwEMM/" },
-      { label: "Café quentinho", src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DMFu4uDASwo/" },
+      { label: "Campanha \"Perto de você\"", src: new URL("../../assets/projects/totalgiro/perto.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DN-q2nxwEMM/", aspect: "1/1" },
+      { label: "Café quentinho", src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DMFu4uDASwo/", aspect: "1/1" },
       { label: "Bastidores da rede", src: new URL("../../assets/projects/totalgiro/bastidores.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DS7pvtygNxQ/" },
       { label: "Frota Total Giro", src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DbN-sYdxKj2/" },
       { label: "Atendimento na pista", src: new URL("../../assets/projects/totalgiro/atendimento-01.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DawIrIDulyV/" },
