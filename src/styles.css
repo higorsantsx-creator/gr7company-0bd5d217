@@ -149,10 +149,11 @@
     border-color: var(--color-border);
   }
 
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+  html, body {
+    background-color: #0a0a0a;
+    color: #ffffff;
   }
+
 
   /* Native "browser zoom out" feel on desktop screens only */
   @media (min-width: 1024px) {

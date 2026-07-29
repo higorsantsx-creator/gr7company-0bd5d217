@@ -57,11 +57,11 @@ function SectionHead({
       <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.35em] text-[#ff1a1a]">
         / {kicker}
       </div>
-      <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+      <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
         {title}
       </h2>
       {lead && (
-        <p className="mt-6 max-w-2xl text-base text-black/60 md:text-lg">{lead}</p>
+        <p className="mt-6 max-w-2xl text-base text-white/60 md:text-lg">{lead}</p>
       )}
     </div>
   );
@@ -80,7 +80,7 @@ export function ProjectsGrid() {
           title={
             <>
               Alguns projetos <br />
-              <span className="italic text-black/50">que falam por nós.</span>
+              <span className="italic text-white/50">que falam por nós.</span>
             </>
           }
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
@@ -99,7 +99,7 @@ export function ProjectsGrid() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ margin: "-80px" }}
                 transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
-                className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white text-left ${
+                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left ${
                   i % 5 === 0 ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""
                 }`}
                 style={{ aspectRatio: i % 5 === 0 ? "1 / 1" : "4 / 5" }}
@@ -118,12 +118,12 @@ export function ProjectsGrid() {
                     {p.category}
                   </div>
                   <div className="mt-1 font-display text-xl text-white">{p.client}</div>
-                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-[#0a0a0a]">
+                  <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-4 py-2 text-xs font-semibold text-white">
                     Ver relatório <ArrowRight className="h-3.5 w-3.5" />
                   </div>
                 </div>
                 {/* corner meta always visible */}
-                <div className="absolute left-4 top-4 z-10 rounded-full border border-black/10 bg-white/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-black/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
+                <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
                   {p.category.split("·")[0].trim()}
                 </div>
               </motion.button>
@@ -149,7 +149,7 @@ export function ReelsSection() {
           title={
             <>
               Formato vertical <br />
-              <span className="italic text-black/50">feito para viralizar.</span>
+              <span className="italic text-white/50">feito para viralizar.</span>
             </>
           }
           lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
@@ -214,7 +214,7 @@ export function StoriesRow() {
           kicker="Stories"
           title={
             <>
-              Stories em <span className="italic text-black/50">tempo real.</span>
+              Stories em <span className="italic text-white/50">tempo real.</span>
             </>
           }
           lead="Clique em qualquer círculo para abrir o modal — o mesmo espaço receberá imagem ou vídeo real."
@@ -228,7 +228,7 @@ export function StoriesRow() {
               className="group flex shrink-0 flex-col items-center gap-3"
             >
               <div className="relative rounded-full bg-gradient-to-tr from-[#ff1a1a] via-[#ff6b6b] to-[#ff1a1a] p-[3px] transition-transform duration-300 group-hover:scale-105">
-                <div className="rounded-full bg-white p-[3px]">
+                <div className="rounded-full bg-[#0a0a0a] p-[3px]">
                   <div className="relative h-20 w-20 overflow-hidden rounded-full md:h-24 md:w-24">
                     <MediaSlot
                       src={s.src}
@@ -240,7 +240,7 @@ export function StoriesRow() {
                   </div>
                 </div>
               </div>
-              <span className="text-xs font-medium text-black/70">{s.title}</span>
+              <span className="text-xs font-medium text-white/70">{s.title}</span>
             </button>
           ))}
         </div>
@@ -253,7 +253,7 @@ export function StoriesRow() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setOpen(null)}
-            className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 backdrop-blur-xl"
+            className="fixed inset-0 z-[120] flex items-center justify-center bg-[#0a0a0a]/80 backdrop-blur-xl"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
@@ -276,14 +276,14 @@ export function StoriesRow() {
                   <div
                     key={k}
                     className={`h-0.5 flex-1 rounded-full ${
-                      k === open ? "bg-white" : "bg-white/30"
+                      k === open ? "bg-[#0a0a0a]" : "bg-[#0a0a0a]/30"
                     }`}
                   />
                 ))}
               </div>
               <button
                 onClick={() => setOpen(null)}
-                className="absolute right-3 top-6 rounded-full bg-white/10 p-2 text-white backdrop-blur"
+                className="absolute right-3 top-6 rounded-full bg-[#0a0a0a]/10 p-2 text-white backdrop-blur"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -322,7 +322,7 @@ export function ArtsMasonry() {
           kicker="Artes"
           title={
             <>
-              Design que <span className="italic text-black/50">para o feed.</span>
+              Design que <span className="italic text-white/50">para o feed.</span>
             </>
           }
           lead="Posts, banners, carrosséis, flyers e criativos. Galeria masonry pronta para receber cada arte real."
@@ -336,7 +336,7 @@ export function ArtsMasonry() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ margin: "-40px" }}
               transition={{ duration: 0.4, delay: (i % 4) * 0.05 }}
-              className={`group relative mb-4 break-inside-avoid overflow-hidden rounded-xl border border-black/10 bg-white`}
+              className={`group relative mb-4 break-inside-avoid overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]`}
             >
               <div className={`relative ${aspects[a.aspect]}`}>
                 <MediaSlot
@@ -373,15 +373,15 @@ export function BrandIdentity() {
           title={
             <>
               Antes → depois. <br />
-              <span className="italic text-black/50">Marcas reposicionadas.</span>
+              <span className="italic text-white/50">Marcas reposicionadas.</span>
             </>
           }
           lead="Logotipo antigo à esquerda, versão criada pela GR7 à direita — mais brandbook, paleta, tipografia e mockups."
         />
 
         <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white p-8">
-            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-black/50">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a] p-8">
+            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
               Antes
             </div>
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-100 grayscale">
@@ -414,7 +414,7 @@ export function BrandIdentity() {
           {identity.brandbook.map((m, i) => (
             <div
               key={i}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-black/10 bg-white"
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]"
             >
               <MediaSlot
                 src={m.src}
@@ -428,28 +428,28 @@ export function BrandIdentity() {
 
         {/* Palette + typography */}
         <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-black/10 bg-white p-8">
-            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-black/50">
+          <div className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8">
+            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
               Paleta
             </div>
             <div className="flex gap-3">
               {identity.palette.map((c) => (
                 <div key={c} className="flex-1">
                   <div
-                    className="aspect-square rounded-xl border border-black/10"
+                    className="aspect-square rounded-xl border border-white/10"
                     style={{ background: c }}
                   />
-                  <div className="mt-2 text-[10px] text-black/60">{c}</div>
+                  <div className="mt-2 text-[10px] text-white/60">{c}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-3xl border border-black/10 bg-white p-8">
-            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-black/50">
+          <div className="rounded-3xl border border-white/10 bg-[#0a0a0a] p-8">
+            <div className="mb-4 text-[10px] uppercase tracking-[0.3em] text-white/50">
               Tipografia
             </div>
-            <div className="font-display text-5xl leading-none text-[#0a0a0a]">Aa</div>
-            <div className="mt-2 text-sm text-black/60">
+            <div className="font-display text-5xl leading-none text-white">Aa</div>
+            <div className="mt-2 text-sm text-white/60">
               Archivo Black · Manrope · Sistema tipográfico completo
             </div>
           </div>
@@ -468,7 +468,7 @@ export function CinematicVideo() {
   return (
     <section id="cinema" className="relative py-24 md:py-32">
       <div className="mx-auto max-w-[1400px] px-4 md:px-8">
-        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-black/10 bg-neutral-900 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.5)]">
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-white/10 bg-neutral-900 shadow-[0_60px_120px_-40px_rgba(0,0,0,0.5)]">
           {cinematic.src ? (
             <video
               ref={videoRef}
@@ -498,10 +498,10 @@ export function CinematicVideo() {
                 setPlaying(true);
                 videoRef.current?.play();
               }}
-              className="group relative flex h-24 w-24 items-center justify-center rounded-full bg-white/90 backdrop-blur transition hover:scale-110"
+              className="group relative flex h-24 w-24 items-center justify-center rounded-full bg-[#0a0a0a]/90 backdrop-blur transition hover:scale-110"
             >
-              <span className="absolute inset-0 animate-ping rounded-full bg-white/40" />
-              <Play className="relative z-10 h-8 w-8 translate-x-0.5 fill-[#0a0a0a] text-[#0a0a0a]" />
+              <span className="absolute inset-0 animate-ping rounded-full bg-[#0a0a0a]/40" />
+              <Play className="relative z-10 h-8 w-8 translate-x-0.5 fill-[#0a0a0a] text-white" />
             </button>
             <div className="text-center">
               <div className="font-display text-2xl text-white md:text-4xl">
@@ -536,7 +536,7 @@ export function BackstageGrid() {
           title={
             <>
               Dia a dia dentro <br />
-              <span className="italic text-black/50">da GR7.</span>
+              <span className="italic text-white/50">da GR7.</span>
             </>
           }
           lead="Captação, drone, making of, reuniões, equipe. Grid irregular preparado para fotos e vídeos reais."
@@ -550,7 +550,7 @@ export function BackstageGrid() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ margin: "-40px" }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
-              className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white ${spans[b.span]}`}
+              className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] ${spans[b.span]}`}
             >
               <MediaSlot
                 src={b.src}
@@ -583,7 +583,7 @@ export function ClientsMarquee() {
           <div className="mb-3 text-[11px] font-medium uppercase tracking-[0.35em] text-[#ff1a1a]">
             / Clientes
           </div>
-          <h2 className="font-display text-3xl tracking-tight text-[#0a0a0a] md:text-5xl">
+          <h2 className="font-display text-3xl tracking-tight text-white md:text-5xl">
             Marcas que já assinam com a GR7.
           </h2>
         </div>
@@ -598,12 +598,12 @@ export function ClientsMarquee() {
           {row.map((c, i) => (
             <div
               key={i}
-              className="flex h-24 w-56 shrink-0 items-center justify-center rounded-2xl border border-black/10 bg-white"
+              className="flex h-24 w-56 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0a0a0a]"
             >
               {c.src ? (
                 <img src={c.src} alt={c.name} className="max-h-12 max-w-[70%] object-contain" />
               ) : (
-                <span className="font-display text-xl uppercase tracking-widest text-black/60">
+                <span className="font-display text-xl uppercase tracking-widest text-white/60">
                   {c.name}
                 </span>
               )}
@@ -627,7 +627,7 @@ export function CasesShowcase() {
           title={
             <>
               Cases completos. <br />
-              <span className="italic text-black/50">Problema, estratégia, resultado.</span>
+              <span className="italic text-white/50">Problema, estratégia, resultado.</span>
             </>
           }
         />
@@ -640,7 +640,7 @@ export function CasesShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ margin: "-80px" }}
               transition={{ duration: 0.6 }}
-              className={`grid grid-cols-1 gap-8 rounded-3xl border border-black/10 bg-white p-6 md:p-10 lg:grid-cols-12 ${
+              className={`grid grid-cols-1 gap-8 rounded-3xl border border-white/10 bg-[#0a0a0a] p-6 md:p-10 lg:grid-cols-12 ${
                 i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""
               }`}
             >
@@ -658,27 +658,27 @@ export function CasesShowcase() {
                   <div className="text-[10px] uppercase tracking-[0.35em] text-[#ff1a1a]">
                     Case · {String(i + 1).padStart(2, "0")}
                   </div>
-                  <h3 className="mt-3 font-display text-3xl leading-tight text-[#0a0a0a] md:text-4xl">
+                  <h3 className="mt-3 font-display text-3xl leading-tight text-white md:text-4xl">
                     {c.client}
                   </h3>
                   <div className="mt-6 space-y-4 text-sm">
                     <div>
-                      <div className="text-[10px] uppercase tracking-widest text-black/40">
+                      <div className="text-[10px] uppercase tracking-widest text-white/40">
                         Problema
                       </div>
-                      <p className="mt-1 text-black/70">{c.problem}</p>
+                      <p className="mt-1 text-white/70">{c.problem}</p>
                     </div>
                     <div>
-                      <div className="text-[10px] uppercase tracking-widest text-black/40">
+                      <div className="text-[10px] uppercase tracking-widest text-white/40">
                         Estratégia
                       </div>
-                      <p className="mt-1 text-black/70">{c.strategy}</p>
+                      <p className="mt-1 text-white/70">{c.strategy}</p>
                     </div>
                     <div>
                       <div className="text-[10px] uppercase tracking-widest text-[#ff1a1a]">
                         Resultado
                       </div>
-                      <p className="mt-1 font-display text-2xl text-[#0a0a0a]">
+                      <p className="mt-1 font-display text-2xl text-white">
                         {c.result}
                       </p>
                     </div>
@@ -711,7 +711,7 @@ export function DashboardsSection() {
           title={
             <>
               Resultados reais <br />
-              <span className="italic text-black/50">nas telas certas.</span>
+              <span className="italic text-white/50">nas telas certas.</span>
             </>
           }
           lead="Meta Ads, Google Ads, Analytics, CRM e relatórios. Cada notebook está pronto para receber o print completo."
@@ -736,10 +736,10 @@ export function DashboardsSection() {
                 />
               </NotebookFrame>
               <div className="mt-6 text-center">
-                <div className="text-[10px] uppercase tracking-[0.3em] text-black/50">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/50">
                   Print · Dashboard
                 </div>
-                <div className="mt-1 font-display text-lg text-[#0a0a0a]">{d.label}</div>
+                <div className="mt-1 font-display text-lg text-white">{d.label}</div>
               </div>
             </motion.div>
           ))}
@@ -760,7 +760,7 @@ export function VideoTestimonialsSection() {
           kicker="Depoimentos"
           title={
             <>
-              Quem viveu <span className="italic text-black/50">conta melhor.</span>
+              Quem viveu <span className="italic text-white/50">conta melhor.</span>
             </>
           }
           lead="Clientes reais falando sobre a experiência com a GR7. Toque em qualquer card para assistir no Instagram."
@@ -778,7 +778,7 @@ export function VideoTestimonialsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.08 }}
-            className="group relative aspect-[9/16] w-[280px] shrink-0 overflow-hidden rounded-3xl border border-black/10 bg-neutral-900"
+            className="group relative aspect-[9/16] w-[280px] shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-neutral-900"
           >
             <MediaSlot
               src={v.src}
@@ -789,8 +789,8 @@ export function VideoTestimonialsSection() {
               label="Depoimento"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/90 p-4 backdrop-blur transition group-hover:scale-110">
-              <Play className="h-5 w-5 translate-x-0.5 fill-[#0a0a0a] text-[#0a0a0a]" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0a0a0a]/90 p-4 backdrop-blur transition group-hover:scale-110">
+              <Play className="h-5 w-5 translate-x-0.5 fill-[#0a0a0a] text-white" />
             </div>
             <div className="absolute inset-x-0 bottom-0 p-5 text-white">
               <div className="font-display text-lg">{v.name}</div>
@@ -811,9 +811,9 @@ export function InstagramProfile() {
   return (
     <section id="instagram" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-4xl px-6 md:px-10">
-        <div className="overflow-hidden rounded-3xl border border-black/10 bg-white">
+        <div className="overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a]">
           {/* header */}
-          <div className="flex items-center gap-3 border-b border-black/5 px-6 py-4">
+          <div className="flex items-center gap-3 border-b border-white/5 px-6 py-4">
             <InstagramIcon className="h-5 w-5" />
             <div className="font-semibold">instagram.com</div>
           </div>
@@ -821,7 +821,7 @@ export function InstagramProfile() {
           <div className="p-6 md:p-10">
             <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:gap-12">
               <div className="rounded-full bg-gradient-to-tr from-[#ff1a1a] via-[#ff6b6b] to-[#ff1a1a] p-1">
-                <div className="rounded-full bg-white p-1">
+                <div className="rounded-full bg-[#0a0a0a] p-1">
                   <div className="relative h-28 w-28 overflow-hidden rounded-full md:h-32 md:w-32">
                     <img
                       src={instagram.avatar.src || gr7Logo}
@@ -841,9 +841,9 @@ export function InstagramProfile() {
                   <div><b>{instagram.stats.followers}</b> seguidores</div>
                   <div><b>{instagram.stats.following}</b> seguindo</div>
                 </div>
-                <div className="mt-4 max-w-md space-y-1 text-sm text-black/80">
+                <div className="mt-4 max-w-md space-y-1 text-sm text-white/80">
                   <div className="font-semibold">{instagram.name}</div>
-                  <div className="text-black/60">{instagram.category}</div>
+                  <div className="text-white/60">{instagram.category}</div>
                   {instagram.bio.map((line, i) => (
                     <div key={i}>{line}</div>
                   ))}
@@ -851,8 +851,8 @@ export function InstagramProfile() {
               </div>
             </div>
 
-            <div className="mt-10 flex items-center justify-center gap-10 border-t border-black/5 pt-4 text-xs uppercase tracking-widest text-black/60">
-              <div className="flex items-center gap-2 border-t-2 border-[#0a0a0a] pt-3 text-[#0a0a0a]">
+            <div className="mt-10 flex items-center justify-center gap-10 border-t border-white/5 pt-4 text-xs uppercase tracking-widest text-white/60">
+              <div className="flex items-center gap-2 border-t-2 border-[#0a0a0a] pt-3 text-white">
                 <Grid3x3 className="h-3.5 w-3.5" /> Posts
               </div>
             </div>
@@ -894,7 +894,7 @@ export function GR7InAction() {
           title={
             <>
               Tudo, ao mesmo tempo, <br />
-              <span className="italic text-black/50">funcionando.</span>
+              <span className="italic text-white/50">funcionando.</span>
             </>
           }
           lead="Vídeos, fotos, artes, reels, dashboards, logos e clientes em uma única montagem. Preparada para receber cada mídia real."
@@ -922,7 +922,7 @@ export function GR7InAction() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ margin: "-40px" }}
                 transition={{ duration: 0.5, delay: i * 0.04 }}
-                className={`group relative overflow-hidden rounded-2xl border border-black/10 bg-white ${patterns[i]}`}
+                className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] ${patterns[i]}`}
               >
                 <MediaSlot
                   src={m.src}

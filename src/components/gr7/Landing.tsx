@@ -64,7 +64,7 @@ function AnimatedBackground() {
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
       {/* base wash */}
-      <div className="absolute inset-0 bg-white" />
+      <div className="absolute inset-0 bg-[#0a0a0a]" />
 
       {/* static red aurora — GPU-friendly transform-only float */}
       <motion.div
@@ -91,13 +91,13 @@ function AnimatedBackground() {
         className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.6) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
 
       {/* soft vignette to keep text readable */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(255,255,255,0.55)_100%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
     </div>
   );
 }
@@ -180,7 +180,7 @@ function Loader({ done }: { done: () => void }) {
   }, [done]);
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a]"
       exit={{ opacity: 0, transition: { duration: 0.6 } }}
     >
       <div className="absolute inset-0 opacity-30" style={{
@@ -188,14 +188,14 @@ function Loader({ done }: { done: () => void }) {
           "radial-gradient(600px circle at 50% 50%, rgba(255,26,26,0.25), transparent 60%)",
       }} />
       <GR7Mark className="h-9 mb-10 relative z-10" />
-      <div className="relative z-10 w-64 h-[2px] bg-black/[0.04] overflow-hidden rounded-full">
+      <div className="relative z-10 w-64 h-[2px] bg-[#0a0a0a]/[0.04] overflow-hidden rounded-full">
         <motion.div
           className="h-full bg-gradient-to-r from-[#ff1a1a] to-[#ff6b6b]"
           style={{ width: `${p}%` }}
           transition={{ ease: "easeOut" }}
         />
       </div>
-      <div className="mt-4 font-mono text-xs tracking-[0.3em] text-black/50 relative z-10">
+      <div className="mt-4 font-mono text-xs tracking-[0.3em] text-white/50 relative z-10">
         {Math.round(p).toString().padStart(3, "0")}%
       </div>
     </motion.div>
@@ -309,13 +309,13 @@ function Nav() {
       transition={{ duration: 0.8, delay: 0.2 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "backdrop-blur-xl bg-white/70 border-b border-black/5 border-b border-black/5"
+          ? "backdrop-blur-xl bg-[#0a0a0a]/70 border-b border-white/5 border-b border-white/5"
           : "bg-transparent"
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
         <GR7Mark className="h-7" />
-        <nav className="hidden items-center gap-9 text-sm text-black/60 md:flex">
+        <nav className="hidden items-center gap-9 text-sm text-white/60 md:flex">
           {[
             ["Serviços", "servicos"],
             ["Diferencial", "diferencial"],
@@ -326,7 +326,7 @@ function Nav() {
             <a
               key={id}
               href={`#${id}`}
-              className="relative transition hover:text-[#0a0a0a]"
+              className="relative transition hover:text-white"
             >
               {label}
             </a>
@@ -334,7 +334,7 @@ function Nav() {
         </nav>
         <a
           href="#cta"
-          className="group hidden items-center gap-2 rounded-full border border-black/10 bg-black/[0.03] px-5 py-2.5 text-xs font-medium text-[#0a0a0a] backdrop-blur-md transition hover:border-[#ff1a1a]/50 hover:bg-[#ff1a1a]/10 md:inline-flex"
+          className="group hidden items-center gap-2 rounded-full border border-white/10 bg-[#0a0a0a]/[0.03] px-5 py-2.5 text-xs font-medium text-white backdrop-blur-md transition hover:border-[#ff1a1a]/50 hover:bg-[#ff1a1a]/10 md:inline-flex"
         >
           Fale com a GR7
           <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
@@ -364,7 +364,7 @@ function Hero() {
         className="absolute inset-0 -z-10 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.35) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
           backgroundSize: "70px 70px",
           maskImage:
             "radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 70%)",
@@ -444,7 +444,7 @@ function Hero() {
       >
         <div className="lg:col-span-7 lg:pt-12">
           <Reveal>
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/[0.02] px-3 py-1.5 text-[11px] uppercase tracking-[0.25em] text-black/60 backdrop-blur">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0a0a0a]/[0.02] px-3 py-1.5 text-[11px] uppercase tracking-[0.25em] text-white/60 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] shadow-[0_0_10px_#ff1a1a]" />
               Marketing de alta performance
             </div>
@@ -452,7 +452,7 @@ function Hero() {
           <Reveal delay={0.1} variant="mask">
 
             <h1
-              className="font-display text-[44px] leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] sm:text-6xl md:text-7xl lg:text-[92px]"
+              className="font-display text-[44px] leading-[0.95] tracking-[-0.03em] text-white sm:text-6xl md:text-7xl lg:text-[92px]"
             >
               Marketing que{" "}
               <span className="relative inline-block">
@@ -462,11 +462,11 @@ function Hero() {
                   transforma
                 </span>
               </span>{" "}
-              empresas em <span className="italic font-light text-black/90">referências</span>.
+              empresas em <span className="italic font-light text-white/90">referências</span>.
             </h1>
           </Reveal>
           <Reveal delay={0.25}>
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-black/60 md:text-lg">
+            <p className="mt-8 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
               Nós não criamos apenas posts. Construímos posicionamentos, aumentamos vendas e
               transformamos marcas em negócios que dominam o mercado.
             </p>
@@ -475,7 +475,7 @@ function Hero() {
             <div className="mt-10 flex flex-wrap items-center gap-4">
               <a
                 href="#cta"
-                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[#ff1a1a] px-7 py-4 text-sm font-semibold text-[#0a0a0a] shadow-[0_10px_40px_-10px_rgba(255,26,26,0.7)] transition hover:shadow-[0_20px_60px_-10px_rgba(255,26,26,0.9)]"
+                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[#ff1a1a] px-7 py-4 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_rgba(255,26,26,0.7)] transition hover:shadow-[0_20px_60px_-10px_rgba(255,26,26,0.9)]"
               >
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
                 Quero crescer
@@ -485,7 +485,7 @@ function Hero() {
                 href="https://wa.me/5500000000000"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-3 rounded-full border border-black/10 bg-white px-7 py-4 text-sm font-medium text-[#0a0a0a] backdrop-blur-md transition hover:border-black/20 hover:bg-black/[0.03]"
+                className="group inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#0a0a0a] px-7 py-4 text-sm font-medium text-white backdrop-blur-md transition hover:border-white/20 hover:bg-[#0a0a0a]/[0.03]"
               >
                 <MessageCircle className="h-4 w-4 text-[#ff6b6b]" />
                 Falar no WhatsApp
@@ -494,11 +494,11 @@ function Hero() {
           </Reveal>
 
           <Reveal delay={0.6}>
-            <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 text-xs uppercase tracking-widest text-black/50">
+            <div className="mt-14 flex flex-wrap items-center gap-x-10 gap-y-4 text-xs uppercase tracking-widest text-white/50">
               <span>Meta Business Partner</span>
-              <span className="h-px w-6 bg-white/20" />
+              <span className="h-px w-6 bg-[#0a0a0a]/20" />
               <span>Google Ads Certified</span>
-              <span className="h-px w-6 bg-white/20" />
+              <span className="h-px w-6 bg-[#0a0a0a]/20" />
               <span>+200 Marcas escaladas</span>
             </div>
           </Reveal>
@@ -512,7 +512,7 @@ function Hero() {
 
       {/* scroll cue */}
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-black/50"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-white/50"
         animate={{ y: [0, 6, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
       >
@@ -530,7 +530,7 @@ function HeroDashboard() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.5 }}
-        className="relative overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl"
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl"
         style={{
           boxShadow:
             "0 40px 120px -20px rgba(255,26,26,0.25), inset 0 1px 0 rgba(0,0,0,0.08)",
@@ -538,8 +538,8 @@ function HeroDashboard() {
       >
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-[10px] uppercase tracking-widest text-black/50">Campanha ativa</div>
-            <div className="mt-1 font-display text-lg font-semibold text-[#0a0a0a]">
+            <div className="text-[10px] uppercase tracking-widest text-white/50">Campanha ativa</div>
+            <div className="mt-1 font-display text-lg font-semibold text-white">
               Meta Ads · Conversão
             </div>
           </div>
@@ -559,17 +559,17 @@ function HeroDashboard() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 + i * 0.15 }}
-              className="rounded-xl border border-black/5 bg-black/[0.03] p-3"
+              className="rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3"
             >
-              <div className="text-[9px] uppercase tracking-wider text-black/50">{label}</div>
-              <div className="mt-1 font-display text-lg font-bold text-[#0a0a0a]">{v}</div>
+              <div className="text-[9px] uppercase tracking-wider text-white/50">{label}</div>
+              <div className="mt-1 font-display text-lg font-bold text-white">{v}</div>
               <div className="text-[10px] text-emerald-300">{d}</div>
             </motion.div>
           ))}
         </div>
 
         {/* mini chart */}
-        <div className="mt-6 h-32 rounded-xl border border-black/5 bg-black/[0.03] p-3">
+        <div className="mt-6 h-32 rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3">
           <svg viewBox="0 0 200 80" className="h-full w-full">
             <defs>
               <linearGradient id="ch1" x1="0" x2="0" y1="0" y2="1">
@@ -614,14 +614,14 @@ function HeroDashboard() {
         initial={{ opacity: 0, x: 30, y: 20 }}
         animate={{ opacity: 1, x: 0, y: 0 }}
         transition={{ duration: 1, delay: 1 }}
-        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-black/10 bg-white/85 p-3 backdrop-blur-xl md:-right-10"
+        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/85 p-3 backdrop-blur-xl md:-right-10"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
         <div className="flex items-center gap-2">
           <div className="h-7 w-7 rounded-full bg-gradient-to-tr from-[#ff1a1a] via-fuchsia-500 to-amber-400" />
           <div>
-            <div className="text-[10px] font-semibold text-[#0a0a0a]">@sua.marca</div>
-            <div className="text-[9px] text-black/50">alcance +512%</div>
+            <div className="text-[10px] font-semibold text-white">@sua.marca</div>
+            <div className="text-[9px] text-white/50">alcance +512%</div>
           </div>
         </div>
         <div className="mt-2 grid grid-cols-3 gap-1">
@@ -641,15 +641,15 @@ function HeroDashboard() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1.3 }}
-        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-black/10 bg-white/85 px-4 py-3 backdrop-blur-xl md:-left-8"
+        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0a]/85 px-4 py-3 backdrop-blur-xl md:-left-8"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-black/[0.03]">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0a0a0a]/[0.03]">
           <TrendingUp className="h-4 w-4 text-emerald-300" />
         </div>
         <div>
-          <div className="text-[10px] uppercase tracking-widest text-black/50">Google Ads</div>
-          <div className="font-display text-sm font-semibold text-[#0a0a0a]">
+          <div className="text-[10px] uppercase tracking-widest text-white/50">Google Ads</div>
+          <div className="font-display text-sm font-semibold text-white">
             +312% conversões
           </div>
         </div>
@@ -697,13 +697,13 @@ function Services() {
             </Reveal>
             <Reveal delay={0.1} variant="fall">
 
-              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
                 Um ecossistema completo para escalar sua marca.
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <p className="max-w-sm text-sm leading-relaxed text-black/50">
+            <p className="max-w-sm text-sm leading-relaxed text-white/50">
               Estratégia, criativo, mídia e dados — operando juntos, dentro do mesmo padrão de
               excelência.
             </p>
@@ -731,7 +731,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.92 }}
       transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
-      className="group relative overflow-hidden rounded-2xl border border-black/15 bg-white p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-black/5 transition-colors hover:border-[#ff1a1a]/60"
+      className="group relative overflow-hidden rounded-2xl border border-white/15 bg-[#0a0a0a] p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-white/5 transition-colors hover:border-[#ff1a1a]/60"
       style={{ minHeight: 180, willChange: "transform, opacity" }}
     >
 
@@ -742,12 +742,12 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
             "radial-gradient(400px circle at 50% 0%, rgba(255,26,26,0.15), transparent 60%)",
         }}
       />
-      <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-black/10 bg-white/70 transition-all duration-500 group-hover:border-[#ff1a1a]/40 group-hover:bg-[#ff1a1a]/10">
-        <Icon className="h-5 w-5 text-black/80 transition-transform duration-500 group-hover:scale-110 group-hover:text-[#ff6b6b]" />
+      <div className="relative flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-[#0a0a0a]/70 transition-all duration-500 group-hover:border-[#ff1a1a]/40 group-hover:bg-[#ff1a1a]/10">
+        <Icon className="h-5 w-5 text-white/80 transition-transform duration-500 group-hover:scale-110 group-hover:text-[#ff6b6b]" />
       </div>
-      <h3 className="mt-6 font-display text-lg font-semibold text-[#0a0a0a]">{s.title}</h3>
-      <p className="mt-2 text-sm leading-relaxed text-black/50">{s.desc}</p>
-      <ChevronRight className="absolute right-5 top-5 h-4 w-4 -translate-x-2 text-black/30 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-[#ff6b6b] group-hover:opacity-100" />
+      <h3 className="mt-6 font-display text-lg font-semibold text-white">{s.title}</h3>
+      <p className="mt-2 text-sm leading-relaxed text-white/50">{s.desc}</p>
+      <ChevronRight className="absolute right-5 top-5 h-4 w-4 -translate-x-2 text-white/30 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:text-[#ff6b6b] group-hover:opacity-100" />
     </motion.div>
   );
 }
@@ -793,19 +793,19 @@ function Difference() {
             </Reveal>
             <Reveal delay={0.1} variant="slide-right">
 
-              <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-[#0a0a0a] md:text-6xl lg:text-7xl">
+              <h2 className="font-display text-4xl leading-[1.02] tracking-[-0.02em] text-white md:text-6xl lg:text-7xl">
                 Você não precisa de mais marketing.
                 <br />
-                <span className="text-black/50">Você precisa de </span>
+                <span className="text-white/50">Você precisa de </span>
                 <span className="italic font-light text-[#ff6b6b]">estratégia.</span>
               </h2>
             </Reveal>
             <Reveal delay={0.25}>
-              <p className="mt-10 max-w-xl text-base leading-relaxed text-black/60 md:text-lg">
-                A GR7 opera na intersecção de <span className="text-[#0a0a0a]">dados</span>,{" "}
-                <span className="text-[#0a0a0a]">posicionamento</span>,{" "}
-                <span className="text-[#0a0a0a]">criatividade</span> e{" "}
-                <span className="text-[#0a0a0a]">vendas</span>. Cada decisão é validada por métrica,
+              <p className="mt-10 max-w-xl text-base leading-relaxed text-white/60 md:text-lg">
+                A GR7 opera na intersecção de <span className="text-white">dados</span>,{" "}
+                <span className="text-white">posicionamento</span>,{" "}
+                <span className="text-white">criatividade</span> e{" "}
+                <span className="text-white">vendas</span>. Cada decisão é validada por métrica,
                 cada criativo é pensado para converter, cada campanha existe para gerar receita —
                 não vaidade.
               </p>
@@ -818,7 +818,7 @@ function Difference() {
               { n: 98, s: "%", label: "Clientes satisfeitos" },
             ].map((k, i) => (
               <Reveal key={k.label} delay={i * 0.1}>
-                <div className="group relative overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7 backdrop-blur">
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.05] to-transparent p-7 backdrop-blur">
                   <div
                     className="pointer-events-none absolute -inset-1 opacity-30 blur-3xl"
                     style={{
@@ -826,10 +826,10 @@ function Difference() {
                         "radial-gradient(200px circle at 20% 50%, rgba(255,26,26,0.4), transparent)",
                     }}
                   />
-                  <div className="relative font-display text-5xl font-bold tracking-tight text-[#0a0a0a] md:text-6xl">
+                  <div className="relative font-display text-5xl font-bold tracking-tight text-white md:text-6xl">
                     <Counter to={k.n} suffix={k.s} />
                   </div>
-                  <div className="relative mt-2 text-sm text-black/50">{k.label}</div>
+                  <div className="relative mt-2 text-sm text-white/50">{k.label}</div>
                 </div>
               </Reveal>
             ))}
@@ -864,7 +864,7 @@ function Process() {
             </Reveal>
             <Reveal delay={0.1} variant="fall">
 
-              <h2 className="max-w-xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+              <h2 className="max-w-xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
                 Um método afinado em cinco atos.
               </h2>
             </Reveal>
@@ -877,14 +877,14 @@ function Process() {
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.1} variant="fall">
                 <div className="group relative">
-                  <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white text-[10px] font-semibold text-black/60 transition-all group-hover:border-[#ff1a1a] group-hover:text-[#0a0a0a] group-hover:shadow-[0_0_20px_rgba(255,26,26,0.5)]">
+                  <div className="mb-6 flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a] text-[10px] font-semibold text-white/60 transition-all group-hover:border-[#ff1a1a] group-hover:text-white group-hover:shadow-[0_0_20px_rgba(255,26,26,0.5)]">
                     {i + 1}
                   </div>
                   <div className="font-mono text-[11px] tracking-widest text-[#ff6b6b]">
                     {s.n}
                   </div>
-                  <h3 className="mt-2 font-display text-xl font-semibold text-[#0a0a0a]">{s.t}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-black/50">{s.d}</p>
+                  <h3 className="mt-2 font-display text-xl font-semibold text-white">{s.t}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/50">{s.d}</p>
                 </div>
               </Reveal>
             ))}
@@ -937,7 +937,7 @@ function Portfolio() {
           </Reveal>
           <Reveal delay={0.1} variant="mask">
 
-            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
               Cases reais. Números que falam por si.
             </h2>
           </Reveal>
@@ -948,7 +948,7 @@ function Portfolio() {
             <Reveal key={p.title} delay={i * 0.08} variant="scale">
               <div
                 data-cursor="hover"
-                className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-black/10"
+                className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${p.color}`} />
                 <div
@@ -962,26 +962,26 @@ function Portfolio() {
                   className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
                   style={{
                     backgroundImage:
-                      "linear-gradient(rgba(0,0,0,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.35) 1px, transparent 1px)",
+                      "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
                     backgroundSize: "30px 30px",
                   }}
                 />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-700 group-hover:bg-black/80" />
+                <div className="absolute inset-0 bg-[#0a0a0a]/0 transition-colors duration-700 group-hover:bg-[#0a0a0a]/80" />
                 <div className="absolute inset-0 flex flex-col justify-between p-8">
                   <div className="flex items-center justify-between">
-                    <div className="text-[10px] uppercase tracking-[0.3em] text-black/80">
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-white/80">
                       {p.tag}
                     </div>
-                    <div className="rounded-full border border-black/20 bg-black/[0.04] px-3 py-1 text-[10px] font-medium text-[#0a0a0a] backdrop-blur">
+                    <div className="rounded-full border border-white/20 bg-[#0a0a0a]/[0.04] px-3 py-1 text-[10px] font-medium text-white backdrop-blur">
                       {p.metric}
                     </div>
                   </div>
                   <div>
-                    <h3 className="font-display text-3xl font-semibold text-[#0a0a0a] md:text-4xl">
+                    <h3 className="font-display text-3xl font-semibold text-white md:text-4xl">
                       {p.title}
                     </h3>
                     <div className="mt-4 flex translate-y-4 items-center gap-3 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-4 py-2 text-xs font-semibold text-white">
                         Ver projeto <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
@@ -1049,7 +1049,7 @@ function Testimonials() {
           </div>
         </Reveal>
         <Reveal delay={0.1} variant="fall">
-          <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+          <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
             Marcas que já vivem no próximo nível.
           </h2>
         </Reveal>
@@ -1066,7 +1066,7 @@ function Testimonials() {
           {[...testimonials, ...testimonials].map((t, i) => (
             <div
               key={i}
-              className="relative w-[360px] shrink-0 overflow-hidden rounded-2xl border border-black/10 bg-black/[0.02] p-7 backdrop-blur-xl"
+              className="relative w-[360px] shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/[0.02] p-7 backdrop-blur-xl"
               style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.05)" }}
             >
               <div className="flex gap-1 text-[#ff6b6b]">
@@ -1074,14 +1074,14 @@ function Testimonials() {
                   <Star key={k} className="h-3.5 w-3.5 fill-current" />
                 ))}
               </div>
-              <p className="mt-5 text-sm leading-relaxed text-black/80">"{t.text}"</p>
+              <p className="mt-5 text-sm leading-relaxed text-white/80">"{t.text}"</p>
               <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#ff1a1a] to-[#b30000] font-display text-sm font-bold text-[#0a0a0a]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#ff1a1a] to-[#b30000] font-display text-sm font-bold text-white">
                   {t.name[0]}
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-[#0a0a0a]">{t.name}</div>
-                  <div className="text-xs text-black/50">{t.company}</div>
+                  <div className="text-sm font-semibold text-white">{t.name}</div>
+                  <div className="text-xs text-white/50">{t.company}</div>
                 </div>
               </div>
             </div>
@@ -1108,15 +1108,15 @@ function Results() {
         </Reveal>
         <Reveal delay={0.1} variant="mask">
 
-          <h2 className="mx-auto max-w-4xl font-display text-5xl leading-[0.95] tracking-[-0.03em] text-[#0a0a0a] md:text-8xl">
-            Não entregamos <span className="italic font-light text-black/50">curtidas.</span>
+          <h2 className="mx-auto max-w-4xl font-display text-5xl leading-[0.95] tracking-[-0.03em] text-white md:text-8xl">
+            Não entregamos <span className="italic font-light text-white/50">curtidas.</span>
             <br />
             Entregamos <span className="bg-gradient-to-r from-[#ff2a2a] to-[#ff6b6b] bg-clip-text text-transparent">crescimento.</span>
           </h2>
         </Reveal>
 
         <div ref={ref} className="relative mx-auto mt-20 max-w-5xl">
-          <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6 backdrop-blur md:p-10">
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-transparent p-6 backdrop-blur md:p-10">
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4 text-xs">
               <div className="flex items-center gap-4">
                 {[
@@ -1124,7 +1124,7 @@ function Results() {
                   ["CTR", "#f97316"],
                   ["ROI", "#10b981"],
                 ].map(([l, c]) => (
-                  <div key={l} className="flex items-center gap-2 text-black/60">
+                  <div key={l} className="flex items-center gap-2 text-white/60">
                     <span className="h-2 w-2 rounded-full" style={{ background: c }} />
                     {l}
                   </div>
@@ -1201,9 +1201,9 @@ function Results() {
                 ["Conversões", "12.4k"],
                 ["Alcance", "5.2M"],
               ].map(([l, v]) => (
-                <div key={l} className="rounded-xl border border-black/5 bg-black/[0.03] p-4 text-left">
-                  <div className="text-[10px] uppercase tracking-widest text-black/50">{l}</div>
-                  <div className="mt-1 font-display text-2xl font-bold text-[#0a0a0a]">{v}</div>
+                <div key={l} className="rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-4 text-left">
+                  <div className="text-[10px] uppercase tracking-widest text-white/50">{l}</div>
+                  <div className="mt-1 font-display text-2xl font-bold text-white">{v}</div>
                 </div>
               ))}
             </div>
@@ -1255,7 +1255,7 @@ function CTA() {
               href="https://wa.me/5500000000000"
               target="_blank"
               rel="noreferrer"
-              className="group relative inline-flex items-center gap-3 rounded-full bg-white px-10 py-6 font-display text-base font-semibold text-[#0a0a0a] md:text-lg"
+              className="group relative inline-flex items-center gap-3 rounded-full bg-[#0a0a0a] px-10 py-6 font-display text-base font-semibold text-white md:text-lg"
               animate={{
                 boxShadow: [
                   "0 0 0 0 rgba(0,0,0,0.4)",
@@ -1285,19 +1285,19 @@ function CTA() {
 /* ------------------------------------------------------------------ */
 function Footer() {
   return (
-    <footer className="relative border-t border-black/5 bg-white py-16">
+    <footer className="relative border-t border-white/5 bg-[#0a0a0a] py-16">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-3 md:px-10">
         <div>
-          <div className="inline-block rounded-2xl bg-white p-3">
+          <div className="inline-block rounded-2xl bg-[#0a0a0a] p-3">
             <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" />
           </div>
-          <p className="mt-6 max-w-xs text-sm leading-relaxed text-black/50">
+          <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
             Marketing estratégico e criativo para marcas que decidiram dominar seu mercado.
           </p>
         </div>
         <div>
-          <div className="text-[11px] uppercase tracking-[0.3em] text-black/50">Navegação</div>
-          <ul className="mt-5 space-y-3 text-sm text-black/70">
+          <div className="text-[11px] uppercase tracking-[0.3em] text-white/50">Navegação</div>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
             {[
               ["Serviços", "#servicos"],
               ["Diferencial", "#diferencial"],
@@ -1314,8 +1314,8 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <div className="text-[11px] uppercase tracking-[0.3em] text-black/50">Contato</div>
-          <ul className="mt-5 space-y-3 text-sm text-black/70">
+          <div className="text-[11px] uppercase tracking-[0.3em] text-white/50">Contato</div>
+          <ul className="mt-5 space-y-3 text-sm text-white/70">
             <li>
               <a
                 href="https://wa.me/5500000000000"
@@ -1347,7 +1347,7 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-black/5 px-6 pt-8 text-xs text-black/50 md:flex-row md:px-10">
+      <div className="mx-auto mt-14 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-white/5 px-6 pt-8 text-xs text-white/50 md:flex-row md:px-10">
         <div>© {new Date().getFullYear()} GR7 Company. Todos os direitos reservados.</div>
         <div className="flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] shadow-[0_0_10px_#ff1a1a]" />
@@ -1369,7 +1369,7 @@ function Manifesto() {
     { text: "É consistência todo santo dia.", red: "consistência" },
   ];
   return (
-    <section id="manifesto" className="relative border-y border-black/5 bg-white py-32 md:py-44">
+    <section id="manifesto" className="relative border-y border-white/5 bg-[#0a0a0a] py-32 md:py-44">
       <div className="mx-auto max-w-6xl px-6 md:px-10">
         <Reveal>
           <div className="mb-10 text-[11px] uppercase tracking-[0.3em] text-[#ff6b6b]">
@@ -1379,7 +1379,7 @@ function Manifesto() {
         <div className="space-y-4 md:space-y-6">
           {lines.map((l, i) => (
             <Reveal key={l.text} delay={i * 0.08} variant="mask">
-              <h2 className="font-display text-3xl leading-[1.05] tracking-[-0.02em] text-[#0a0a0a] md:text-6xl">
+              <h2 className="font-display text-3xl leading-[1.05] tracking-[-0.02em] text-white md:text-6xl">
                 {l.text.split(l.red).map((chunk, idx, arr) => (
                   <span key={idx}>
                     {chunk}
@@ -1393,7 +1393,7 @@ function Manifesto() {
           ))}
         </div>
         <Reveal delay={0.4}>
-          <p className="mt-14 max-w-xl text-sm leading-relaxed text-black/50">
+          <p className="mt-14 max-w-xl text-sm leading-relaxed text-white/50">
             É por isso que a GR7 opera diferente. Nada de improviso, nada de
             "achismo". Cada decisão passa por estratégia, execução e leitura de
             dado — no mesmo time, no mesmo padrão.
@@ -1434,13 +1434,13 @@ function Stack() {
               </div>
             </Reveal>
             <Reveal delay={0.1} variant="fall">
-              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+              <h2 className="max-w-2xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
                 As mesmas ferramentas que as grandes agências usam.
               </h2>
             </Reveal>
           </div>
           <Reveal delay={0.2}>
-            <p className="max-w-sm text-sm leading-relaxed text-black/50">
+            <p className="max-w-sm text-sm leading-relaxed text-white/50">
               Do criativo à mensuração, operamos com o topo de mercado — sem
               atalho, sem improviso.
             </p>
@@ -1450,9 +1450,9 @@ function Stack() {
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
           {stack.map((t, i) => (
             <Reveal key={t.name} delay={i * 0.03} variant="scale">
-              <div className="group flex items-center gap-3 rounded-xl border border-black/10 bg-white px-4 py-4 ring-1 ring-black/5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff1a1a]/40 hover:ring-[#ff1a1a]/20">
-                <t.icon className="h-4 w-4 text-black/70 transition-colors group-hover:text-[#ff1a1a]" />
-                <span className="text-sm font-medium tracking-tight text-[#0a0a0a]">
+              <div className="group flex items-center gap-3 rounded-xl border border-white/10 bg-[#0a0a0a] px-4 py-4 ring-1 ring-white/5 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff1a1a]/40 hover:ring-[#ff1a1a]/20">
+                <t.icon className="h-4 w-4 text-white/70 transition-colors group-hover:text-[#ff1a1a]" />
+                <span className="text-sm font-medium tracking-tight text-white">
                   {t.name}
                 </span>
               </div>
@@ -1498,16 +1498,16 @@ function FAQItem({ item, i }: { item: (typeof faq)[number]; i: number }) {
   const [open, setOpen] = useState(false);
   return (
     <Reveal delay={i * 0.05}>
-      <div className="border-b border-black/10">
+      <div className="border-b border-white/10">
         <button
           onClick={() => setOpen((v) => !v)}
           className="group flex w-full items-center justify-between gap-6 py-6 text-left"
         >
-          <span className="font-display text-lg leading-snug tracking-tight text-[#0a0a0a] md:text-2xl">
+          <span className="font-display text-lg leading-snug tracking-tight text-white md:text-2xl">
             {item.q}
           </span>
           <span
-            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/15 text-black/60 transition-all duration-300 group-hover:border-[#ff1a1a] group-hover:text-[#ff1a1a] ${open ? "rotate-45 border-[#ff1a1a] text-[#ff1a1a]" : ""}`}
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-white/60 transition-all duration-300 group-hover:border-[#ff1a1a] group-hover:text-[#ff1a1a] ${open ? "rotate-45 border-[#ff1a1a] text-[#ff1a1a]" : ""}`}
           >
             <span className="text-lg leading-none">+</span>
           </span>
@@ -1521,7 +1521,7 @@ function FAQItem({ item, i }: { item: (typeof faq)[number]; i: number }) {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="overflow-hidden"
             >
-              <p className="max-w-3xl pb-6 pr-12 text-sm leading-relaxed text-black/60 md:text-base">
+              <p className="max-w-3xl pb-6 pr-12 text-sm leading-relaxed text-white/60 md:text-base">
                 {item.a}
               </p>
             </motion.div>
@@ -1543,7 +1543,7 @@ function FAQ() {
             </div>
           </Reveal>
           <Reveal delay={0.1} variant="fall">
-            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+            <h2 className="max-w-3xl font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
               O que perguntam antes de contratar a GR7.
             </h2>
           </Reveal>
@@ -1572,7 +1572,7 @@ export default function Landing() {
 
   return (
     <div
-      className="relative min-h-screen w-full overflow-x-hidden bg-white font-sans text-[#0a0a0a] antialiased"
+      className="relative min-h-screen w-full overflow-x-hidden bg-[#0a0a0a] font-sans text-white antialiased"
       style={{ cursor: "auto" }}
     >
       <AnimatePresence>

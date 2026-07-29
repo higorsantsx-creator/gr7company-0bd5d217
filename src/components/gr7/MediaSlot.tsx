@@ -33,19 +33,19 @@ function Placeholder({
 }) {
   const Icon = icon === "video" || icon === "reel" ? VideoIcon : ImageIcon;
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-black/[0.04] via-black/[0.02] to-[#ff1a1a]/[0.04]">
+    <div className="absolute inset-0 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-[#ff1a1a]/[0.12]">
       {ornate && (
         <div
           className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
+              "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
       )}
-      <div className="relative z-10 flex flex-col items-center gap-2 text-black/40">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white/70 backdrop-blur">
+      <div className="relative z-10 flex flex-col items-center gap-2 text-white/40">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a]/70 backdrop-blur">
           <Icon className="h-4 w-4" />
         </div>
         {label && (
@@ -147,7 +147,7 @@ export function PhoneFrame({
 }) {
   return (
     <div
-      className={`relative aspect-[9/19.5] w-full rounded-[2.5rem] border border-black/10 bg-black p-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)] ${className}`}
+      className={`relative aspect-[9/19.5] w-full rounded-[2.5rem] border border-white/10 bg-black p-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)] ${className}`}
     >
       <div className="absolute left-1/2 top-2 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
       <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-neutral-900">
@@ -169,7 +169,7 @@ export function NotebookFrame({
 }) {
   return (
     <div className={`relative w-full ${className}`}>
-      <div className="rounded-t-2xl border border-b-0 border-black/15 bg-neutral-900 p-3 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.5)]">
+      <div className="rounded-t-2xl border border-b-0 border-white/15 bg-neutral-900 p-3 shadow-[0_40px_100px_-40px_rgba(0,0,0,0.5)]">
         <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg bg-neutral-800">
           {children}
         </div>
