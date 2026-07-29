@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { MediaSlot, PhoneFrame, NotebookFrame } from "./MediaSlot";
 import gr7Logo from "@/assets/gr7-logo.png";
+import gr7LogoDark from "@/assets/gr7-logo-dark.png";
 import {
   projects,
   reels,
@@ -824,7 +825,7 @@ export function InstagramProfile() {
                 <div className="rounded-full bg-white p-1">
                   <div className="relative h-28 w-28 overflow-hidden rounded-full bg-white md:h-32 md:w-32">
                     <img
-                      src={instagram.avatar.src || gr7Logo}
+                      src={instagram.avatar.src || gr7LogoDark}
                       alt={instagram.avatar.alt}
                       className="absolute inset-0 h-full w-full object-contain p-3"
                     />
