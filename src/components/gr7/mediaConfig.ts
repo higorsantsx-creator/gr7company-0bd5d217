@@ -146,19 +146,14 @@ export interface ClientLogo extends MediaItem {
 }
 
 export const clientLogos: ClientLogo[] = [
-  { name: "Vértice" },
-  { name: "Elva" },
-  { name: "Nova" },
-  { name: "Casa Nord" },
-  { name: "Aro" },
-  { name: "Prisma" },
-  { name: "Bloom" },
-  { name: "Gaia" },
-  { name: "Northstar" },
-  { name: "Kaia" },
-  { name: "Luma" },
-  { name: "Orbit" },
+  { name: "Total Giro" },
+  { name: "Bobby Móveis" },
+  { name: "Shineray" },
+  { name: "JVE Forros" },
+  { name: "Maurício Arts" },
+  { name: "Chalés IA" },
 ];
+
 
 /* ------------------------------------------------------------------ */
 /*  CASES — cards grandes                                              */
