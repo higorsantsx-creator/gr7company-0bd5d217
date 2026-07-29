@@ -61,46 +61,123 @@ function GR7Mark({ className = "h-8" }: { className?: string }) {
 /*  Animated global background — floating blobs + grid + aurora        */
 /* ------------------------------------------------------------------ */
 function AnimatedBackground() {
+  const { scrollYProgress } = useScroll();
+  const yA = useTransform(scrollYProgress, [0, 1], [0, -220]);
+  const yB = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const yC = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const rot = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
-      {/* base wash */}
-      <div className="absolute inset-0 bg-[#0a0a0a]" />
-
-      {/* static red aurora — GPU-friendly transform-only float */}
-      <motion.div
-        className="absolute -left-40 -top-40 h-[46rem] w-[46rem] rounded-full opacity-60 blur-3xl will-change-transform"
-        animate={{ x: [0, 80, 0], y: [0, 40, 0] }}
-        transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          background:
-            "radial-gradient(circle at center, #ff1a1a 0%, transparent 60%)",
-        }}
-      />
-      <motion.div
-        className="absolute -right-40 top-1/2 h-[38rem] w-[38rem] rounded-full opacity-50 blur-3xl will-change-transform"
-        animate={{ x: [0, -60, 0], y: [0, -40, 0] }}
-        transition={{ duration: 34, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          background:
-            "radial-gradient(circle at center, #ff4d4d 0%, transparent 65%)",
-        }}
-      />
-
-      {/* subtle static grid */}
+      {/* deep base */}
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse at 20% 0%, #1a0505 0%, #0a0a0a 45%, #050505 100%)",
+        }}
+      />
+
+      {/* red aurora — drifts with scroll */}
+      <motion.div
+        style={{ y: yA }}
+        className="absolute -left-52 -top-40 h-[52rem] w-[52rem] will-change-transform"
+      >
+        <motion.div
+          className="h-full w-full rounded-full blur-3xl"
+          animate={{ x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            background:
+              "radial-gradient(circle at center, #ff1a1a 0%, rgba(255,26,26,0.25) 35%, transparent 70%)",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        style={{ y: yB }}
+        className="absolute -right-40 top-1/3 h-[42rem] w-[42rem] will-change-transform"
+      >
+        <motion.div
+          className="h-full w-full rounded-full blur-3xl"
+          animate={{ x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            background:
+              "radial-gradient(circle at center, #ff3d3d 0%, rgba(179,0,0,0.35) 40%, transparent 72%)",
+          }}
+        />
+      </motion.div>
+
+      <motion.div
+        style={{ y: yC }}
+        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 will-change-transform"
+      >
+        <motion.div
+          className="h-full w-full rounded-full blur-3xl"
+          animate={{ opacity: [0.3, 0.55, 0.3] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            background:
+              "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
+          }}
+        />
+      </motion.div>
+
+      {/* rotating conic sweep — very subtle, gives sense of motion */}
+      <motion.div
+        style={{ rotate: rot }}
+        className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] will-change-transform"
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background:
+              "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,26,26,0.6) 40deg, transparent 90deg, transparent 180deg, rgba(255,77,77,0.4) 220deg, transparent 270deg)",
+            filter: "blur(60px)",
+          }}
+        />
+      </motion.div>
+
+      {/* precision grid */}
+      <div
+        className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "72px 72px",
+          maskImage:
+            "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 90%)",
         }}
       />
 
-      {/* soft vignette to keep text readable */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.65)_100%)]" />
+      {/* film grain / noise */}
+      <div
+        className="absolute inset-0 opacity-[0.08] mix-blend-overlay"
+        style={{
+          backgroundImage:
+            "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
+          backgroundSize: "220px 220px",
+        }}
+      />
+
+      {/* scan line drifting */}
+      <motion.div
+        className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
+        animate={{ y: ["-10%", "110%"] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
+        }}
+      />
+
+      {/* edge vignette — locks focus */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.85)_100%)]" />
     </div>
   );
 }
+
 
 
 /* ------------------------------------------------------------------ */
