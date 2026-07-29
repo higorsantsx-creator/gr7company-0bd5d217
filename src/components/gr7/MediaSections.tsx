@@ -18,7 +18,6 @@ import {
   MoreHorizontal,
 } from "lucide-react";
 import { MediaSlot, PhoneFrame, NotebookFrame } from "./MediaSlot";
-import gr7Logo from "@/assets/gr7-logo.png";
 import gr7Avatar from "@/assets/gr7-avatar.png";
 import {
   projects,
