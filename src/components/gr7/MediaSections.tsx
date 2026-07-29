@@ -821,8 +821,8 @@ export function InstagramProfile() {
           <div className="p-6 md:p-10">
             <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:gap-12">
               <div className="rounded-full bg-gradient-to-tr from-[#ff1a1a] via-[#ff6b6b] to-[#ff1a1a] p-1">
-                <div className="rounded-full bg-[#0a0a0a] p-1">
-                  <div className="relative h-28 w-28 overflow-hidden rounded-full md:h-32 md:w-32">
+                <div className="rounded-full bg-white p-1">
+                  <div className="relative h-28 w-28 overflow-hidden rounded-full bg-white md:h-32 md:w-32">
                     <img
                       src={instagram.avatar.src || gr7Logo}
                       alt={instagram.avatar.alt}
