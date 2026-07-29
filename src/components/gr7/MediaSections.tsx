@@ -323,7 +323,7 @@ export function ArtsMasonry() {
           kicker="Artes"
           title={
             <>
-              Design que <span className="italic text-white/50">para o feed.</span>
+              Design que <span className="italic text-white/50">impacta as campanhas.</span>
             </>
           }
           lead="Posts, banners, carrosséis, flyers e criativos. Galeria masonry pronta para receber cada arte real."
