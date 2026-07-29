@@ -35,7 +35,7 @@ import logoImg from "@/assets/gr7-logo.png";
 import {
   ProjectsGrid,
   ReelsSection,
-  StoriesRow,
+  
   ArtsMasonry,
   
   CinematicVideo,
@@ -1671,7 +1671,7 @@ export default function Landing() {
           <CinematicVideo />
           <Manifesto />
           <ReelsSection />
-          <StoriesRow />
+          
           <Process />
           <ArtsMasonry />
           <Stack />
