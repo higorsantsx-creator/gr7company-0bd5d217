@@ -113,18 +113,18 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.35 }}
-      className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-white/85 backdrop-blur-xl"
+      className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-[#0a0a0a]/85 backdrop-blur-xl"
     >
       <div className="flex items-center gap-3">
         <div className="relative h-10 w-10">
-          <div className="absolute inset-0 rounded-full border border-black/10" />
+          <div className="absolute inset-0 rounded-full border border-white/10" />
           <motion.div
             className="absolute inset-0 rounded-full border-2 border-transparent border-t-[#ff1a1a]"
             animate={{ rotate: 360 }}
             transition={{ duration: 1, ease: "linear", repeat: Infinity }}
           />
         </div>
-        <span className="text-[11px] uppercase tracking-[0.35em] text-black/50">
+        <span className="text-[11px] uppercase tracking-[0.35em] text-white/50">
           GR7 · Business Intelligence
         </span>
       </div>
@@ -137,14 +137,14 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
             animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
             exit={{ y: -12, opacity: 0, filter: "blur(6px)" }}
             transition={{ duration: 0.35 }}
-            className="text-sm text-black/70"
+            className="text-sm text-white/70"
           >
             {LOADING_PHRASES[idx]}
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="mt-8 h-[3px] w-64 overflow-hidden rounded-full bg-black/10">
+      <div className="mt-8 h-[3px] w-64 overflow-hidden rounded-full bg-[#0a0a0a]/10">
         <motion.div
           className="h-full rounded-full bg-[#ff1a1a]"
           style={{ width: `${progress * 100}%`, boxShadow: "0 0 12px rgba(255,26,26,0.6)" }}
@@ -160,19 +160,19 @@ function LoadingScreen({ onDone }: { onDone: () => void }) {
 function MediaPlaceholder({ label, ratio = "4/5" }: { label?: string; ratio?: string }) {
   return (
     <div
-      className="relative w-full overflow-hidden rounded-xl border border-black/10 bg-gradient-to-br from-black/[0.03] to-[#ff1a1a]/[0.05]"
+      className="relative w-full overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-white/[0.04] to-[#ff1a1a]/[0.18]"
       style={{ aspectRatio: ratio }}
     >
       <div
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
           backgroundSize: "22px 22px",
         }}
       />
       {label && (
-        <div className="absolute bottom-3 left-3 rounded-full border border-black/10 bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-black/60 backdrop-blur">
+        <div className="absolute bottom-3 left-3 rounded-full border border-white/10 bg-[#0a0a0a]/80 px-2.5 py-1 text-[10px] uppercase tracking-widest text-white/60 backdrop-blur">
           {label}
         </div>
       )}
@@ -187,17 +187,17 @@ function GrowthChart({ data }: { data: { label: string; value: number }[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   return (
-    <div ref={ref} className="rounded-2xl border border-black/10 bg-white p-6">
+    <div ref={ref} className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
             / crescimento
           </div>
-          <h4 className="mt-1 font-display text-xl text-[#0a0a0a]">
+          <h4 className="mt-1 font-display text-xl text-white">
             Evolução mensal
           </h4>
         </div>
-        <Sparkles className="h-4 w-4 text-black/30" />
+        <Sparkles className="h-4 w-4 text-white/30" />
       </div>
       <div className="flex h-56 items-end gap-3">
         {data.map((d, i) => (
@@ -210,7 +210,7 @@ function GrowthChart({ data }: { data: { label: string; value: number }[] }) {
                 className="w-full rounded-t-md bg-gradient-to-t from-[#0a0a0a] to-[#ff1a1a]"
               />
             </div>
-            <div className="text-[10px] uppercase tracking-widest text-black/50">
+            <div className="text-[10px] uppercase tracking-widest text-white/50">
               {d.label}
             </div>
           </div>
@@ -241,13 +241,13 @@ function DonutChart({
     return seg;
   });
   return (
-    <div ref={ref} className="rounded-2xl border border-black/10 bg-white p-6">
+    <div ref={ref} className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6">
       <div className="mb-6 flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
             / distribuição
           </div>
-          <h4 className="mt-1 font-display text-xl text-[#0a0a0a]">
+          <h4 className="mt-1 font-display text-xl text-white">
             Peso por frente
           </h4>
         </div>
@@ -287,9 +287,9 @@ function DonutChart({
                   className="h-2.5 w-2.5 rounded-full"
                   style={{ background: d.color }}
                 />
-                <span className="text-[#0a0a0a]">{d.label}</span>
+                <span className="text-white">{d.label}</span>
               </div>
-              <span className="text-black/50">{d.value}%</span>
+              <span className="text-white/50">{d.value}%</span>
             </motion.li>
           ))}
         </ul>
@@ -317,14 +317,14 @@ function ScoreBar({
   return (
     <div ref={ref}>
       <div className="mb-2 flex items-baseline justify-between">
-        <span className={`${large ? "font-display text-lg text-[#0a0a0a]" : "text-sm text-[#0a0a0a]"}`}>
+        <span className={`${large ? "font-display text-lg text-white" : "text-sm text-white"}`}>
           {label}
         </span>
-        <span className={`${large ? "font-display text-2xl text-[#0a0a0a]" : "text-sm text-black/60"}`}>
+        <span className={`${large ? "font-display text-2xl text-white" : "text-sm text-white/60"}`}>
           {inView ? <CountUp value={value} start suffix="/100" /> : "0/100"}
         </span>
       </div>
-      <div className={`overflow-hidden rounded-full bg-black/[0.06] ${large ? "h-2" : "h-1.5"}`}>
+      <div className={`overflow-hidden rounded-full bg-[#0a0a0a]/[0.06] ${large ? "h-2" : "h-1.5"}`}>
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: inView ? `${value}%` : 0 }}
@@ -348,12 +348,12 @@ function KpiCard({ kpi, i }: { kpi: ProjectKPI; i: number }) {
       initial={{ opacity: 0, y: 12, filter: "blur(6px)" }}
       animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{ duration: 0.5, delay: i * 0.04 }}
-      className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-5 ring-1 ring-black/5 transition-all hover:-translate-y-0.5 hover:border-[#ff1a1a]/40 hover:ring-[#ff1a1a]/20"
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] p-5 ring-1 ring-white/5 transition-all hover:-translate-y-0.5 hover:border-[#ff1a1a]/40 hover:ring-[#ff1a1a]/20"
     >
-      <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+      <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
         {kpi.label}
       </div>
-      <div className="mt-3 font-display text-3xl leading-none text-[#0a0a0a] md:text-4xl">
+      <div className="mt-3 font-display text-3xl leading-none text-white md:text-4xl">
         <CountUp
           value={kpi.value}
           decimals={kpi.decimals ?? 0}
@@ -380,18 +380,18 @@ function BeforeAfterSlider({ label }: { label: string }) {
     setPos(Math.max(0, Math.min(100, ((clientX - r.left) / r.width) * 100)));
   };
   return (
-    <div className="rounded-2xl border border-black/10 bg-white p-4">
+    <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-4">
       <div className="mb-3 flex items-center justify-between px-1">
-        <div className="text-[10px] uppercase tracking-[0.3em] text-black/50">
+        <div className="text-[10px] uppercase tracking-[0.3em] text-white/50">
           {label}
         </div>
-        <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-black/40">
+        <div className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-white/40">
           <ArrowLeftRight className="h-3 w-3" /> arraste
         </div>
       </div>
       <div
         ref={boxRef}
-        className="relative aspect-[16/10] w-full select-none overflow-hidden rounded-xl border border-black/10"
+        className="relative aspect-[16/10] w-full select-none overflow-hidden rounded-xl border border-white/10"
         onMouseMove={(e) => e.buttons === 1 && drag(e.clientX)}
         onMouseDown={(e) => drag(e.clientX)}
         onTouchMove={(e) => drag(e.touches[0].clientX)}
@@ -411,20 +411,20 @@ function BeforeAfterSlider({ label }: { label: string }) {
             className="absolute inset-0 opacity-70"
             style={{
               backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.06) 1px, transparent 1px)",
+                "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
               backgroundSize: "20px 20px",
             }}
           />
-          <div className="absolute left-3 top-3 rounded-full border border-black/10 bg-white/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-black/60">
+          <div className="absolute left-3 top-3 rounded-full border border-white/10 bg-[#0a0a0a]/90 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-white/60">
             antes
           </div>
         </div>
         {/* handle */}
         <div
-          className="absolute inset-y-0 z-10 w-[2px] bg-white shadow-[0_0_20px_rgba(255,26,26,0.6)]"
+          className="absolute inset-y-0 z-10 w-[2px] bg-[#0a0a0a] shadow-[0_0_20px_rgba(255,26,26,0.6)]"
           style={{ left: `${pos}%` }}
         >
-          <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-[#ff1a1a] shadow-lg">
+          <div className="absolute left-1/2 top-1/2 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a] text-[#ff1a1a] shadow-lg">
             <ArrowLeftRight className="h-4 w-4" />
           </div>
         </div>
@@ -447,18 +447,18 @@ function TimelineItem({ step, i }: { step: ProjectData["timeline"][number]; i: n
       transition={{ duration: 0.5, delay: i * 0.05 }}
       className="relative mb-8 last:mb-0"
     >
-      <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-black/10 bg-white">
+      <span className="absolute -left-[31px] top-1 flex h-5 w-5 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a]">
         <span className="h-2 w-2 rounded-full bg-[#ff1a1a]" />
       </span>
-      <div className="font-display text-lg text-[#0a0a0a]">{step.title}</div>
-      <div className="mt-1 text-sm text-black/55">{step.detail}</div>
+      <div className="font-display text-lg text-white">{step.title}</div>
+      <div className="mt-1 text-sm text-white/55">{step.detail}</div>
     </motion.li>
   );
 }
 
 function Timeline({ steps }: { steps: ProjectData["timeline"] }) {
   return (
-    <ol className="relative border-l border-black/10 pl-6">
+    <ol className="relative border-l border-white/10 pl-6">
       {steps.map((s, i) => (
         <TimelineItem key={s.title} step={s} i={i} />
       ))}
@@ -480,25 +480,25 @@ function DashboardContent({ data }: { data: ProjectData }) {
     >
       <div className="mx-auto max-w-7xl px-6 py-10 md:px-12 md:py-14">
         {/* CABEÇALHO */}
-        <div className="grid gap-8 border-b border-black/10 pb-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+        <div className="grid gap-8 border-b border-white/10 pb-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div className="min-w-0">
             <div className="mb-4 flex items-center gap-3">
               <img src={gr7Logo} alt="GR7" className="h-8 w-8 rounded-full object-cover" />
-              <span className="text-[10px] uppercase tracking-[0.35em] text-black/40">
+              <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
                 GR7 · relatório de projeto
               </span>
             </div>
-            <h1 className="font-display text-4xl leading-[1.05] tracking-tight text-[#0a0a0a] md:text-6xl">
+            <h1 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
               {data.client}
             </h1>
-            <div className="mt-3 text-sm text-black/60">{data.category}</div>
+            <div className="mt-3 text-sm text-white/60">{data.category}</div>
           </div>
           <div className="flex flex-wrap items-end gap-8 text-sm">
             <div>
-              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-black/40">
+              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-white/40">
                 Status
               </div>
-              <div className="flex items-center gap-2 font-medium text-[#0a0a0a]">
+              <div className="flex items-center gap-2 font-medium text-white">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inset-0 animate-ping rounded-full bg-[#ff1a1a] opacity-60" />
                   <span className="relative h-2 w-2 rounded-full bg-[#ff1a1a]" />
@@ -507,16 +507,16 @@ function DashboardContent({ data }: { data: ProjectData }) {
               </div>
             </div>
             <div>
-              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-black/40">
+              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-white/40">
                 <Clock3 className="mr-1 inline h-3 w-3" /> Execução
               </div>
-              <div className="font-medium text-[#0a0a0a]">{data.duration}</div>
+              <div className="font-medium text-white">{data.duration}</div>
             </div>
             <div>
-              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-black/40">
+              <div className="mb-1 text-[10px] uppercase tracking-[0.3em] text-white/40">
                 <CalendarDays className="mr-1 inline h-3 w-3" /> Cliente desde
               </div>
-              <div className="font-medium text-[#0a0a0a]">{data.clientSince}</div>
+              <div className="font-medium text-white">{data.clientSince}</div>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-[#ff1a1a]/30 bg-[#ff1a1a]/[0.06] px-3 py-1.5 text-xs font-medium text-[#ff1a1a]">
               <ShieldCheck className="h-3.5 w-3.5" />
@@ -531,11 +531,11 @@ function DashboardContent({ data }: { data: ProjectData }) {
             <div className="mb-3 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
               / objetivo
             </div>
-            <h2 className="font-display text-2xl leading-tight text-[#0a0a0a]">
+            <h2 className="font-display text-2xl leading-tight text-white">
               O que buscávamos entregar
             </h2>
           </div>
-          <p className="text-base leading-relaxed text-black/70 md:text-lg">
+          <p className="text-base leading-relaxed text-white/70 md:text-lg">
             {data.summary}
           </p>
         </section>
@@ -547,7 +547,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
               <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
                 / kpis
               </div>
-              <h2 className="font-display text-3xl text-[#0a0a0a] md:text-4xl">
+              <h2 className="font-display text-3xl text-white md:text-4xl">
                 Resultados que importam
               </h2>
             </div>
@@ -561,19 +561,19 @@ function DashboardContent({ data }: { data: ProjectData }) {
 
         {/* PERFORMANCE */}
         <section className="mt-16 grid gap-6 lg:grid-cols-[1.2fr_1fr]">
-          <div className="rounded-2xl border border-black/10 bg-white p-8">
+          <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-8">
             <div className="mb-6 flex items-baseline justify-between">
               <div>
                 <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
                   / performance geral
                 </div>
-                <h3 className="font-display text-2xl text-[#0a0a0a]">
+                <h3 className="font-display text-2xl text-white">
                   Nota do projeto
                 </h3>
               </div>
-              <div className="font-display text-5xl text-[#0a0a0a] md:text-6xl">
+              <div className="font-display text-5xl text-white md:text-6xl">
                 <CountUp value={data.overallScore} start />
-                <span className="text-2xl text-black/40">/100</span>
+                <span className="text-2xl text-white/40">/100</span>
               </div>
             </div>
             <ScoreBar label="Performance geral" value={data.overallScore} large />
@@ -581,8 +581,8 @@ function DashboardContent({ data }: { data: ProjectData }) {
               {data.scores.map((s, i) => (
                 <ScoreBar key={s.label} label={s.label} value={s.value} delay={i * 0.05} />
               ))}
-              <div className="sm:col-span-2 flex items-center justify-between border-t border-black/5 pt-5">
-                <span className="text-sm text-[#0a0a0a]">Satisfação</span>
+              <div className="sm:col-span-2 flex items-center justify-between border-t border-white/5 pt-5">
+                <span className="text-sm text-white">Satisfação</span>
                 <div className="flex gap-1">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <Star
@@ -590,7 +590,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
                       className={`h-4 w-4 ${
                         i <= data.satisfaction
                           ? "fill-[#ff1a1a] text-[#ff1a1a]"
-                          : "text-black/20"
+                          : "text-white/20"
                       }`}
                     />
                   ))}
@@ -606,12 +606,12 @@ function DashboardContent({ data }: { data: ProjectData }) {
         {/* DISTRIBUIÇÃO + BEFORE/AFTER */}
         <section className="mt-8 grid gap-6 lg:grid-cols-2">
           <DonutChart data={data.distribution} />
-          <div className="rounded-2xl border border-black/10 bg-white p-6">
+          <div className="rounded-2xl border border-white/10 bg-[#0a0a0a] p-6">
             <div className="mb-6">
               <div className="text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
                 / antes × depois
               </div>
-              <h4 className="mt-1 font-display text-xl text-[#0a0a0a]">
+              <h4 className="mt-1 font-display text-xl text-white">
                 A virada visual
               </h4>
             </div>
@@ -629,14 +629,14 @@ function DashboardContent({ data }: { data: ProjectData }) {
             <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
               / galeria
             </div>
-            <h2 className="font-display text-3xl text-[#0a0a0a] md:text-4xl">
+            <h2 className="font-display text-3xl text-white md:text-4xl">
               Mídias do projeto
             </h2>
           </div>
           <div className="columns-2 gap-4 space-y-4 md:columns-3">
             {data.gallery.map((g, i) => {
               const inner = g.src ? (
-                <div className="relative w-full overflow-hidden rounded-2xl ring-1 ring-black/10" style={{ aspectRatio: g.aspect ?? "9/16" }}>
+                <div className="relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10" style={{ aspectRatio: g.aspect ?? "9/16" }}>
                   <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   {g.label && (
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white">
@@ -672,7 +672,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
               <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
                 / linha do tempo
               </div>
-              <h2 className="font-display text-3xl text-[#0a0a0a] md:text-4xl">
+              <h2 className="font-display text-3xl text-white md:text-4xl">
                 Como o projeto rodou
               </h2>
             </div>
@@ -683,7 +683,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
               <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-[#ff1a1a]">
                 / entregas
               </div>
-              <h2 className="font-display text-3xl text-[#0a0a0a] md:text-4xl">
+              <h2 className="font-display text-3xl text-white md:text-4xl">
                 O que a GR7 entregou
               </h2>
             </div>
@@ -695,7 +695,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 0.4, delay: i * 0.04 }}
-                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-[#0a0a0a] ring-1 ring-black/5"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[#0a0a0a] px-4 py-2 text-sm text-white ring-1 ring-white/5"
                 >
                   <Check className="h-3.5 w-3.5 text-[#ff1a1a]" />
                   {d}
@@ -703,16 +703,16 @@ function DashboardContent({ data }: { data: ProjectData }) {
               ))}
             </div>
 
-            <div className="mt-10 rounded-2xl border border-black/10 bg-gradient-to-br from-white to-[#faf7f5] p-4">
-              <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-black/40">
+            <div className="mt-10 rounded-2xl border border-white/10 bg-gradient-to-br from-[#0a0a0a] to-[#141414] p-4">
+              <div className="mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/40">
                 <Layers className="h-3 w-3" /> stack aplicada
               </div>
-              <div className="flex flex-wrap gap-2 text-[11px] text-black/60">
+              <div className="flex flex-wrap gap-2 text-[11px] text-white/60">
                 {["Meta Ads", "Google Ads", "GA4", "Looker", "Figma", "Notion"].map(
                   (t) => (
                     <span
                       key={t}
-                      className="rounded-md border border-black/10 bg-white px-2 py-1"
+                      className="rounded-md border border-white/10 bg-[#0a0a0a] px-2 py-1"
                     >
                       {t}
                     </span>
@@ -730,10 +730,10 @@ function DashboardContent({ data }: { data: ProjectData }) {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.7 }}
-            className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/60 p-10 backdrop-blur-xl md:p-14"
+            className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a]/60 p-10 backdrop-blur-xl md:p-14"
           >
             <Quote className="absolute right-8 top-8 h-12 w-12 text-[#ff1a1a]/15" />
-            <p className="font-display text-2xl leading-snug text-[#0a0a0a] md:text-3xl">
+            <p className="font-display text-2xl leading-snug text-white md:text-3xl">
               "{data.testimonial.quote}"
             </p>
             <div className="mt-8 flex items-center gap-4">
@@ -745,8 +745,8 @@ function DashboardContent({ data }: { data: ProjectData }) {
                   .join("")}
               </div>
               <div>
-                <div className="font-medium text-[#0a0a0a]">{data.testimonial.name}</div>
-                <div className="text-xs text-black/50">
+                <div className="font-medium text-white">{data.testimonial.name}</div>
+                <div className="text-xs text-white/50">
                   {data.testimonial.role} · {data.testimonial.company}
                 </div>
               </div>
@@ -754,7 +754,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
           </motion.blockquote>
         </section>
 
-        <div className="mt-16 flex items-center justify-between border-t border-black/10 pt-6 text-[10px] uppercase tracking-[0.35em] text-black/40">
+        <div className="mt-16 flex items-center justify-between border-t border-white/10 pt-6 text-[10px] uppercase tracking-[0.35em] text-white/40">
           <span>GR7 · relatório confidencial</span>
           <span>Gerado por GR7 BI</span>
         </div>
@@ -807,7 +807,7 @@ export function ProjectDashboard({
         >
           {/* backdrop desfocado */}
           <motion.div
-            className="absolute inset-0 bg-white/60 backdrop-blur-xl"
+            className="absolute inset-0 bg-[#0a0a0a]/60 backdrop-blur-xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -817,13 +817,13 @@ export function ProjectDashboard({
           {/* painel — cresce como se fosse o próprio card */}
           <motion.div
             layoutId={`project-card-${data.slug}`}
-            className="absolute inset-4 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_60px_120px_-40px_rgba(0,0,0,0.35)] md:inset-8"
+            className="absolute inset-4 overflow-hidden rounded-3xl border border-white/10 bg-[#0a0a0a] shadow-[0_60px_120px_-40px_rgba(0,0,0,0.35)] md:inset-8"
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* botão fechar */}
             <button
               onClick={onClose}
-              className="absolute right-4 top-4 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-white/80 text-black/60 backdrop-blur transition-all hover:border-[#ff1a1a] hover:text-[#ff1a1a]"
+              className="absolute right-4 top-4 z-40 flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a]/80 text-white/60 backdrop-blur transition-all hover:border-[#ff1a1a] hover:text-[#ff1a1a]"
               aria-label="Fechar"
             >
               <X className="h-4 w-4" />
