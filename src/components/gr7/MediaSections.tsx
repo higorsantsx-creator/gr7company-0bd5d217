@@ -110,7 +110,7 @@ export function ProjectsGrid() {
             return (
               <div
                 key={i}
-                className="min-w-0"
+                className="bento-card min-w-0"
                 style={{
                   gridColumn: pos.col,
                   gridRow: pos.row,
