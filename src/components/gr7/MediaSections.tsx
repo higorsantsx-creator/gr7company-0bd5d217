@@ -91,11 +91,10 @@ export function ProjectsGrid() {
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const isLarge = i % 5 === 0;
-            const isShineray = i === 5;
             return (
               <div
                 key={i}
-                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""} ${isShineray ? "-translate-y-24 sm:-translate-y-32 lg:-translate-y-40" : ""}`}
+                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""}`}
                 style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
                 <motion.button
