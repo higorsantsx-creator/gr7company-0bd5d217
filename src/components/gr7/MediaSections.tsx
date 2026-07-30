@@ -100,7 +100,7 @@ export function ProjectsGrid() {
           {/* Coluna esquerda — Total Giro e Shineray empilhados com gap uniforme */}
           <div className="grid grid-cols-1 gap-5">
             {largeItems.map(({ p, i, data }) => (
-              <div key={i} style={{ aspectRatio: "1 / 1" }}>
+              <div key={i} style={{ aspectRatio: "5 / 4" }}>
                 <motion.button
                   type="button"
                   onClick={() => data && setActive(data)}
@@ -185,7 +185,7 @@ export function ProjectsGrid() {
               <div
                 key={i}
                 className={`${isLarge ? "sm:col-span-2" : ""}`}
-                style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
+                style={{ aspectRatio: isLarge ? "5 / 4" : "4 / 5" }}
               >
                 <motion.button
                   type="button"
