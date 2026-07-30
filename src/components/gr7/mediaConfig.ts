@@ -40,7 +40,7 @@ export const projects: ProjectCard[] = [
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
-  { client: "Prisma Advogados", category: "Site · SEO", src: "" },
+  { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
   { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: "" },
 ];
