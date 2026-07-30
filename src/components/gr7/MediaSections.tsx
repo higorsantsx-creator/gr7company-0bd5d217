@@ -87,7 +87,7 @@ export function ProjectsGrid() {
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-2 auto-rows-fr sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const isLarge = i % 5 === 0;
@@ -95,7 +95,7 @@ export function ProjectsGrid() {
               <div
                 key={i}
                 className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""}`}
-                style={{ aspectRatio: isLarge ? undefined : "4 / 5" }}
+                style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
                 <motion.button
                   type="button"
