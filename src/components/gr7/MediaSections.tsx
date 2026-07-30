@@ -73,6 +73,14 @@ function SectionHead({
 /* ================================================================== */
 export function ProjectsGrid() {
   const [active, setActive] = useState<ProjectData | null>(null);
+
+  const largeItems = projects
+    .map((p, i) => ({ p, i, data: projectDataset[i] }))
+    .filter(({ i }) => i % 5 === 0);
+  const smallItems = projects
+    .map((p, i) => ({ p, i, data: projectDataset[i] }))
+    .filter(({ i }) => i % 5 !== 0);
+
   return (
     <section id="projetos" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
@@ -87,14 +95,96 @@ export function ProjectsGrid() {
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-x-5 gap-y-1 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Desktop: primeira coluna independente (grande) + coluna direita (pequenos) */}
+        <div className="mt-16 hidden grid-cols-1 gap-5 lg:grid lg:grid-cols-2">
+          {/* Coluna esquerda — Total Giro e Shineray empilhados com gap uniforme */}
+          <div className="grid grid-cols-1 gap-5">
+            {largeItems.map(({ p, i, data }) => (
+              <div key={i} style={{ aspectRatio: "1 / 1" }}>
+                <motion.button
+                  type="button"
+                  onClick={() => data && setActive(data)}
+                  layoutId={data ? `project-card-${data.slug}` : undefined}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ margin: "-80px" }}
+                  transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
+                  className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
+                >
+                  <MediaSlot
+                    src={p.src}
+                    kind={p.kind}
+                    alt={`${p.client} — ${p.category}`}
+                    className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                    label={p.category}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      {p.category}
+                    </div>
+                    <div className="mt-1 font-display text-xl text-white">{p.client}</div>
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-4 py-2 text-xs font-semibold text-white">
+                      Ver relatório <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                  <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
+                    {p.category.split("·")[0].trim()}
+                  </div>
+                </motion.button>
+              </div>
+            ))}
+          </div>
+
+          {/* Coluna direita — 6 cards pequenos em grid 2x3 */}
+          <div className="grid grid-cols-2 gap-5">
+            {smallItems.map(({ p, i, data }) => (
+              <div key={i} style={{ aspectRatio: "4 / 5" }}>
+                <motion.button
+                  type="button"
+                  onClick={() => data && setActive(data)}
+                  layoutId={data ? `project-card-${data.slug}` : undefined}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ margin: "-80px" }}
+                  transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
+                  className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
+                >
+                  <MediaSlot
+                    src={p.src}
+                    kind={p.kind}
+                    alt={`${p.client} — ${p.category}`}
+                    className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                    label={p.category}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-white/70">
+                      {p.category}
+                    </div>
+                    <div className="mt-1 font-display text-xl text-white">{p.client}</div>
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#0a0a0a] px-4 py-2 text-xs font-semibold text-white">
+                      Ver relatório <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                  <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
+                    {p.category.split("·")[0].trim()}
+                  </div>
+                </motion.button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile/Tablet: grid original adaptativo */}
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:hidden">
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const isLarge = i % 5 === 0;
             return (
               <div
                 key={i}
-                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""} ${isLarge && i === 5 ? "-translate-y-1" : ""}`}
+                className={`${isLarge ? "sm:col-span-2" : ""}`}
                 style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
                 <motion.button
@@ -114,7 +204,6 @@ export function ProjectsGrid() {
                     className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
                     label={p.category}
                   />
-                  {/* overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
                     <div className="text-[10px] uppercase tracking-[0.3em] text-white/70">
@@ -125,7 +214,6 @@ export function ProjectsGrid() {
                       Ver relatório <ArrowRight className="h-3.5 w-3.5" />
                     </div>
                   </div>
-                  {/* corner meta always visible */}
                   <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
                     {p.category.split("·")[0].trim()}
                   </div>
