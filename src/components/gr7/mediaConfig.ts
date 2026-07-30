@@ -36,11 +36,11 @@ export interface ProjectCard extends MediaItem {
 
 export const projects: ProjectCard[] = [
   { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.png", import.meta.url).href },
-  { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
+  { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
   { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: "" },
 ];
