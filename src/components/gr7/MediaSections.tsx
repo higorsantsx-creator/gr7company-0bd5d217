@@ -91,7 +91,6 @@ export function ProjectsGrid() {
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const isLarge = i % 5 === 0;
-            const isShineray = i === 5;
             return (
               <div
                 key={i}
