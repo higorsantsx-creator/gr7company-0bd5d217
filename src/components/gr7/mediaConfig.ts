@@ -172,21 +172,21 @@ export const cases: CaseItem[] = [
     problem: "Baixa geração de leads qualificados no mercado premium.",
     strategy: "Reposicionamento de marca + funil de Meta Ads segmentado.",
     result: "+380% em vendas em 90 dias.",
-    src: "",
+    src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href,
   },
   {
     client: "Elva Cosméticos",
     problem: "Presença digital fraca e engajamento estagnado.",
     strategy: "Direção criativa completa com 32 Reels por mês.",
     result: "1.2M de alcance orgânico em 4 meses.",
-    src: "",
+    src: new URL("../../assets/instagram/post-03.jpg", import.meta.url).href,
   },
   {
     client: "Nova Corretora",
     problem: "CAC alto e ROI negativo em campanhas pagas.",
     strategy: "Auditoria + reestruturação de Google Ads e landing pages.",
     result: "CAC reduzido em 62%, ROI 7,3x.",
-    src: "",
+    src: new URL("../../assets/instagram/post-06.jpg", import.meta.url).href,
   },
 ];
 
