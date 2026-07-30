@@ -102,7 +102,15 @@ export function ProjectsGrid() {
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
         />
 
-        <div className="mt-16 grid grid-cols-4 gap-5 [grid-auto-rows:minmax(0,auto)]">
+        <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:[grid-auto-rows:minmax(0,auto)]">
+          <style>{`
+            @media (max-width: 1023px) {
+              .bento-card {
+                grid-column: auto !important;
+                grid-row: auto !important;
+              }
+            }
+          `}</style>
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const pos = bento[i];
