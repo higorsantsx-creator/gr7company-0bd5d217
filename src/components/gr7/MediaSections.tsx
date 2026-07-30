@@ -102,7 +102,7 @@ export function ProjectsGrid() {
                 transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                 className={`group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left ${
                   i % 5 === 0 ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""
-                } ${i > 0 && i % 5 === 0 ? "sm:-mt-10 lg:-mt-14" : ""}`}
+                }`}
                 style={{ aspectRatio: i % 5 === 0 ? "1 / 1" : "4 / 5" }}
               >
                 <MediaSlot
