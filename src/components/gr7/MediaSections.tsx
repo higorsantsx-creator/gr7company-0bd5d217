@@ -95,7 +95,7 @@ export function ProjectsGrid() {
             return (
               <div
                 key={i}
-                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""} ${isShineray ? "-translate-y-8 sm:-translate-y-10 lg:-translate-y-14" : ""}`}
+                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""} ${isShineray ? "-translate-y-16 sm:-translate-y-20 lg:-translate-y-28" : ""}`}
                 style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
                 <motion.button
