@@ -87,7 +87,7 @@ export function ProjectsGrid() {
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-x-5 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid grid-cols-1 gap-x-5 gap-y-px sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((p, i) => {
             const data = projectDataset[i];
             const isLarge = i % 5 === 0;
