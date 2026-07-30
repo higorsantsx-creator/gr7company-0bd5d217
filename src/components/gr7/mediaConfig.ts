@@ -36,23 +36,23 @@ export interface ProjectCard extends MediaItem {
 
 export const projects: ProjectCard[] = [
   { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.png", import.meta.url).href },
-  { client: "Elva Cosméticos", category: "Social · Reels", src: new URL("../../assets/instagram/post-01.jpg", import.meta.url).href },
-  { client: "Nova Corretora", category: "Performance · Google Ads", src: new URL("../../assets/instagram/post-03.jpg", import.meta.url).href },
-  { client: "Casa Nord", category: "Identidade Visual", src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href },
-  { client: "Restaurante Aro", category: "Vídeo · Captação", src: new URL("../../assets/instagram/post-05.jpg", import.meta.url).href },
-  { client: "Prisma Advogados", category: "Site · SEO", src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href },
-  { client: "Bloom Skincare", category: "Direção Criativa", src: new URL("../../assets/instagram/post-07.jpg", import.meta.url).href },
-  { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href },
+  { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
+  { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
+  { client: "Casa Nord", category: "Identidade Visual", src: "" },
+  { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
+  { client: "Prisma Advogados", category: "Site · SEO", src: "" },
+  { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
+  { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: "" },
 ];
 
 /* ------------------------------------------------------------------ */
 /*  REELS — feed vertical em smartphones                              */
 /* ------------------------------------------------------------------ */
 export const reels: MediaItem[] = [
-  { kind: "image", src: new URL("../../assets/instagram/post-02.jpg", import.meta.url).href },
-  { kind: "image", src: new URL("../../assets/instagram/post-04.jpg", import.meta.url).href },
-  { kind: "image", src: new URL("../../assets/instagram/post-06.jpg", import.meta.url).href },
-  { kind: "image", src: new URL("../../assets/instagram/post-08.jpg", import.meta.url).href },
+  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "", poster: "" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -83,16 +83,16 @@ export interface ArtItem extends MediaItem {
 }
 
 export const arts: ArtItem[] = [
-  { aspect: "tall", label: "Post feed", src: new URL("../../assets/instagram/post-09.jpg", import.meta.url).href },
-  { aspect: "square", label: "Carrossel 01", src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href },
-  { aspect: "wide", label: "Banner site", src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href },
-  { aspect: "portrait", label: "Story anúncio", src: new URL("../../assets/instagram/post-10.jpg", import.meta.url).href },
-  { aspect: "square", label: "Criativo Meta", src: new URL("../../assets/projects/totalgiro/atendimento-01.jpg", import.meta.url).href },
-  { aspect: "tall", label: "Flyer", src: new URL("../../assets/instagram/post-11.jpg", import.meta.url).href },
-  { aspect: "wide", label: "Header e-mail", src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href },
-  { aspect: "portrait", label: "Reel cover", src: new URL("../../assets/instagram/post-12.jpg", import.meta.url).href },
-  { aspect: "square", label: "Post branding", src: new URL("../../assets/projects/totalgiro/bastidores.jpg", import.meta.url).href },
-  { aspect: "tall", label: "Print anúncio", src: new URL("../../assets/instagram/post-01.jpg", import.meta.url).href },
+  { aspect: "tall", label: "Post feed", src: "" },
+  { aspect: "square", label: "Carrossel 01", src: "" },
+  { aspect: "wide", label: "Banner site", src: "" },
+  { aspect: "portrait", label: "Story anúncio", src: "" },
+  { aspect: "square", label: "Criativo Meta", src: "" },
+  { aspect: "tall", label: "Flyer", src: "" },
+  { aspect: "wide", label: "Header e-mail", src: "" },
+  { aspect: "portrait", label: "Reel cover", src: "" },
+  { aspect: "square", label: "Post branding", src: "" },
+  { aspect: "tall", label: "Print anúncio", src: "" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -114,9 +114,9 @@ export const identity = {
 /*  VÍDEO CINEMATOGRÁFICO — hero fullscreen                            */
 /* ------------------------------------------------------------------ */
 export const cinematic: MediaItem = {
-  kind: "image",
-  src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href,
-  poster: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href,
+  kind: "video",
+  src: "",
+  poster: "",
   alt: "Reel institucional GR7",
 };
 
@@ -129,13 +129,13 @@ export interface BackstageItem extends MediaItem {
 }
 
 export const backstage: BackstageItem[] = [
-  { span: "lg", label: "Captação Drone", src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href },
-  { span: "sm", label: "Set fotográfico", src: new URL("../../assets/projects/totalgiro/perto.jpg", import.meta.url).href },
-  { span: "md", label: "Reunião estratégia", src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href },
-  { span: "sm", label: "Making of", src: new URL("../../assets/projects/totalgiro/bastidores.jpg", import.meta.url).href },
-  { span: "xl", label: "Equipe GR7", src: new URL("../../assets/projects/totalgiro/atendimento-01.jpg", import.meta.url).href },
-  { span: "md", label: "Bastidores Reels", src: new URL("../../assets/projects/totalgiro/atendimento-02.jpg", import.meta.url).href },
-  { span: "sm", label: "Estúdio", src: new URL("../../assets/projects/totalgiro/loja-02.jpg", import.meta.url).href },
+  { span: "lg", label: "Captação Drone", src: "" },
+  { span: "sm", label: "Set fotográfico", src: "" },
+  { span: "md", label: "Reunião estratégia", src: "" },
+  { span: "sm", label: "Making of", src: "" },
+  { span: "xl", label: "Equipe GR7", src: "" },
+  { span: "md", label: "Bastidores Reels", src: "" },
+  { span: "sm", label: "Estúdio", src: "" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -172,21 +172,21 @@ export const cases: CaseItem[] = [
     problem: "Baixa geração de leads qualificados no mercado premium.",
     strategy: "Reposicionamento de marca + funil de Meta Ads segmentado.",
     result: "+380% em vendas em 90 dias.",
-    src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href,
+    src: "",
   },
   {
     client: "Elva Cosméticos",
     problem: "Presença digital fraca e engajamento estagnado.",
     strategy: "Direção criativa completa com 32 Reels por mês.",
     result: "1.2M de alcance orgânico em 4 meses.",
-    src: new URL("../../assets/instagram/post-03.jpg", import.meta.url).href,
+    src: "",
   },
   {
     client: "Nova Corretora",
     problem: "CAC alto e ROI negativo em campanhas pagas.",
     strategy: "Auditoria + reestruturação de Google Ads e landing pages.",
     result: "CAC reduzido em 62%, ROI 7,3x.",
-    src: new URL("../../assets/instagram/post-06.jpg", import.meta.url).href,
+    src: "",
   },
 ];
 
@@ -198,10 +198,10 @@ export interface DashboardItem extends MediaItem {
 }
 
 export const dashboards: DashboardItem[] = [
-  { label: "Meta Ads Manager", src: new URL("../../assets/dashboards/dash-01.jpg", import.meta.url).href },
-  { label: "Google Analytics", src: new URL("../../assets/dashboards/dash-02.jpg", import.meta.url).href },
-  { label: "CRM GR7", src: new URL("../../assets/dashboards/dash-03.jpg", import.meta.url).href },
-  { label: "Relatório mensal", src: new URL("../../assets/dashboards/dash-04.jpg", import.meta.url).href },
+  { label: "Meta Ads Manager", src: "" },
+  { label: "Google Analytics", src: "" },
+  { label: "CRM GR7", src: "" },
+  { label: "Relatório mensal", src: "" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -260,15 +260,4 @@ export const instagram = {
 /* ------------------------------------------------------------------ */
 /*  GR7 EM AÇÃO — colagem cinematográfica final                        */
 /* ------------------------------------------------------------------ */
-export const inAction: MediaItem[] = [
-  { src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href },
-  { src: new URL("../../assets/instagram/post-02.jpg", import.meta.url).href },
-  { src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href },
-  { src: new URL("../../assets/instagram/post-04.jpg", import.meta.url).href },
-  { src: new URL("../../assets/projects/totalgiro/atendimento-01.jpg", import.meta.url).href },
-  { src: new URL("../../assets/instagram/post-06.jpg", import.meta.url).href },
-  { src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href },
-  { src: new URL("../../assets/instagram/post-08.jpg", import.meta.url).href },
-  { src: new URL("../../assets/projects/totalgiro/bastidores.jpg", import.meta.url).href },
-  { src: new URL("../../assets/instagram/post-10.jpg", import.meta.url).href },
-];
+export const inAction: MediaItem[] = Array.from({ length: 10 }).map(() => ({ src: "" }));
