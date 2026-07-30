@@ -95,7 +95,7 @@ export function ProjectsGrid() {
               <div
                 key={i}
                 className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""}`}
-                style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
+                style={{ aspectRatio: "4 / 5" }}
               >
                 <motion.button
                   type="button"
