@@ -69,25 +69,10 @@ function SectionHead({
 }
 
 /* ================================================================== */
-/*  1. PROJECTS GRID — bento organizado com posicionamento explícito   */
+/*  1. PROJECTS GRID — "Alguns projetos que falam por nós"             */
 /* ================================================================== */
 export function ProjectsGrid() {
   const [active, setActive] = useState<ProjectData | null>(null);
-
-  /* Layout bento 4x4: 2 cards grandes nos cantos + 6 pequenos preenchendo.
-   * Posicionamento explícito evita buracos no meio e deixa o grid visualmente
-   * equilibrado em qualquer resolução. */
-  const bento = [
-    { col: "1 / 3", row: "1 / 3", aspect: "1 / 1" },      // 0 — Total Giro
-    { col: "3 / 4", row: "1 / 2", aspect: "4 / 5" },      // 1 — Elva
-    { col: "4 / 5", row: "1 / 2", aspect: "4 / 5" },      // 2 — Nova Corretora
-    { col: "3 / 4", row: "2 / 3", aspect: "4 / 5" },      // 3 — Casa Nord
-    { col: "4 / 5", row: "2 / 3", aspect: "4 / 5" },      // 4 — Restaurante Aro
-    { col: "3 / 5", row: "3 / 5", aspect: "1 / 1" },      // 5 — Shineray
-    { col: "1 / 2", row: "3 / 4", aspect: "4 / 5" },      // 6 — Bloom Skincare
-    { col: "2 / 3", row: "3 / 4", aspect: "4 / 5" },      // 7 — Ateliê Gaia
-  ];
-
   return (
     <section id="projetos" className="relative py-32 md:py-40">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
@@ -102,28 +87,15 @@ export function ProjectsGrid() {
           lead="Cada card abre um relatório interativo com KPIs, gráficos, timeline e depoimento — como se você entrasse no painel BI da GR7."
         />
 
-        <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4 lg:[grid-auto-rows:minmax(0,auto)]">
-          <style>{`
-            @media (max-width: 1023px) {
-              .bento-card {
-                grid-column: auto !important;
-                grid-row: auto !important;
-              }
-            }
-          `}</style>
+        <div className="mt-16 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {projects.map((p, i) => {
             const data = projectDataset[i];
-            const pos = bento[i];
-            if (!pos) return null;
+            const isLarge = i % 5 === 0;
             return (
               <div
                 key={i}
-                className="bento-card min-w-0"
-                style={{
-                  gridColumn: pos.col,
-                  gridRow: pos.row,
-                  aspectRatio: pos.aspect,
-                }}
+                className={`${isLarge ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""}`}
+                style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
                 <motion.button
                   type="button"
@@ -167,7 +139,6 @@ export function ProjectsGrid() {
     </section>
   );
 }
-
 
 
 /* ================================================================== */
