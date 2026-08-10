@@ -93,44 +93,44 @@ export function MediaSlot({
       </AnimatePresence>
 
       {src && kind === "video" && (
-        <motion.video
-          className="h-full w-full object-cover"
+        <video
+          className="h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: loaded ? 1 : 0 }}
           src={src}
           poster={poster}
           autoPlay
           muted
           loop
           playsInline
+          preload="metadata"
           onLoadedData={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
         />
       )}
 
       {src && kind !== "video" && (
-        <motion.img
-          className="h-full w-full object-cover"
+        <img
+          className="h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: loaded ? 1 : 0 }}
           src={src}
           alt={alt ?? ""}
+          loading="lazy"
+          decoding="async"
           onLoad={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
         />
       )}
 
       {!src && poster && (
-        <motion.img
-          className="h-full w-full object-cover"
+        <img
+          className="h-full w-full object-cover transition-opacity duration-500"
+          style={{ opacity: loaded ? 1 : 0 }}
           src={poster}
           alt={alt ?? ""}
+          loading="lazy"
+          decoding="async"
           onLoad={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
         />
       )}
+
     </div>
   );
 }
