@@ -3,7 +3,7 @@
  * Cada seção consome dados de `mediaConfig.ts` e usa `MediaSlot`
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
@@ -36,9 +36,7 @@ import {
   inAction,
 } from "./mediaConfig";
 import { projectDataset, type ProjectData } from "./projectData";
-const ProjectDashboard = lazy(() =>
-  import("./ProjectDashboard").then((m) => ({ default: m.ProjectDashboard })),
-);
+import { ProjectDashboard } from "./ProjectDashboard";
 
 
 /* ------------------------------------------------------------------ */
@@ -225,11 +223,7 @@ export function ProjectsGrid() {
           })}
         </div>
       </div>
-      {active && (
-        <Suspense fallback={null}>
-          <ProjectDashboard data={active} onClose={() => setActive(null)} />
-        </Suspense>
-      )}
+      <ProjectDashboard data={active} onClose={() => setActive(null)} />
     </section>
   );
 }
@@ -699,7 +693,7 @@ export function ClientsMarquee() {
               className="flex h-24 w-56 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0a0a0a]"
             >
               {c.src ? (
-                <img src={c.src} alt={c.name} loading="lazy" decoding="async" className="max-h-12 max-w-[70%] object-contain" />
+                <img src={c.src} alt={c.name} className="max-h-12 max-w-[70%] object-contain" />
               ) : (
                 <span className="font-display text-xl uppercase tracking-widest text-white/60">
                   {c.name}
@@ -924,8 +918,6 @@ export function InstagramProfile() {
                     <img
                       src={instagram.avatar.src || gr7LogoDark}
                       alt={instagram.avatar.alt}
-                      loading="lazy"
-                      decoding="async"
                       className="absolute inset-0 h-full w-full object-contain p-3"
                     />
                   </div>

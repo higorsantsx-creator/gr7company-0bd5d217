@@ -60,24 +60,12 @@ function GR7Mark({ className = "h-8" }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 /*  Animated global background — floating blobs + grid + aurora        */
 /* ------------------------------------------------------------------ */
-/** true em telas pequenas ou quando o usuário pede menos movimento */
-function useLiteMotion() {
-  const [lite, setLite] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)");
-    const on = () => setLite(mq.matches);
-    on();
-    mq.addEventListener("change", on);
-    return () => mq.removeEventListener("change", on);
-  }, []);
-  return lite;
-}
-
 function AnimatedBackground() {
-  const lite = useLiteMotion();
   const { scrollYProgress } = useScroll();
   const yA = useTransform(scrollYProgress, [0, 1], [0, -220]);
   const yB = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const yC = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const rot = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
@@ -92,15 +80,14 @@ function AnimatedBackground() {
 
       {/* red aurora — drifts with scroll */}
       <motion.div
-        style={{ y: lite ? 0 : yA, transform: "translateZ(0)" }}
+        style={{ y: yA }}
         className="absolute -left-52 -top-40 h-[52rem] w-[52rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={lite ? undefined : { x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
+          animate={{ x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            opacity: 0.6,
             background:
               "radial-gradient(circle at center, #ff1a1a 0%, rgba(255,26,26,0.25) 35%, transparent 70%)",
           }}
@@ -108,28 +95,49 @@ function AnimatedBackground() {
       </motion.div>
 
       <motion.div
-        style={{ y: lite ? 0 : yB }}
+        style={{ y: yB }}
         className="absolute -right-40 top-1/3 h-[42rem] w-[42rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={lite ? undefined : { x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
+          animate={{ x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
           style={{
-            opacity: 0.5,
             background:
               "radial-gradient(circle at center, #ff3d3d 0%, rgba(179,0,0,0.35) 40%, transparent 72%)",
           }}
         />
       </motion.div>
 
-      {/* glow inferior — estático (sem custo por frame) */}
-      <div
-        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
-        style={{
-          background: "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
-        }}
-      />
+      <motion.div
+        style={{ y: yC }}
+        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 will-change-transform"
+      >
+        <motion.div
+          className="h-full w-full rounded-full blur-3xl"
+          animate={{ opacity: [0.3, 0.55, 0.3] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          style={{
+            background:
+              "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
+          }}
+        />
+      </motion.div>
+
+      {/* rotating conic sweep — very subtle, gives sense of motion */}
+      <motion.div
+        style={{ rotate: rot }}
+        className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] will-change-transform"
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background:
+              "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,26,26,0.6) 40deg, transparent 90deg, transparent 180deg, rgba(255,77,77,0.4) 220deg, transparent 270deg)",
+            filter: "blur(60px)",
+          }}
+        />
+      </motion.div>
 
       {/* precision grid */}
       <div
@@ -154,24 +162,21 @@ function AnimatedBackground() {
       />
 
       {/* scan line drifting */}
-      {!lite && (
-        <motion.div
-          className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
-          animate={{ y: ["-10%", "110%"] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
-          }}
-        />
-      )}
+      <motion.div
+        className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
+        animate={{ y: ["-10%", "110%"] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+        style={{
+          background:
+            "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
+        }}
+      />
 
       {/* edge vignette — locks focus */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.85)_100%)]" />
     </div>
   );
 }
-
 
 
 
@@ -193,49 +198,30 @@ function CustomCursor() {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const [hover, setHover] = useState(false);
-  const hoverRef = useRef(false);
-  const [enabled, setEnabled] = useState(false);
-
   useEffect(() => {
-    // Só em ponteiro fino (desktop) — em touch o cursor custom é puro custo.
-    if (!window.matchMedia("(pointer: fine)").matches) return;
-    setEnabled(true);
-
-    const zoomMq = window.matchMedia("(min-width: 1024px)");
-    let zoom = zoomMq.matches ? 0.8 : 1;
-    const onZoom = () => {
-      zoom = zoomMq.matches ? 0.8 : 1;
-    };
-    zoomMq.addEventListener("change", onZoom);
-
     const move = (e: MouseEvent) => {
+      // Compensate for the html { zoom: 0.8 } on desktop, which scales
+      // fixed-position coordinates and desyncs the cursor from the pointer.
+      const zoom = window.matchMedia("(min-width: 1024px)").matches ? 0.8 : 1;
       x.set(e.clientX / zoom);
       y.set(e.clientY / zoom);
     };
 
     const over = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      const next = !!t.closest("a,button,[data-cursor='hover']");
-      if (next !== hoverRef.current) {
-        hoverRef.current = next;
-        setHover(next);
-      }
+      setHover(!!t.closest("a,button,[data-cursor='hover']"));
     };
-    window.addEventListener("mousemove", move, { passive: true });
-    window.addEventListener("mouseover", over, { passive: true });
+    window.addEventListener("mousemove", move);
+    window.addEventListener("mouseover", over);
     return () => {
-      zoomMq.removeEventListener("change", onZoom);
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
     };
   }, [x, y]);
-
   const sx = useSpring(x, { stiffness: 400, damping: 30 });
   const sy = useSpring(y, { stiffness: 400, damping: 30 });
-  if (!enabled) return null;
   return (
     <>
-
       <motion.div
         className="pointer-events-none fixed left-0 top-0 z-[90] hidden h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff1a1a] md:block"
         style={{ x: sx, y: sy }}
@@ -1380,7 +1366,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-3 md:px-10">
         <div>
           <div className="inline-block rounded-2xl bg-[#0a0a0a] p-3">
-            <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" loading="lazy" decoding="async" />
+            <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" />
           </div>
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
             Marketing estratégico e criativo para marcas que decidiram dominar seu mercado.
