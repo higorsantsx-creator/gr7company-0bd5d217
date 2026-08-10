@@ -101,12 +101,9 @@ export function ProjectsGrid() {
           <div className="grid grid-cols-1 gap-5">
             {largeItems.map(({ p, i, data }) => (
               <div key={i} style={{ aspectRatio: "1 / 1" }}>
-                <motion.button
+                <button
                   type="button"
                   onClick={() => data && setActive(data)}
-                  layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={false}
-                  transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
                   <MediaSlot
@@ -129,7 +126,7 @@ export function ProjectsGrid() {
                   <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
                     {p.category.split("·")[0].trim()}
                   </div>
-                </motion.button>
+                </button>
               </div>
             ))}
           </div>
@@ -138,12 +135,9 @@ export function ProjectsGrid() {
           <div className="grid grid-cols-2 gap-5">
             {smallItems.map(({ p, i, data }) => (
               <div key={i} style={{ aspectRatio: "4 / 5" }}>
-                <motion.button
+                <button
                   type="button"
                   onClick={() => data && setActive(data)}
-                  layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={false}
-                  transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
                   <MediaSlot
@@ -166,7 +160,7 @@ export function ProjectsGrid() {
                   <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
                     {p.category.split("·")[0].trim()}
                   </div>
-                </motion.button>
+                </button>
               </div>
             ))}
           </div>
@@ -183,12 +177,9 @@ export function ProjectsGrid() {
                 className={`${isLarge ? "sm:col-span-2" : ""}`}
                 style={{ aspectRatio: isLarge ? "1 / 1" : "4 / 5" }}
               >
-                <motion.button
+                <button
                   type="button"
                   onClick={() => data && setActive(data)}
-                  layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={false}
-                  transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
                   <MediaSlot
@@ -211,7 +202,7 @@ export function ProjectsGrid() {
                   <div className="absolute left-4 top-4 z-10 rounded-full border border-white/10 bg-[#0a0a0a]/85 px-3 py-1 text-[10px] font-medium uppercase tracking-widest text-white/70 backdrop-blur transition-opacity duration-500 group-hover:opacity-0">
                     {p.category.split("·")[0].trim()}
                   </div>
-                </motion.button>
+                </button>
               </div>
             );
           })}
