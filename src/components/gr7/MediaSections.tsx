@@ -3,7 +3,7 @@
  * Cada seção consome dados de `mediaConfig.ts` e usa `MediaSlot`
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
@@ -36,7 +36,9 @@ import {
   inAction,
 } from "./mediaConfig";
 import { projectDataset, type ProjectData } from "./projectData";
-import { ProjectDashboard } from "./ProjectDashboard";
+const ProjectDashboard = lazy(() =>
+  import("./ProjectDashboard").then((m) => ({ default: m.ProjectDashboard })),
+);
 
 
 /* ------------------------------------------------------------------ */
@@ -223,7 +225,11 @@ export function ProjectsGrid() {
           })}
         </div>
       </div>
-      <ProjectDashboard data={active} onClose={() => setActive(null)} />
+      {active && (
+        <Suspense fallback={null}>
+          <ProjectDashboard data={active} onClose={() => setActive(null)} />
+        </Suspense>
+      )}
     </section>
   );
 }
