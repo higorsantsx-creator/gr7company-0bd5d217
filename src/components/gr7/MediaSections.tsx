@@ -105,8 +105,7 @@ export function ProjectsGrid() {
                   type="button"
                   onClick={() => data && setActive(data)}
                   layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={false}
                   transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
@@ -143,8 +142,7 @@ export function ProjectsGrid() {
                   type="button"
                   onClick={() => data && setActive(data)}
                   layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={false}
                   transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
@@ -189,8 +187,7 @@ export function ProjectsGrid() {
                   type="button"
                   onClick={() => data && setActive(data)}
                   layoutId={data ? `project-card-${data.slug}` : undefined}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={false}
                   transition={{ duration: 0.5, delay: (i % 4) * 0.06 }}
                   className="group relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] text-left"
                 >
