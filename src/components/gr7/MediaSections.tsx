@@ -693,7 +693,7 @@ export function ClientsMarquee() {
               className="flex h-24 w-56 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-[#0a0a0a]"
             >
               {c.src ? (
-                <img src={c.src} alt={c.name} className="max-h-12 max-w-[70%] object-contain" />
+                <img src={c.src} alt={c.name} loading="lazy" decoding="async" className="max-h-12 max-w-[70%] object-contain" />
               ) : (
                 <span className="font-display text-xl uppercase tracking-widest text-white/60">
                   {c.name}
@@ -918,6 +918,8 @@ export function InstagramProfile() {
                     <img
                       src={instagram.avatar.src || gr7LogoDark}
                       alt={instagram.avatar.alt}
+                      loading="lazy"
+                      decoding="async"
                       className="absolute inset-0 h-full w-full object-contain p-3"
                     />
                   </div>

@@ -1366,7 +1366,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 md:grid-cols-3 md:px-10">
         <div>
           <div className="inline-block rounded-2xl bg-[#0a0a0a] p-3">
-            <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" />
+            <img src={logoImg} alt="GR7 Company" className="h-10 w-auto" loading="lazy" decoding="async" />
           </div>
           <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/50">
             Marketing estratégico e criativo para marcas que decidiram dominar seu mercado.

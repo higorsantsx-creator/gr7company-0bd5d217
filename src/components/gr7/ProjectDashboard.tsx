@@ -483,7 +483,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
         <div className="grid gap-8 border-b border-white/10 pb-10 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
           <div className="min-w-0">
             <div className="mb-4 flex items-center gap-3">
-              <img src={gr7Logo} alt="GR7" className="h-8 w-8 rounded-full object-cover" />
+              <img src={gr7Logo} alt="GR7" loading="lazy" decoding="async" className="h-8 w-8 rounded-full object-cover" />
               <span className="text-[10px] uppercase tracking-[0.35em] text-white/40">
                 GR7 · relatório de projeto
               </span>
