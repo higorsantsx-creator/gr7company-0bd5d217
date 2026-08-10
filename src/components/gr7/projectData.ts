@@ -495,8 +495,8 @@ export const projectDataset: ProjectData[] = [
     status: "Em execução",
     clientSince: "2024",
     duration: "Cliente ativo",
-    cover: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
-    logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
+    cover: new URL("../../assets/projects/shineray/logo.jpg", import.meta.url).href,
+    logo: new URL("../../assets/projects/shineray/logo.jpg", import.meta.url).href,
     summary:
       "Marca de motocicletas e veículos utilitários. Conduzimos a comunicação digital da Shineray com direção criativa, gestão de conteúdo, campanhas de performance e apoio à rede de concessionárias — conectando o produto ao público certo em cada região.",
     kpis: [
