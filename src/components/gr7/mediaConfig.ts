@@ -1,3 +1,23 @@
+import asset0 from "../../assets/projects/totalgiro/cover.jpg";
+import asset1 from "../../assets/projects/shineray/logo.jpg";
+import asset2 from "../../assets/testimonials/test-01.jpg";
+import asset3 from "../../assets/testimonials/test-02.jpg";
+import asset4 from "../../assets/testimonials/test-03.jpg";
+import asset5 from "../../assets/testimonials/test-04.jpg";
+import asset6 from "../../assets/testimonials/test-05.jpg";
+import asset7 from "../../assets/testimonials/test-06.jpg";
+import asset8 from "../../assets/instagram/post-01.jpg";
+import asset9 from "../../assets/instagram/post-02.jpg";
+import asset10 from "../../assets/instagram/post-03.jpg";
+import asset11 from "../../assets/instagram/post-04.jpg";
+import asset12 from "../../assets/instagram/post-05.jpg";
+import asset13 from "../../assets/instagram/post-06.jpg";
+import asset14 from "../../assets/instagram/post-07.jpg";
+import asset15 from "../../assets/instagram/post-08.jpg";
+import asset16 from "../../assets/instagram/post-09.jpg";
+import asset17 from "../../assets/instagram/post-10.jpg";
+import asset18 from "../../assets/instagram/post-11.jpg";
+import asset19 from "../../assets/instagram/post-12.jpg";
 /**
  * GR7 — Central Media Config
  * ------------------------------------------------------------
@@ -35,12 +55,12 @@ export interface ProjectCard extends MediaItem {
 }
 
 export const projects: ProjectCard[] = [
-  { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.jpg", import.meta.url).href },
+  { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: asset0 },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
-  { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.jpg", import.meta.url).href },
+  { client: "Shineray", category: "Branding · Social · Performance", src: asset1 },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
   { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: "" },
 ];
@@ -214,12 +234,12 @@ export interface VideoTestimonial extends MediaItem {
 }
 
 export const videoTestimonials: VideoTestimonial[] = [
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-03.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-04.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
-  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-05.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
-  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-06.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: asset2, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: asset3, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: asset4, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
+  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: asset5, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
+  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: asset6, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
+  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: asset7, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
 ];
 
 
@@ -242,18 +262,18 @@ export const instagram = {
   ],
   avatar: { src: "", alt: "GR7 Company" } as MediaItem,
   posts: [
-    { src: new URL("../../assets/instagram/post-01.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZD19KoykUi/" },
-    { src: new URL("../../assets/instagram/post-02.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
-    { src: new URL("../../assets/instagram/post-03.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZNZZw2SaqV/" },
-    { src: new URL("../../assets/instagram/post-04.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
-    { src: new URL("../../assets/instagram/post-05.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZQxdi5SPi0/" },
-    { src: new URL("../../assets/instagram/post-06.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
-    { src: new URL("../../assets/instagram/post-07.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
-    { src: new URL("../../assets/instagram/post-08.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
-    { src: new URL("../../assets/instagram/post-09.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/p/DajSDJRy9bw/" },
-    { src: new URL("../../assets/instagram/post-10.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/Daqszvrytya/" },
-    { src: new URL("../../assets/instagram/post-11.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
-    { src: new URL("../../assets/instagram/post-12.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbJqI34SxWJ/" },
+    { src: asset8, href: "https://www.instagram.com/gr7company/reel/DZD19KoykUi/" },
+    { src: asset9, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
+    { src: asset10, href: "https://www.instagram.com/gr7company/reel/DZNZZw2SaqV/" },
+    { src: asset11, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
+    { src: asset12, href: "https://www.instagram.com/gr7company/reel/DZQxdi5SPi0/" },
+    { src: asset13, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
+    { src: asset14, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
+    { src: asset15, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
+    { src: asset16, href: "https://www.instagram.com/gr7company/p/DajSDJRy9bw/" },
+    { src: asset17, href: "https://www.instagram.com/gr7company/reel/Daqszvrytya/" },
+    { src: asset18, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
+    { src: asset19, href: "https://www.instagram.com/gr7company/reel/DbJqI34SxWJ/" },
   ] as (MediaItem & { href: string })[],
 };
 

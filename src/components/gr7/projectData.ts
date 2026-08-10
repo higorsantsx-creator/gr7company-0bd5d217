@@ -1,3 +1,10 @@
+import asset0 from "../../assets/projects/totalgiro/frota.jpg";
+import asset1 from "../../assets/projects/totalgiro/loja-01.jpg";
+import asset2 from "../../assets/projects/totalgiro/atendimento-01.jpg";
+import asset3 from "../../assets/projects/totalgiro/cafe.jpg";
+import asset4 from "../../assets/projects/totalgiro/perto.jpg";
+import asset5 from "../../assets/projects/totalgiro/bastidores.jpg";
+import asset6 from "../../assets/projects/shineray/logo.jpg";
 /**
  * GR7 — Dados dos projetos (dashboard BI premium)
  * ------------------------------------------------------------
@@ -124,12 +131,12 @@ export const projectDataset: ProjectData[] = [
       { label: "Campanha" },
     ],
     gallery: [
-      { label: "Frota Total Giro", src: new URL("../../assets/projects/totalgiro/frota.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DbN-sYdxKj2/" },
-      { label: "Loja de conveniência", src: new URL("../../assets/projects/totalgiro/loja-01.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/Da2rFA7hj_O/" },
-      { label: "Atendimento na pista", src: new URL("../../assets/projects/totalgiro/atendimento-01.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DawIrIDulyV/" },
-      { label: "Café quentinho", src: new URL("../../assets/projects/totalgiro/cafe.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DMFu4uDASwo/", aspect: "1/1" },
-      { label: "Campanha \"Perto de você\"", src: new URL("../../assets/projects/totalgiro/perto.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/p/DN-q2nxwEMM/", aspect: "1/1" },
-      { label: "Bastidores da rede", src: new URL("../../assets/projects/totalgiro/bastidores.jpg", import.meta.url).href, href: "https://www.instagram.com/postostotalgiro/reel/DS7pvtygNxQ/" },
+      { label: "Frota Total Giro", src: asset0, href: "https://www.instagram.com/postostotalgiro/reel/DbN-sYdxKj2/" },
+      { label: "Loja de conveniência", src: asset1, href: "https://www.instagram.com/postostotalgiro/reel/Da2rFA7hj_O/" },
+      { label: "Atendimento na pista", src: asset2, href: "https://www.instagram.com/postostotalgiro/reel/DawIrIDulyV/" },
+      { label: "Café quentinho", src: asset3, href: "https://www.instagram.com/postostotalgiro/p/DMFu4uDASwo/", aspect: "1/1" },
+      { label: "Campanha \"Perto de você\"", src: asset4, href: "https://www.instagram.com/postostotalgiro/p/DN-q2nxwEMM/", aspect: "1/1" },
+      { label: "Bastidores da rede", src: asset5, href: "https://www.instagram.com/postostotalgiro/reel/DS7pvtygNxQ/" },
     ],
     timeline: [
       { title: "Diagnóstico", detail: "Auditoria da presença digital da rede em Alagoas" },
@@ -495,8 +502,8 @@ export const projectDataset: ProjectData[] = [
     status: "Em execução",
     clientSince: "2024",
     duration: "Cliente ativo",
-    cover: new URL("../../assets/projects/shineray/logo.jpg", import.meta.url).href,
-    logo: new URL("../../assets/projects/shineray/logo.jpg", import.meta.url).href,
+    cover: asset6,
+    logo: asset6,
     summary:
       "Marca de motocicletas e veículos utilitários. Conduzimos a comunicação digital da Shineray com direção criativa, gestão de conteúdo, campanhas de performance e apoio à rede de concessionárias — conectando o produto ao público certo em cada região.",
     kpis: [
