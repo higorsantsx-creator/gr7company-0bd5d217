@@ -60,12 +60,24 @@ function GR7Mark({ className = "h-8" }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 /*  Animated global background — floating blobs + grid + aurora        */
 /* ------------------------------------------------------------------ */
+/** true em telas pequenas ou quando o usuário pede menos movimento */
+function useLiteMotion() {
+  const [lite, setLite] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px), (prefers-reduced-motion: reduce)");
+    const on = () => setLite(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    return () => mq.removeEventListener("change", on);
+  }, []);
+  return lite;
+}
+
 function AnimatedBackground() {
+  const lite = useLiteMotion();
   const { scrollYProgress } = useScroll();
   const yA = useTransform(scrollYProgress, [0, 1], [0, -220]);
   const yB = useTransform(scrollYProgress, [0, 1], [0, 180]);
-  const yC = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const rot = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
@@ -80,14 +92,15 @@ function AnimatedBackground() {
 
       {/* red aurora — drifts with scroll */}
       <motion.div
-        style={{ y: yA }}
+        style={{ y: lite ? 0 : yA, transform: "translateZ(0)" }}
         className="absolute -left-52 -top-40 h-[52rem] w-[52rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={{ x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
+          animate={lite ? undefined : { x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           style={{
+            opacity: 0.6,
             background:
               "radial-gradient(circle at center, #ff1a1a 0%, rgba(255,26,26,0.25) 35%, transparent 70%)",
           }}
@@ -95,49 +108,28 @@ function AnimatedBackground() {
       </motion.div>
 
       <motion.div
-        style={{ y: yB }}
+        style={{ y: lite ? 0 : yB }}
         className="absolute -right-40 top-1/3 h-[42rem] w-[42rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={{ x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
+          animate={lite ? undefined : { x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
           style={{
+            opacity: 0.5,
             background:
               "radial-gradient(circle at center, #ff3d3d 0%, rgba(179,0,0,0.35) 40%, transparent 72%)",
           }}
         />
       </motion.div>
 
-      <motion.div
-        style={{ y: yC }}
-        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 will-change-transform"
-      >
-        <motion.div
-          className="h-full w-full rounded-full blur-3xl"
-          animate={{ opacity: [0.3, 0.55, 0.3] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            background:
-              "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
-          }}
-        />
-      </motion.div>
-
-      {/* rotating conic sweep — very subtle, gives sense of motion */}
-      <motion.div
-        style={{ rotate: rot }}
-        className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] will-change-transform"
-      >
-        <div
-          className="h-full w-full"
-          style={{
-            background:
-              "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,26,26,0.6) 40deg, transparent 90deg, transparent 180deg, rgba(255,77,77,0.4) 220deg, transparent 270deg)",
-            filter: "blur(60px)",
-          }}
-        />
-      </motion.div>
+      {/* glow inferior — estático (sem custo por frame) */}
+      <div
+        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 rounded-full opacity-40 blur-3xl"
+        style={{
+          background: "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
+        }}
+      />
 
       {/* precision grid */}
       <div
@@ -162,21 +154,24 @@ function AnimatedBackground() {
       />
 
       {/* scan line drifting */}
-      <motion.div
-        className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
-        animate={{ y: ["-10%", "110%"] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
-        }}
-      />
+      {!lite && (
+        <motion.div
+          className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
+          animate={{ y: ["-10%", "110%"] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
+          }}
+        />
+      )}
 
       {/* edge vignette — locks focus */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,0.85)_100%)]" />
     </div>
   );
 }
+
 
 
 
