@@ -193,26 +193,43 @@ function CustomCursor() {
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const [hover, setHover] = useState(false);
+  const hoverRef = useRef(false);
+  const [enabled, setEnabled] = useState(false);
+
   useEffect(() => {
+    // Só em ponteiro fino (desktop) — em touch o cursor custom é puro custo.
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    setEnabled(true);
+
+    const zoomMq = window.matchMedia("(min-width: 1024px)");
+    let zoom = zoomMq.matches ? 0.8 : 1;
+    const onZoom = () => {
+      zoom = zoomMq.matches ? 0.8 : 1;
+    };
+    zoomMq.addEventListener("change", onZoom);
+
     const move = (e: MouseEvent) => {
-      // Compensate for the html { zoom: 0.8 } on desktop, which scales
-      // fixed-position coordinates and desyncs the cursor from the pointer.
-      const zoom = window.matchMedia("(min-width: 1024px)").matches ? 0.8 : 1;
       x.set(e.clientX / zoom);
       y.set(e.clientY / zoom);
     };
 
     const over = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
-      setHover(!!t.closest("a,button,[data-cursor='hover']"));
+      const next = !!t.closest("a,button,[data-cursor='hover']");
+      if (next !== hoverRef.current) {
+        hoverRef.current = next;
+        setHover(next);
+      }
     };
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseover", over);
+    window.addEventListener("mousemove", move, { passive: true });
+    window.addEventListener("mouseover", over, { passive: true });
     return () => {
+      zoomMq.removeEventListener("change", onZoom);
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseover", over);
     };
   }, [x, y]);
+
   const sx = useSpring(x, { stiffness: 400, damping: 30 });
   const sy = useSpring(y, { stiffness: 400, damping: 30 });
   return (
