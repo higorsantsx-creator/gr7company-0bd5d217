@@ -327,21 +327,27 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
           
-          {/* 3D Depth Layers */}
-          <div className="absolute inset-0 translate-z-[-2px] opacity-80 blur-[0.5px]">
+          {/* 3D Depth Layers (Extrusion) */}
+          <div className="absolute inset-0 translate-z-[-1px] opacity-90 blur-[0.2px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-4px] opacity-60 blur-[1px]">
+          <div className="absolute inset-0 translate-z-[-2px] opacity-80 blur-[0.4px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-6px] opacity-40 blur-[1.5px]">
+          <div className="absolute inset-0 translate-z-[-3px] opacity-70 blur-[0.6px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-4px] opacity-60 blur-[0.8px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-5px] opacity-50 blur-[1px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
           
-          {/* Side edges / extrusion effect using skew and scale */}
+          {/* Internal shadow to give it more depth when rotating */}
           <div 
-            className="absolute inset-0 bg-[#ff1a1a]/20 translate-z-[-3px] blur-md"
-            style={{ transform: "scale(1.02, 1.05)" }}
+            className="absolute inset-0 bg-black/10 translate-z-[-2px] mix-blend-multiply"
+            style={{ maskImage: "linear-gradient(to right, transparent, black, transparent)" }}
           />
         </div>
       </div>
