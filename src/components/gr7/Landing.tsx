@@ -320,8 +320,30 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
           "radial-gradient(600px circle at 50% 50%, rgba(255,26,26,0.25), transparent 60%)",
       }} />
       
-      <div ref={logoRef} className="relative z-20">
-        <GR7Mark className="h-9 w-auto object-contain" />
+      <div ref={logoRef} className="relative z-20" style={{ perspective: "1000px" }}>
+        <div className="relative transform-gpu preserve-3d">
+          {/* Main Logo Layer */}
+          <div className="relative z-10 drop-shadow-[0_10px_20px_rgba(255,26,26,0.3)]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          
+          {/* 3D Depth Layers */}
+          <div className="absolute inset-0 translate-z-[-2px] opacity-80 blur-[0.5px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-4px] opacity-60 blur-[1px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-6px] opacity-40 blur-[1.5px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          
+          {/* Side edges / extrusion effect using skew and scale */}
+          <div 
+            className="absolute inset-0 bg-[#ff1a1a]/20 translate-z-[-3px] blur-md"
+            style={{ transform: "scale(1.02, 1.05)" }}
+          />
+        </div>
       </div>
 
       <AnimatePresence>
