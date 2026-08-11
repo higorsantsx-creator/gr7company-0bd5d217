@@ -7,23 +7,23 @@
 }
 
 @utility depth-1 {
-  transform: translateZ(-2px);
+  transform: translateZ(-5px);
 }
 
 @utility depth-2 {
-  transform: translateZ(-4px);
+  transform: translateZ(-10px);
 }
 
 @utility depth-3 {
-  transform: translateZ(-6px);
+  transform: translateZ(-15px);
 }
 
 @utility depth-4 {
-  transform: translateZ(-8px);
+  transform: translateZ(-20px);
 }
 
 @utility depth-5 {
-  transform: translateZ(-10px);
+  transform: translateZ(-25px);
 }
 
 
