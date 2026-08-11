@@ -328,19 +328,19 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
           </div>
           
           {/* 3D Depth Layers (Extrusion) */}
-          <div className="absolute inset-0 depth-1 opacity-90 blur-[0.2px]">
+          <div className="absolute inset-0 depth-1 opacity-90 blur-[0.2px] brightness-125">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 depth-2 opacity-80 blur-[0.4px]">
+          <div className="absolute inset-0 depth-2 opacity-80 blur-[0.4px] brightness-110">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 depth-3 opacity-70 blur-[0.6px]">
+          <div className="absolute inset-0 depth-3 opacity-70 blur-[0.6px] brightness-90">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 depth-4 opacity-60 blur-[0.8px]">
+          <div className="absolute inset-0 depth-4 opacity-60 blur-[0.8px] brightness-75">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 depth-5 opacity-50 blur-[1px]">
+          <div className="absolute inset-0 depth-5 opacity-50 blur-[1px] brightness-50">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
           
