@@ -47,6 +47,7 @@ import {
   InstagramProfile,
   GR7InAction,
 } from "./MediaSections";
+import HeroIntro from "./HeroIntro";
 
 
 
@@ -1776,7 +1777,18 @@ export default function Landing() {
       <div className="relative z-10">
         <Nav logoRef={logoTargetRef} />
 
+        {/* Global Progress Indicators for Sections */}
+        <div className="fixed left-6 top-1/2 z-[40] hidden -translate-y-1/2 flex-col gap-3 lg:flex">
+          {[0, 1].map((i) => (
+            <div key={i} className="flex flex-col items-center gap-1">
+              <span className={`text-[8px] font-bold ${i === 0 ? 'text-[#ff1a1a]' : 'text-white/20'}`}>0{i+1}</span>
+              <div className={`h-8 w-[1px] ${i === 0 ? 'bg-[#ff1a1a]' : 'bg-white/10'}`} />
+            </div>
+          ))}
+        </div>
+
         <main>
+          <HeroIntro />
           <Hero />
           <Services />
           <ProjectsGrid />
