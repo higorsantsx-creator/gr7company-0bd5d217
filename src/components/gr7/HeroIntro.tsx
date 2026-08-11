@@ -143,6 +143,22 @@ export default function HeroIntro() {
           }}
           className="relative z-20 flex flex-col items-center justify-center transform-gpu preserve-3d"
         >
+          {/* Entering Message during Transition */}
+          <motion.div
+            style={{ 
+              opacity: useTransform(scrollSmooth, [0.4, 0.6, 0.8], [0, 1, 0]),
+              scale: useTransform(scrollSmooth, [0.4, 0.8], [0.8, 1.2])
+            }}
+            className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none"
+          >
+            <span className="text-[10px] tracking-[1em] text-[#ff1a1a] uppercase mb-4">Entering GR7 System</span>
+            <div className="flex gap-2">
+              <div className="h-[1px] w-12 bg-[#ff1a1a]" />
+              <span className="text-[8px] font-mono text-white/40">INITIALIZING_PHASE_01</span>
+              <div className="h-[1px] w-12 bg-[#ff1a1a]" />
+            </div>
+          </motion.div>
+
           {/* Initial Pulsing Dot */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
