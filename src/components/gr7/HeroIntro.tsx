@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import logoImg from "@/assets/gr7-logo.png";
+import bgTransitionAsset from "@/assets/hero-bg-transition.png.asset.json";
 
 export default function HeroIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
