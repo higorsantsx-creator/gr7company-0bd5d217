@@ -46,7 +46,7 @@ export default function HeroIntro() {
   return (
     <div 
       ref={containerRef}
-      className="relative z-[60] h-[200vh] w-full bg-[#050505] overflow-visible"
+      className="relative z-[60] h-[150vh] w-full bg-[#050505] overflow-visible"
     >
       {/* Fixed viewport container */}
       <motion.div 
