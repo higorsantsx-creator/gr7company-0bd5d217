@@ -47,7 +47,7 @@ import {
   InstagramProfile,
   GR7InAction,
 } from "./MediaSections";
-import ExpandingCardsDemo from "./ExpandingCardsDemo";
+
 
 
 /* ------------------------------------------------------------------ */
@@ -1781,7 +1781,7 @@ export default function Landing() {
           <Services />
           <ProjectsGrid />
           <Difference />
-          <ExpandingCardsDemo />
+          
           <CinematicVideo />
           <Manifesto />
           <ReelsSection />
