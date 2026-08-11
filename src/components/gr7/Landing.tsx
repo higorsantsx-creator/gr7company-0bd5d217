@@ -269,24 +269,6 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
         const endElement = document.querySelector('header img[alt="GR7 Company"]');
 
         if (startElement && endElement) {
-          // Use getBoundingClientRect which returns coordinates relative to the viewport
-          // This is essential since both elements are in fixed/absolute containers
-          const startRect = startElement.getBoundingClientRect();
-          const endRect = endElement.getBoundingClientRect();
-
-          // We want the startElement to move so its center matches the endElement's center
-          const startCenterX = startRect.left + startRect.width / 2;
-          const startCenterY = startRect.top + startRect.height / 2;
-          const endCenterX = endRect.left + endRect.width / 2;
-          const endCenterY = endRect.top + endRect.height / 2;
-
-          // The 'animate' function uses transform (x, y) which is relative to the element's INITIAL position
-          const deltaX = endCenterX - startCenterX;
-          const deltaY = endCenterY - startCenterY;
-          
-          // Scale based on height to preserve aspect ratio
-          const scale = endRect.height / startRect.height;
-
           // 1. Zoom and 3D Rotation in center
           await animate(startElement, 
             { 
@@ -299,13 +281,28 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
             }
           );
 
+          // Get fresh coordinates AFTER the first animation and potentially some layout shifts
+          const startRect = startElement.getBoundingClientRect();
+          const endRect = endElement.getBoundingClientRect();
+
+          const startCenterX = startRect.left + startRect.width / 2;
+          const startCenterY = startRect.top + startRect.height / 2;
+          const endCenterX = endRect.left + endRect.width / 2;
+          const endCenterY = endRect.top + endRect.height / 2;
+
+          // Calculate displacement needed relative to current transformed position
+          const deltaX = endCenterX - startCenterX;
+          const deltaY = endCenterY - startCenterY;
+          
+          // Final scale relative to the NATURAL size
+          const targetScale = endRect.height / (startRect.height / 2.5);
+
           // 2. Move to corner with high precision
-          // We use absolute coordinates logic here
           await animate(startElement, 
             { 
               x: deltaX, 
               y: deltaY, 
-              scale: scale,
+              scale: targetScale,
               opacity: 1
             }, 
             { 
