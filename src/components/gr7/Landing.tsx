@@ -1779,7 +1779,6 @@ export default function Landing() {
         <main>
           <Hero />
           <Services />
-          <ProjectsGrid />
           <Difference />
           <ExpandingCardsDemo />
           <CinematicVideo />
