@@ -169,6 +169,20 @@ export default function HeroIntro() {
 
           {/* The Logo Reveal */}
           <div className="relative transform-gpu preserve-3d">
+            {/* Continuous Glow behind the logo */}
+            <motion.div
+              animate={{ 
+                opacity: [0.2, 0.5, 0.2],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="absolute inset-0 -z-10 bg-[#ff1a1a]/20 blur-[40px] rounded-full"
+            />
+            
             <motion.div
               initial={{ opacity: 0, filter: "blur(20px)", scale: 0.8 }}
               animate={isReady ? { opacity: 1, filter: "blur(0px)", scale: 1 } : {}}
@@ -178,11 +192,11 @@ export default function HeroIntro() {
               <img src={logoImg} alt="GR7 Company" className="h-20 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(255,26,26,0.3)]" />
             </motion.div>
 
-            {/* Subtle Glint/Glow passing through */}
+            {/* Continuous Glint/Glow passing through */}
             <motion.div
-              animate={{ x: ["-100%", "200%"] }}
-              transition={{ duration: 3, repeat: Infinity, repeatDelay: 4, ease: "easeInOut" }}
-              className="absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none"
+              animate={{ x: ["-200%", "200%"] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none"
             />
           </div>
 
