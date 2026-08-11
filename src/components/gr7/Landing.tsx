@@ -272,22 +272,37 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
         const deltaY = endRect.top + endRect.height / 2 - (startRect.top + startRect.height / 2);
         const scale = endRect.width / startRect.width;
 
-        animate(logoRef.current!, 
-          { 
-            x: deltaX, 
-            y: deltaY, 
-            scale: [1, 2.5, scale],
-            rotateY: [0, 360, 0],
-            opacity: [1, 1, 0] // Fade out at the very end to show the nav logo
-          }, 
-          { 
-            duration: 1.8, 
-            ease: [0.645, 0.045, 0.355, 1],
-            onComplete: () => {
-              done();
+        const sequence = async () => {
+          // 1. Zoom and 3D Rotation first
+          await animate(logoRef.current!, 
+            { 
+              scale: [1, 2.5],
+              rotateY: [0, 360],
+            }, 
+            { 
+              duration: 1.2, 
+              ease: "easeOut" 
             }
-          }
-        );
+          );
+
+          // 2. Move to corner
+          await animate(logoRef.current!, 
+            { 
+              x: deltaX, 
+              y: deltaY, 
+              scale: scale,
+              opacity: [1, 1, 0] // Fade out at the very end
+            }, 
+            { 
+              duration: 0.8, 
+              ease: [0.645, 0.045, 0.355, 1],
+            }
+          );
+          
+          done();
+        };
+
+        sequence();
       } else {
         // Fallback if refs aren't ready
         setTimeout(done, 1000);
