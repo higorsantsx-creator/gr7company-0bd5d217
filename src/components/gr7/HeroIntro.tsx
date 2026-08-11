@@ -1,6 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import logoImg from "@/assets/gr7-logo.png";
+import bgTransitionAsset from "@/assets/hero-bg-transition.png.asset.json";
 
 export default function HeroIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -244,11 +245,14 @@ export default function HeroIntro() {
       {/* TRANSITION OVERLAY (appears during scroll) */}
       <motion.div 
         style={{ 
-          opacity: useTransform(scrollSmooth, [0.5, 0.8], [0, 1]),
-          pointerEvents: "none"
+          opacity: useTransform(scrollSmooth, [0.5, 0.95], [0, 1]),
+          pointerEvents: "none",
+          backgroundImage: `url(${bgTransitionAsset.url})`
         }}
-        className="fixed inset-0 z-[55] bg-gradient-to-b from-transparent via-[#ff1a1a]/5 to-[#0a0a0a]"
-      />
+        className="fixed inset-0 z-[55] bg-cover bg-center bg-no-repeat"
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/0 via-[#050505]/20 to-[#0a0a0a]" />
+      </motion.div>
     </div>
   );
 }
