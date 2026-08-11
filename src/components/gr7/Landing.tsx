@@ -291,7 +291,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
               x: deltaX, 
               y: deltaY, 
               scale: scale,
-              opacity: [1, 1, 0] // Fade out at the very end
+              opacity: 1
             }, 
             { 
               duration: 0.8, 
