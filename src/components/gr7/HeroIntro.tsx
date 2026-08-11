@@ -194,9 +194,17 @@ export default function HeroIntro() {
 
             {/* Continuous Glint/Glow passing through */}
             <motion.div
-              animate={{ x: ["-200%", "200%"] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 pointer-events-none"
+              animate={{ 
+                x: ["-250%", "250%"],
+                opacity: [0, 1, 1, 0]
+              }}
+              transition={{ 
+                duration: 6, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                times: [0, 0.2, 0.8, 1]
+              }}
+              className="absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[35deg] pointer-events-none"
             />
           </div>
 
