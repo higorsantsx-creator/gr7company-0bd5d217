@@ -173,7 +173,7 @@ export default function HeroIntro() {
               initial={{ opacity: 0, filter: "blur(20px)", scale: 0.8 }}
               animate={isReady ? { opacity: 1, filter: "blur(0px)", scale: 1 } : {}}
               transition={{ duration: 1.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-10"
+              className="relative z-10 hero-intro-logo"
             >
               <img src={logoImg} alt="GR7 Company" className="h-20 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(255,26,26,0.3)]" />
             </motion.div>
