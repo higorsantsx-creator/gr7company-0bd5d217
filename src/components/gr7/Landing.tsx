@@ -444,7 +444,9 @@ function Nav({ logoRef }: { logoRef?: React.RefObject<HTMLDivElement | null> }) 
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-        <GR7Mark className="h-7" />
+        <div ref={logoRef}>
+          <GR7Mark className="h-7" />
+        </div>
         <nav className="hidden items-center gap-9 text-sm text-white/60 md:flex">
           {[
             ["Serviços", "servicos"],
