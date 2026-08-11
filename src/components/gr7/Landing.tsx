@@ -265,10 +265,8 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
     if (isTransitioning) {
       const sequence = async () => {
         const startElement = logoRef.current;
-        // Search specifically for the nav logo image
-        const endElement = document.querySelector('header img[alt="GR7 Company"]');
 
-        if (startElement && endElement) {
+        if (startElement) {
           // 1. Zoom and 3D Rotation in center
           await animate(startElement, 
             { 
@@ -276,38 +274,8 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
               rotateY: [0, 360],
             }, 
             { 
-              duration: 1.2, 
-              ease: "easeOut" 
-            }
-          );
-
-          // Get fresh coordinates AFTER the first animation and potentially some layout shifts
-          const startRect = startElement.getBoundingClientRect();
-          const endRect = endElement.getBoundingClientRect();
-
-          const startCenterX = startRect.left + startRect.width / 2;
-          const startCenterY = startRect.top + startRect.height / 2;
-          const endCenterX = endRect.left + endRect.width / 2;
-          const endCenterY = endRect.top + endRect.height / 2;
-
-          // Calculate displacement needed relative to current transformed position
-          const deltaX = endCenterX - startCenterX;
-          const deltaY = endCenterY - startCenterY;
-          
-          // Final scale relative to the NATURAL size
-          const targetScale = endRect.height / (startRect.height / 2.5);
-
-          // 2. Move to corner with high precision
-          await animate(startElement, 
-            { 
-              x: deltaX, 
-              y: deltaY, 
-              scale: targetScale,
-              opacity: 1
-            }, 
-            { 
-              duration: 1.2, 
-              ease: [0.65, 0, 0.35, 1],
+              duration: 1.8, 
+              ease: "easeInOut" 
             }
           );
         }
