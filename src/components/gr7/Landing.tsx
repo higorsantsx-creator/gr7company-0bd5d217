@@ -320,8 +320,36 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
           "radial-gradient(600px circle at 50% 50%, rgba(255,26,26,0.25), transparent 60%)",
       }} />
       
-      <div ref={logoRef} className="relative z-20">
-        <GR7Mark className="h-9 w-auto object-contain" />
+      <div ref={logoRef} className="relative z-20" style={{ perspective: "1000px" }}>
+        <div className="relative transform-gpu preserve-3d">
+          {/* Main Logo Layer */}
+          <div className="relative z-10 drop-shadow-[0_10px_20px_rgba(255,26,26,0.3)]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          
+          {/* 3D Depth Layers (Extrusion) */}
+          <div className="absolute inset-0 translate-z-[-1px] opacity-90 blur-[0.2px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-2px] opacity-80 blur-[0.4px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-3px] opacity-70 blur-[0.6px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-4px] opacity-60 blur-[0.8px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          <div className="absolute inset-0 translate-z-[-5px] opacity-50 blur-[1px]">
+            <GR7Mark className="h-9 w-auto object-contain" />
+          </div>
+          
+          {/* Internal shadow to give it more depth when rotating */}
+          <div 
+            className="absolute inset-0 bg-black/10 translate-z-[-2px] mix-blend-multiply"
+            style={{ maskImage: "linear-gradient(to right, transparent, black, transparent)" }}
+          />
+        </div>
       </div>
 
       <AnimatePresence>
