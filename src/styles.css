@@ -6,21 +6,26 @@
   transform-style: preserve-3d;
 }
 
-@utility translate-z-[-2px] {
+@utility depth-1 {
+  transform: translateZ(-1px);
+}
+
+@utility depth-2 {
   transform: translateZ(-2px);
 }
 
-@utility translate-z-[-4px] {
+@utility depth-3 {
+  transform: translateZ(-3px);
+}
+
+@utility depth-4 {
   transform: translateZ(-4px);
 }
 
-@utility translate-z-[-6px] {
-  transform: translateZ(-6px);
+@utility depth-5 {
+  transform: translateZ(-5px);
 }
 
-@utility translate-z-[-3px] {
-  transform: translateZ(-3px);
-}
 
 
 @theme {
