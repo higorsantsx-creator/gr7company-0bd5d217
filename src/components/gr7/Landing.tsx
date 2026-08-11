@@ -1690,7 +1690,6 @@ export default function Landing() {
           <CinematicVideo />
           <Manifesto />
           <ReelsSection />
-
           
           <Process />
           <ArtsMasonry />
