@@ -1670,9 +1670,11 @@ export default function Landing() {
           <Services />
           <ProjectsGrid />
           <Difference />
+          <ExpandingCardsDemo />
           <CinematicVideo />
           <Manifesto />
           <ReelsSection />
+
           
           <Process />
           <ArtsMasonry />
