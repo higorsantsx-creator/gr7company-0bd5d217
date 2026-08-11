@@ -373,7 +373,7 @@ function Reveal({
 /* ------------------------------------------------------------------ */
 /*  NAV                                                                */
 /* ------------------------------------------------------------------ */
-function Nav() {
+function Nav({ logoRef }: { logoRef?: React.RefObject<HTMLDivElement | null> }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
