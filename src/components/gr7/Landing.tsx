@@ -47,6 +47,8 @@ import {
   InstagramProfile,
   GR7InAction,
 } from "./MediaSections";
+import ExpandingCardsDemo from "./ExpandingCardsDemo";
+
 
 /* ------------------------------------------------------------------ */
 /*  GR7 wordmark (SVG, used on dark backgrounds)                       */
