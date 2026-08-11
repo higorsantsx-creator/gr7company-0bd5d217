@@ -202,9 +202,8 @@ function CustomCursor() {
   const [hover, setHover] = useState(false);
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      // Compensate for the html { zoom: 0.8 } on desktop, which scales
-      // fixed-position coordinates and desyncs the cursor from the pointer.
-      const zoom = window.matchMedia("(min-width: 1024px)").matches ? 0.8 : 1;
+      // Native zoom is back to 100%. No compensation needed.
+      const zoom = 1;
       x.set(e.clientX / zoom);
       y.set(e.clientY / zoom);
     };
