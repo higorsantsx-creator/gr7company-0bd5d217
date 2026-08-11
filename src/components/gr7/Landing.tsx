@@ -265,21 +265,29 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
     if (isTransitioning) {
       const sequence = async () => {
         const startElement = logoRef.current;
-        const endElement = logoTargetRef.current?.querySelector('img');
+        // Search specifically for the nav logo image
+        const endElement = document.querySelector('header img[alt="GR7 Company"]');
 
         if (startElement && endElement) {
+          // Use getBoundingClientRect which returns coordinates relative to the viewport
+          // This is essential since both elements are in fixed/absolute containers
           const startRect = startElement.getBoundingClientRect();
           const endRect = endElement.getBoundingClientRect();
 
+          // We want the startElement to move so its center matches the endElement's center
           const startCenterX = startRect.left + startRect.width / 2;
           const startCenterY = startRect.top + startRect.height / 2;
           const endCenterX = endRect.left + endRect.width / 2;
           const endCenterY = endRect.top + endRect.height / 2;
 
+          // The 'animate' function uses transform (x, y) which is relative to the element's INITIAL position
           const deltaX = endCenterX - startCenterX;
           const deltaY = endCenterY - startCenterY;
+          
+          // Scale based on height to preserve aspect ratio
           const scale = endRect.height / startRect.height;
 
+          // 1. Zoom and 3D Rotation in center
           await animate(startElement, 
             { 
               scale: [1, 2.5],
@@ -291,6 +299,8 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
             }
           );
 
+          // 2. Move to corner with high precision
+          // We use absolute coordinates logic here
           await animate(startElement, 
             { 
               x: deltaX, 
@@ -299,7 +309,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
               opacity: 1
             }, 
             { 
-              duration: 1.0, 
+              duration: 1.2, 
               ease: [0.65, 0, 0.35, 1],
             }
           );
@@ -310,7 +320,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
 
       sequence();
     }
-  }, [isTransitioning, done, logoTargetRef]);
+  }, [isTransitioning, done]);
 
   return (
     <motion.div
