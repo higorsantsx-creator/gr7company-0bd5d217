@@ -328,25 +328,25 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
           </div>
           
           {/* 3D Depth Layers (Extrusion) */}
-          <div className="absolute inset-0 translate-z-[-1px] opacity-90 blur-[0.2px]">
+          <div className="absolute inset-0 depth-1 opacity-90 blur-[0.2px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-2px] opacity-80 blur-[0.4px]">
+          <div className="absolute inset-0 depth-2 opacity-80 blur-[0.4px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-3px] opacity-70 blur-[0.6px]">
+          <div className="absolute inset-0 depth-3 opacity-70 blur-[0.6px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-4px] opacity-60 blur-[0.8px]">
+          <div className="absolute inset-0 depth-4 opacity-60 blur-[0.8px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
-          <div className="absolute inset-0 translate-z-[-5px] opacity-50 blur-[1px]">
+          <div className="absolute inset-0 depth-5 opacity-50 blur-[1px]">
             <GR7Mark className="h-9 w-auto object-contain" />
           </div>
           
           {/* Internal shadow to give it more depth when rotating */}
           <div 
-            className="absolute inset-0 bg-black/10 translate-z-[-2px] mix-blend-multiply"
+            className="absolute inset-0 bg-black/10 depth-2 mix-blend-multiply"
             style={{ maskImage: "linear-gradient(to right, transparent, black, transparent)" }}
           />
         </div>
