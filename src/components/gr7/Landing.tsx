@@ -263,18 +263,24 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
 
   useEffect(() => {
     if (isTransitioning) {
-      const startRect = logoRef.current?.getBoundingClientRect();
-      const endRect = logoTargetRef.current?.getBoundingClientRect();
+      const sequence = async () => {
+        const startElement = logoRef.current;
+        const endElement = logoTargetRef.current?.querySelector('img');
 
-      if (startRect && endRect) {
-        // Calculate transition properties
-        const deltaX = endRect.left + endRect.width / 2 - (startRect.left + startRect.width / 2);
-        const deltaY = endRect.top + endRect.height / 2 - (startRect.top + startRect.height / 2);
-        const scale = endRect.width / startRect.width;
+        if (startElement && endElement) {
+          const startRect = startElement.getBoundingClientRect();
+          const endRect = endElement.getBoundingClientRect();
 
-        const sequence = async () => {
-          // 1. Zoom and 3D Rotation first
-          await animate(logoRef.current!, 
+          const startCenterX = startRect.left + startRect.width / 2;
+          const startCenterY = startRect.top + startRect.height / 2;
+          const endCenterX = endRect.left + endRect.width / 2;
+          const endCenterY = endRect.top + endRect.height / 2;
+
+          const deltaX = endCenterX - startCenterX;
+          const deltaY = endCenterY - startCenterY;
+          const scale = endRect.height / startRect.height;
+
+          await animate(startElement, 
             { 
               scale: [1, 2.5],
               rotateY: [0, 360],
@@ -285,8 +291,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
             }
           );
 
-          // 2. Move to corner
-          await animate(logoRef.current!, 
+          await animate(startElement, 
             { 
               x: deltaX, 
               y: deltaY, 
@@ -294,19 +299,16 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
               opacity: 1
             }, 
             { 
-              duration: 0.8, 
-              ease: [0.645, 0.045, 0.355, 1],
+              duration: 1.0, 
+              ease: [0.65, 0, 0.35, 1],
             }
           );
-          
-          done();
-        };
+        }
+        
+        done();
+      };
 
-        sequence();
-      } else {
-        // Fallback if refs aren't ready
-        setTimeout(done, 1000);
-      }
+      sequence();
     }
   }, [isTransitioning, done, logoTargetRef]);
 
