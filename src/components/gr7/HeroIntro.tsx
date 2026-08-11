@@ -246,10 +246,10 @@ export default function HeroIntro() {
       <motion.div 
         style={{ 
           opacity: useTransform(scrollSmooth, [0.5, 0.95], [0, 1]),
-          pointerEvents: "none"
+          pointerEvents: "none",
+          backgroundImage: `url(${bgTransitionAsset.url})`
         }}
         className="fixed inset-0 z-[55] bg-cover bg-center bg-no-repeat"
-        src={bgTransitionAsset.url}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/0 via-[#050505]/20 to-[#0a0a0a]" />
       </motion.div>
