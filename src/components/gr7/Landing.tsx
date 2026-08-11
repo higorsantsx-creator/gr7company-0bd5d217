@@ -47,6 +47,7 @@ import {
   InstagramProfile,
   GR7InAction,
 } from "./MediaSections";
+import HeroIntro from "./HeroIntro";
 
 
 
@@ -1777,6 +1778,7 @@ export default function Landing() {
         <Nav logoRef={logoTargetRef} />
 
         <main>
+          <HeroIntro />
           <Hero />
           <Services />
           <ProjectsGrid />
