@@ -1695,6 +1695,8 @@ function FAQ() {
 /* ------------------------------------------------------------------ */
 export default function Landing() {
   const [loading, setLoading] = useState(true);
+  const logoTargetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
     return () => {
@@ -1708,7 +1710,12 @@ export default function Landing() {
       style={{ cursor: "auto" }}
     >
       <AnimatePresence>
-        {loading && <Loader done={() => setLoading(false)} />}
+        {loading && (
+          <Loader 
+            done={() => setLoading(false)} 
+            logoTargetRef={logoTargetRef}
+          />
+        )}
       </AnimatePresence>
 
       <AnimatedBackground />
@@ -1716,7 +1723,7 @@ export default function Landing() {
       <ScrollProgress />
       <CustomCursor />
       <div className="relative z-10">
-        <Nav />
+        <Nav logoRef={logoTargetRef} />
 
         <main>
           <Hero />
