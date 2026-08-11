@@ -47,6 +47,8 @@ import {
   InstagramProfile,
   GR7InAction,
 } from "./MediaSections";
+import ExpandingCardsDemo from "./ExpandingCardsDemo";
+
 
 /* ------------------------------------------------------------------ */
 /*  GR7 wordmark (SVG, used on dark backgrounds)                       */
@@ -1668,9 +1670,11 @@ export default function Landing() {
           <Services />
           <ProjectsGrid />
           <Difference />
+          <ExpandingCardsDemo />
           <CinematicVideo />
           <Manifesto />
           <ReelsSection />
+
           
           <Process />
           <ArtsMasonry />
