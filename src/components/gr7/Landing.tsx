@@ -241,22 +241,60 @@ function CustomCursor() {
 /* ------------------------------------------------------------------ */
 /*  Loader                                                             */
 /* ------------------------------------------------------------------ */
-function Loader({ done }: { done: () => void }) {
+function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: React.RefObject<HTMLDivElement | null> }) {
   const [p, setP] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const logoRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const id = setInterval(() => {
       setP((v) => {
         const n = v + Math.random() * 12 + 4;
         if (n >= 100) {
           clearInterval(id);
-          setTimeout(done, 350);
+          setIsTransitioning(true);
           return 100;
         }
         return n;
       });
     }, 90);
     return () => clearInterval(id);
-  }, [done]);
+  }, []);
+
+  useEffect(() => {
+    if (isTransitioning) {
+      const startRect = logoRef.current?.getBoundingClientRect();
+      const endRect = logoTargetRef.current?.getBoundingClientRect();
+
+      if (startRect && endRect) {
+        // Calculate transition properties
+        const deltaX = endRect.left + endRect.width / 2 - (startRect.left + startRect.width / 2);
+        const deltaY = endRect.top + endRect.height / 2 - (startRect.top + startRect.height / 2);
+        const scale = endRect.width / startRect.width;
+
+        animate(logoRef.current!, 
+          { 
+            x: deltaX, 
+            y: deltaY, 
+            scale: [1, 2.5, scale],
+            rotateY: [0, 360, 0],
+            opacity: [1, 1, 0] // Fade out at the very end to show the nav logo
+          }, 
+          { 
+            duration: 1.8, 
+            ease: [0.645, 0.045, 0.355, 1],
+            onComplete: () => {
+              done();
+            }
+          }
+        );
+      } else {
+        // Fallback if refs aren't ready
+        setTimeout(done, 1000);
+      }
+    }
+  }, [isTransitioning, done, logoTargetRef]);
+
   return (
     <motion.div
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a]"
@@ -266,17 +304,30 @@ function Loader({ done }: { done: () => void }) {
         background:
           "radial-gradient(600px circle at 50% 50%, rgba(255,26,26,0.25), transparent 60%)",
       }} />
-      <GR7Mark className="h-9 mb-10 relative z-10" />
-      <div className="relative z-10 w-64 h-[2px] bg-[#0a0a0a]/[0.04] overflow-hidden rounded-full">
-        <motion.div
-          className="h-full bg-gradient-to-r from-[#ff1a1a] to-[#ff6b6b]"
-          style={{ width: `${p}%` }}
-          transition={{ ease: "easeOut" }}
-        />
+      
+      <div ref={logoRef} className="relative z-20">
+        <GR7Mark className="h-9 w-auto object-contain" />
       </div>
-      <div className="mt-4 font-mono text-xs tracking-[0.3em] text-white/50 relative z-10">
-        {Math.round(p).toString().padStart(3, "0")}%
-      </div>
+
+      <AnimatePresence>
+        {!isTransitioning && (
+          <motion.div 
+            exit={{ opacity: 0, y: 20 }}
+            className="flex flex-col items-center mt-10"
+          >
+            <div className="relative z-10 w-64 h-[2px] bg-white/5 overflow-hidden rounded-full">
+              <motion.div
+                className="h-full bg-gradient-to-r from-[#ff1a1a] to-[#ff6b6b]"
+                style={{ width: `${p}%` }}
+                transition={{ ease: "easeOut" }}
+              />
+            </div>
+            <div className="mt-4 font-mono text-xs tracking-[0.3em] text-white/50 relative z-10">
+              {Math.round(p).toString().padStart(3, "0")}%
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -373,7 +424,7 @@ function Reveal({
 /* ------------------------------------------------------------------ */
 /*  NAV                                                                */
 /* ------------------------------------------------------------------ */
-function Nav() {
+function Nav({ logoRef }: { logoRef?: React.RefObject<HTMLDivElement | null> }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 40);
@@ -393,7 +444,9 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5 md:px-10">
-        <GR7Mark className="h-7" />
+        <div ref={logoRef}>
+          <GR7Mark className="h-7" />
+        </div>
         <nav className="hidden items-center gap-9 text-sm text-white/60 md:flex">
           {[
             ["Serviços", "servicos"],
@@ -1642,6 +1695,8 @@ function FAQ() {
 /* ------------------------------------------------------------------ */
 export default function Landing() {
   const [loading, setLoading] = useState(true);
+  const logoTargetRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
     return () => {
@@ -1655,7 +1710,12 @@ export default function Landing() {
       style={{ cursor: "auto" }}
     >
       <AnimatePresence>
-        {loading && <Loader done={() => setLoading(false)} />}
+        {loading && (
+          <Loader 
+            done={() => setLoading(false)} 
+            logoTargetRef={logoTargetRef}
+          />
+        )}
       </AnimatePresence>
 
       <AnimatedBackground />
@@ -1663,7 +1723,7 @@ export default function Landing() {
       <ScrollProgress />
       <CustomCursor />
       <div className="relative z-10">
-        <Nav />
+        <Nav logoRef={logoTargetRef} />
 
         <main>
           <Hero />
