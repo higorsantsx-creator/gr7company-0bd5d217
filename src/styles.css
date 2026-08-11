@@ -181,12 +181,7 @@
   }
 
 
-  /* Native "browser zoom out" feel on desktop screens only */
-  @media (min-width: 1024px) {
-    html {
-      zoom: 0.8;
-    }
-  }
+  /* Zoom removed as per user request to return to 100% native zoom */
 
 }
 
