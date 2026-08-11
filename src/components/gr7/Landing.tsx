@@ -265,8 +265,10 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
     if (isTransitioning) {
       const sequence = async () => {
         const startElement = logoRef.current;
+        // Search specifically for the HeroIntro logo image
+        const endElement = document.querySelector('.hero-intro-logo img');
 
-        if (startElement) {
+        if (startElement && endElement) {
           // 1. Zoom and 3D Rotation in center
           await animate(startElement, 
             { 
@@ -277,6 +279,43 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
               duration: 1.8, 
               ease: "easeInOut" 
             }
+          );
+
+          // Get fresh coordinates AFTER the first animation
+          const startRect = startElement.getBoundingClientRect();
+          const endRect = endElement.getBoundingClientRect();
+
+          const startCenterX = startRect.left + startRect.width / 2;
+          const startCenterY = startRect.top + startRect.height / 2;
+          const endCenterX = endRect.left + endRect.width / 2;
+          const endCenterY = endRect.top + endRect.height / 2;
+
+          // Calculate displacement needed
+          const deltaX = endCenterX - startCenterX;
+          const deltaY = endCenterY - startCenterY;
+          
+          // Final scale relative to the size it has after the zoom (2.5x)
+          // We want it to match endRect.height
+          const targetScale = endRect.height / (startRect.height / 2.5);
+
+          // 2. Move to HeroIntro logo position
+          await animate(startElement, 
+            { 
+              x: deltaX, 
+              y: deltaY, 
+              scale: targetScale,
+              opacity: 1
+            }, 
+            { 
+              duration: 1.2, 
+              ease: [0.65, 0, 0.35, 1],
+            }
+          );
+        } else if (startElement) {
+          // Fallback if HeroIntro isn't found
+          await animate(startElement, 
+            { scale: [1, 2.5], rotateY: [0, 360] }, 
+            { duration: 1.8, ease: "easeInOut" }
           );
         }
         
