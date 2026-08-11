@@ -348,7 +348,7 @@ function Reveal({
   variant?: RevealVariant;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-80px" });
+  const inView = useInView(ref, { margin: "-80px", once: true });
   const v = REVEAL_VARIANTS[variant];
   // permite override do deslocamento vertical no rise clássico
   const hidden =
