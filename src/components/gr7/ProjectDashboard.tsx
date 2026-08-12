@@ -645,7 +645,21 @@ function DashboardContent({ data }: { data: ProjectData }) {
                   )} 
                   style={{ aspectRatio: g.aspect ?? "9/16" }}
                 >
-                  {g.src ? (
+                  {g.isInstagram ? (
+                    <div className="flex h-full w-full flex-col items-center justify-center bg-zinc-900/50 p-6 text-center">
+                      <div className="relative mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] p-0.5 shadow-xl">
+                        <div className="flex h-full w-full items-center justify-center rounded-full bg-[#0a0a0a]">
+                          <InstagramIcon className="h-6 w-6 text-white" />
+                        </div>
+                      </div>
+                      <span className="mb-2 block font-display text-xs font-medium text-white">
+                        Instagram
+                      </span>
+                      <p className="max-w-[140px] text-[9px] leading-tight text-white/40">
+                        Toque para abrir este conteúdo no App
+                      </p>
+                    </div>
+                  ) : g.src ? (
                     <img 
                       src={g.src} 
                       alt={g.label ?? ""} 
