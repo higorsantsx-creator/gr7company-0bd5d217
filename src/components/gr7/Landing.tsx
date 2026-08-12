@@ -328,7 +328,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a]"
       exit={{ opacity: 0, transition: { duration: 0.6 } }}
     >
       <div className="absolute inset-0 opacity-30" style={{
