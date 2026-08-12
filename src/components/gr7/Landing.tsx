@@ -77,7 +77,7 @@ function AnimatedBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 0%, #1a0505 0%, #050505 45%, #050505 100%)",
+            "#050505",
         }}
       />
 
