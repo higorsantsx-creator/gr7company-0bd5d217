@@ -65,7 +65,7 @@ export interface ProjectData {
   growth: MonthlyPoint[];
   distribution: DistributionSlice[];
   beforeAfter: BeforeAfter[];
-  gallery: { kind?: "image" | "video"; src?: string; label?: string; href?: string; aspect?: string }[];
+  gallery: { kind?: "image" | "video"; src?: string; label?: string; href?: string; aspect?: string; bg?: string }[];
   timeline: TimelineStep[];
   deliverables: string[];
   testimonial: ProjectTestimonial;
@@ -208,7 +208,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Ads" },
     ],
     gallery: [
-      { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png" },
+      { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white" },
       { label: "Campanha Força", href: "https://www.instagram.com/lagostafitness/p/DPWjQ8-juPV/", aspect: "1/1" },
       { label: "Bastidores Treino" },
       { label: "Dashboard Mensal" },

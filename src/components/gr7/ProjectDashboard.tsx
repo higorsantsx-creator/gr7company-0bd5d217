@@ -23,6 +23,7 @@ import {
   Instagram as InstagramIcon,
 } from "lucide-react";
 import type { ProjectData, ProjectKPI } from "./projectData";
+import { cn } from "@/lib/utils";
 import gr7Logo from "@/assets/gr7-logo.png";
 
 /* ------------------------------------------------------------------ */
@@ -638,11 +639,22 @@ function DashboardContent({ data }: { data: ProjectData }) {
             {data.gallery.map((g, i) => {
               const inner = g.src || g.href ? (
                 <div 
-                  className="relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10" 
+                  className={cn(
+                    "relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10",
+                    g.bg === "white" ? "bg-white p-6" : ""
+                  )} 
                   style={{ aspectRatio: g.aspect ?? "9/16" }}
                 >
                   {g.src ? (
-                    <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img 
+                      src={g.src} 
+                      alt={g.label ?? ""} 
+                      loading="lazy" 
+                      className={cn(
+                        "h-full w-full transition-transform duration-500 group-hover:scale-105",
+                        g.bg === "white" ? "object-contain" : "object-cover"
+                      )} 
+                    />
                   ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center bg-neutral-900/50">
                       <InstagramIcon className="mb-2 h-6 w-6 text-white/20" />
