@@ -36,13 +36,13 @@ export interface ProjectCard extends MediaItem {
 
 export const projects: ProjectCard[] = [
   { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.png", import.meta.url).href },
+  { client: "Lagosta Fitness", category: "Performance · Social Media · Meta Ads", src: "/__l5e/assets-v1/d870335e-9a0f-45dc-9411-3d23e0b3e7b5/lagosta-fitness-logo.png" },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
   { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
-  { client: "Ateliê Gaia", category: "Fotografia · E-commerce", src: "" },
 ];
 
 /* ------------------------------------------------------------------ */
