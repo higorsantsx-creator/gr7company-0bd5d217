@@ -253,10 +253,10 @@ export default function HeroIntro() {
       {/* GRADIENT TRANSITION (smoother blend) */}
       <motion.div 
         style={{ 
-          opacity: useTransform(scrollSmooth, [0.4, 0.7], [0, 1]),
+          opacity: useTransform(scrollSmooth, [0.4, 0.75], [0, 1]),
           pointerEvents: "none"
         }}
-        className="fixed inset-0 z-[54] bg-gradient-to-b from-[#050505] via-[#ff1a1a]/5 to-[#050505]"
+        className="fixed inset-0 z-[54] bg-gradient-to-b from-[#050505] via-[#ff1a1a]/10 to-[#050505]"
       />
     </div>
   );
