@@ -1812,6 +1812,7 @@ export default function Landing() {
       <CustomCursor />
       <ScrollProgress />
       <SharedAtmosphere />
+      <GlobalScrollFlow logoTargetRef={logoTargetRef} />
 
       <AnimatePresence>
         {loading && <Loader done={() => setLoading(false)} logoTargetRef={logoTargetRef} />}
