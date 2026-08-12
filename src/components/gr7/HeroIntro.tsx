@@ -23,13 +23,13 @@ export default function HeroIntro() {
   const logoScale = useTransform(scrollSmooth, [0, 0.5], [1, 1.4]);
   const logoOpacity = useTransform(scrollSmooth, [0, 0.4, 0.6], [1, 1, 0]);
   const contentY = useTransform(scrollSmooth, [0, 0.5], [0, -100]);
-  const bgOpacity = useTransform(scrollSmooth, [0, 0.7, 0.95, 1], [1, 1, 0.3, 0]);
+  const bgOpacity = useTransform(scrollSmooth, [0, 0.75, 0.98, 1], [1, 1, 0.1, 0]);
   const waveScale = useTransform(scrollSmooth, [0.2, 0.8], [0, 2.5]);
   const waveOpacity = useTransform(scrollSmooth, [0.2, 0.5, 0.8, 0.95], [0, 1, 0.2, 0]);
   
   // Transition Glow (Next section's color leaking in)
-  const transitionGlowOpacity = useTransform(scrollSmooth, [0.75, 0.95, 1], [0, 0.8, 1]);
-  const transitionGlowScale = useTransform(scrollSmooth, [0.75, 1], [0.6, 1.4]);
+  const transitionGlowOpacity = useTransform(scrollSmooth, [0.65, 0.9, 1], [0, 0.95, 1]);
+  const transitionGlowScale = useTransform(scrollSmooth, [0.65, 1], [0.8, 1.2]);
 
   useEffect(() => {
     setIsReady(true);
@@ -50,27 +50,21 @@ export default function HeroIntro() {
   return (
     <div 
       ref={containerRef}
-      className="relative z-[60] h-[150vh] w-full bg-[#0a0a0a] overflow-visible"
+      className="relative z-[60] h-[150vh] w-full bg-transparent overflow-visible"
     >
       {/* Fixed viewport container */}
       <motion.div 
         style={{ opacity: bgOpacity }}
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-transparent"
       >
-        {/* ATMOSPHERIC BACKGROUND */}
+        {/* ATMOSPHERIC BACKGROUND (Local overrides for intro phase) */}
         <div className="absolute inset-0 z-0">
-          {/* Deep Red Ambient Glow */}
-          <div 
-            className="absolute inset-0 opacity-20"
-            style={{
-              background: `radial-gradient(circle at ${mousePos.x * 100}% ${mousePos.y * 100}%, rgba(255,26,26,0.15) 0%, transparent 50%)`
-            }}
-          />
+          {/* Transition to deep red occurs via SharedAtmosphere and transitionGlow below */}
           
           {/* Grain Overlay */}
           <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
           
-          {/* Grid Layer */}
+          {/* Local Intro Grid - aligns with SharedAtmosphere grid */}
           <div 
             className="absolute inset-0 opacity-[0.03]"
             style={{
@@ -260,13 +254,13 @@ export default function HeroIntro() {
       {/* TRANSITION OVERLAY (Cinematic fog/light fusion) */}
       <motion.div 
         style={{ 
-          opacity: useTransform(scrollSmooth, [0.75, 0.9, 1], [0, 0.6, 1]),
+          opacity: useTransform(scrollSmooth, [0.7, 0.9, 1], [0, 0.8, 1]),
           pointerEvents: "none"
         }}
-        className="absolute inset-x-0 bottom-0 h-full z-[55] transform-gpu"
+        className="absolute inset-x-0 bottom-[-20vh] h-[120vh] z-[55] transform-gpu overflow-visible"
       >
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,26,26,0.4)_0%,transparent_70%)] blur-[80px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,26,26,0.5)_0%,transparent_70%)] blur-[100px]" />
       </motion.div>
     </div>
   );
