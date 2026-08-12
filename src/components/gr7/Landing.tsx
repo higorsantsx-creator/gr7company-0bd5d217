@@ -549,7 +549,11 @@ function Hero() {
     <section
       ref={ref}
       className="relative isolate min-h-screen w-full overflow-hidden pt-32 md:pt-40"
+      style={{ background: "#050505" }}
     >
+      {/* Subtle blend gradient from top */}
+      <div className="absolute top-0 left-0 right-0 h-96 bg-gradient-to-b from-[#ff1a1a]/10 to-transparent pointer-events-none opacity-40 z-0" />
+
       {/* grid */}
       <div
         className="absolute inset-0 -z-10 opacity-[0.06]"
