@@ -654,6 +654,20 @@ function DashboardContent({ data }: { data: ProjectData }) {
                         "h-full w-full transition-transform duration-500 group-hover:scale-105",
                         g.bg === "white" ? "object-contain" : "object-cover"
                       )} 
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const placeholder = document.createElement('div');
+                          placeholder.className = "flex h-full w-full flex-col items-center justify-center bg-neutral-900/50";
+                          placeholder.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2 h-6 w-6 text-white/20"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.51"></line></svg>
+                            <span class="text-[9px] uppercase tracking-[0.2em] text-white/30">Abrir Post</span>
+                          `;
+                          parent.appendChild(placeholder);
+                        }
+                      }}
                     />
                   ) : (
                     <div className="flex h-full w-full flex-col items-center justify-center bg-neutral-900/50">
