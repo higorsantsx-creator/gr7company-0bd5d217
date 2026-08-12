@@ -162,8 +162,8 @@ export default function HeroIntro() {
           {/* Initial Pulsing Dot */}
           <motion.div
             initial={{ scale: 0, opacity: 0 }}
-            animate={isReady ? { scale: [0, 1.2, 0], opacity: [0, 1, 0] } : {}}
-            transition={{ duration: 1.5, times: [0, 0.5, 1], delay: 1 }}
+            animate={{ scale: [0, 1.2, 0], opacity: [0, 1, 0] }}
+            transition={{ duration: 1.5, times: [0, 0.5, 1] }}
             className="absolute w-4 h-4 bg-[#ff1a1a] rounded-full blur-sm"
           />
 
@@ -171,15 +171,13 @@ export default function HeroIntro() {
           <div className="relative transform-gpu preserve-3d">
             {/* Continuous Glow behind the logo */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={isReady ? { 
-                opacity: [0, 0.5, 0.2],
-                scale: [0.8, 1.2, 1],
-              } : {}}
+              animate={{ 
+                opacity: [0.2, 0.5, 0.2],
+                scale: [1, 1.2, 1],
+              }}
               transition={{ 
                 duration: 4, 
                 repeat: Infinity, 
-                delay: 3, 
                 ease: "easeInOut" 
               }}
               className="absolute inset-0 -z-10 bg-[#ff1a1a]/20 blur-[40px] rounded-full"
@@ -188,7 +186,7 @@ export default function HeroIntro() {
             <motion.div
               initial={{ opacity: 0, filter: "blur(20px)", scale: 0.8 }}
               animate={isReady ? { opacity: 1, filter: "blur(0px)", scale: 1 } : {}}
-              transition={{ duration: 1.8, delay: 3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative z-10 hero-intro-logo"
             >
               <img src={logoImg} alt="GR7 Company" className="h-20 md:h-28 w-auto object-contain drop-shadow-[0_0_30px_rgba(255,26,26,0.3)]" />
@@ -196,16 +194,15 @@ export default function HeroIntro() {
 
             {/* Continuous Glint/Glow passing through */}
             <motion.div
-              animate={isReady ? { 
+              animate={{ 
                 x: ["-250%", "250%"],
                 opacity: [0, 1, 1, 0]
-              } : {}}
+              }}
               transition={{ 
                 duration: 6, 
                 repeat: Infinity, 
                 ease: "easeInOut",
-                times: [0, 0.2, 0.8, 1],
-                delay: 4.8
+                times: [0, 0.2, 0.8, 1]
               }}
               className="absolute inset-0 z-20 bg-gradient-to-r from-transparent via-white/15 to-transparent skew-x-[35deg] pointer-events-none"
             />
@@ -215,7 +212,7 @@ export default function HeroIntro() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isReady ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 1, delay: 4 }}
+            transition={{ duration: 1, delay: 2.2 }}
             className="mt-8 text-center"
           >
             <h2 className="font-display text-xl tracking-[0.4em] text-white uppercase mb-2">GR7 COMPANY</h2>
