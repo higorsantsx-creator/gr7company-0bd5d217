@@ -244,10 +244,19 @@ export default function HeroIntro() {
       {/* TRANSITION OVERLAY (appears during scroll) */}
       <motion.div 
         style={{ 
-          opacity: useTransform(scrollSmooth, [0.5, 0.8], [0, 1]),
+          opacity: useTransform(scrollSmooth, [0.6, 0.95], [0, 1]),
           pointerEvents: "none"
         }}
-        className="fixed inset-0 z-[55] bg-gradient-to-b from-transparent via-[#ff1a1a]/5 to-[#050505]"
+        className="fixed inset-0 z-[55] bg-[#050505]"
+      />
+      
+      {/* GRADIENT TRANSITION (smoother blend) */}
+      <motion.div 
+        style={{ 
+          opacity: useTransform(scrollSmooth, [0.4, 0.75], [0, 1]),
+          pointerEvents: "none"
+        }}
+        className="fixed inset-0 z-[54] bg-gradient-to-b from-[#050505] via-[#ff1a1a]/10 to-[#050505]"
       />
     </div>
   );
