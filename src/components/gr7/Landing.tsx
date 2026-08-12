@@ -726,12 +726,12 @@ function HeroDashboard() {
         transition={{ 
           opacity: { duration: 1, delay: 0.5 },
           y: { 
-            duration: 6, 
+            duration: 5, 
             repeat: Infinity, 
-            ease: "easeInOut" 
+            ease: "linear" 
           }
         }}
-        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl transform-gpu"
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl transform-gpu will-change-transform"
         style={{
           boxShadow:
             "0 40px 120px -20px rgba(255,26,26,0.25), inset 0 1px 0 rgba(0,0,0,0.08)",
@@ -749,7 +749,7 @@ function HeroDashboard() {
               backgroundColor: ["rgba(52, 211, 153, 0.1)", "rgba(52, 211, 153, 0.3)", "rgba(52, 211, 153, 0.1)"],
               boxShadow: ["0 0 0px rgba(52, 211, 153, 0)", "0 0 12px rgba(52, 211, 153, 0.4)", "0 0 0px rgba(52, 211, 153, 0)"]
             }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             className="rounded-full border border-emerald-400/30 px-2 py-1 text-[10px] font-medium text-emerald-300"
           >
             LIVE
@@ -766,7 +766,7 @@ function HeroDashboard() {
               key={label}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.9 + i * 0.15 }}
+              transition={{ delay: 0.9 + i * 0.15, duration: 0.8, ease: "easeOut" }}
               className="rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3"
             >
               <div className="text-[9px] uppercase tracking-wider text-white/50">{label}</div>
@@ -778,7 +778,7 @@ function HeroDashboard() {
 
         {/* mini chart */}
         <div className="mt-6 h-32 rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3 overflow-hidden">
-          <svg viewBox="0 0 200 80" className="h-full w-full">
+          <svg viewBox="0 0 200 80" className="h-full w-full preserve-3d">
             <defs>
               <linearGradient id="ch1" x1="0" x2="0" y1="0" y2="1">
                 <stop offset="0" stopColor="rgba(255,26,26,0.5)" />
@@ -799,8 +799,9 @@ function HeroDashboard() {
               }}
               transition={{ 
                 opacity: { delay: 1.5, duration: 1 },
-                d: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                d: { duration: 6, repeat: Infinity, ease: "linear" }
               }}
+              className="will-change-[d]"
             />
             <motion.path
               d="M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6"
@@ -818,8 +819,9 @@ function HeroDashboard() {
               }}
               transition={{ 
                 pathLength: { delay: 1.2, duration: 1.6, ease: "easeInOut" },
-                d: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                d: { duration: 6, repeat: Infinity, ease: "linear" }
               }}
+              className="will-change-[d,pathLength]"
             />
             {[20, 60, 100, 140, 180].map((x, i) => (
               <motion.circle
@@ -834,9 +836,10 @@ function HeroDashboard() {
                   cy: i === 0 ? [55, 53, 55] : i === 1 ? [45, 43, 45] : i === 2 ? [42, 40, 42] : i === 3 ? [25, 23, 25] : [12, 10, 12]
                 }}
                 transition={{ 
-                  scale: { delay: 2 + i * 0.1 },
-                  cy: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                  scale: { delay: 2 + i * 0.1, duration: 0.5 },
+                  cy: { duration: 6, repeat: Infinity, ease: "linear" }
                 }}
+                className="will-change-[cy]"
               />
             ))}
           </svg>
@@ -855,13 +858,13 @@ function HeroDashboard() {
           opacity: { duration: 1, delay: 1 },
           x: { duration: 1, delay: 1 },
           y: { 
-            duration: 5, 
+            duration: 7, 
             repeat: Infinity, 
-            ease: "easeInOut",
+            ease: "linear",
             delay: 1 
           }
         }}
-        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/85 p-3 backdrop-blur-xl md:-right-10 transform-gpu z-10"
+        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/85 p-3 backdrop-blur-xl md:-right-10 transform-gpu z-10 will-change-transform"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
         <div className="flex items-center gap-2">
@@ -877,7 +880,7 @@ function HeroDashboard() {
               key={i}
               className="aspect-square rounded bg-gradient-to-br from-black/[0.06] to-black/[0.02]"
               animate={{ opacity: [0.4, 0.9, 0.4] }}
-              transition={{ duration: 3, repeat: Infinity, delay: i * 0.3 }}
+              transition={{ duration: 4, repeat: Infinity, delay: i * 0.5, ease: "linear" }}
             />
           ))}
         </div>
@@ -893,13 +896,13 @@ function HeroDashboard() {
         transition={{ 
           opacity: { duration: 1, delay: 1.3 },
           y: { 
-            duration: 4, 
+            duration: 6, 
             repeat: Infinity, 
-            ease: "easeInOut",
+            ease: "linear",
             delay: 1.3 
           }
         }}
-        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0a]/85 px-4 py-3 backdrop-blur-xl md:-left-8 transform-gpu z-10"
+        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0a]/85 px-4 py-3 backdrop-blur-xl md:-left-8 transform-gpu z-10 will-change-transform"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0a0a0a]/[0.03]">
