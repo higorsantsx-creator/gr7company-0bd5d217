@@ -20,6 +20,7 @@ import {
   CalendarDays,
   Layers,
   Quote,
+  Instagram as InstagramIcon,
 } from "lucide-react";
 import type { ProjectData, ProjectKPI } from "./projectData";
 import gr7Logo from "@/assets/gr7-logo.png";
@@ -635,9 +636,19 @@ function DashboardContent({ data }: { data: ProjectData }) {
           </div>
           <div className="columns-2 gap-4 space-y-4 md:columns-3">
             {data.gallery.map((g, i) => {
-              const inner = g.src ? (
-                <div className="relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10" style={{ aspectRatio: g.aspect ?? "9/16" }}>
-                  <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              const inner = g.src || g.href ? (
+                <div 
+                  className="relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10" 
+                  style={{ aspectRatio: g.aspect ?? "9/16" }}
+                >
+                  {g.src ? (
+                    <img src={g.src} alt={g.label ?? ""} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="flex h-full w-full flex-col items-center justify-center bg-neutral-900/50">
+                      <InstagramIcon className="mb-2 h-6 w-6 text-white/20" />
+                      <span className="text-[9px] uppercase tracking-[0.2em] text-white/30">Abrir Post</span>
+                    </div>
+                  )}
                   {g.label && (
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 text-[11px] font-medium uppercase tracking-[0.15em] text-white">
                       {g.label}
