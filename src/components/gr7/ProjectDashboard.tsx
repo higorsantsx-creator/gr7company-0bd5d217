@@ -641,7 +641,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
                 <div 
                   className={cn(
                     "relative w-full overflow-hidden rounded-2xl ring-1 ring-white/10",
-                    (g as any).bg === "white" ? "bg-white p-6" : ""
+                    g.bg === "white" ? "bg-white p-6" : ""
                   )} 
                   style={{ aspectRatio: g.aspect ?? "9/16" }}
                 >
@@ -652,7 +652,7 @@ function DashboardContent({ data }: { data: ProjectData }) {
                       loading="lazy" 
                       className={cn(
                         "h-full w-full transition-transform duration-500 group-hover:scale-105",
-                        (g as any).bg === "white" ? "object-contain" : "object-cover"
+                        g.bg === "white" ? "object-contain" : "object-cover"
                       )} 
                     />
                   ) : (
