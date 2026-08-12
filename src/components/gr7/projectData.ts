@@ -65,7 +65,7 @@ export interface ProjectData {
   growth: MonthlyPoint[];
   distribution: DistributionSlice[];
   beforeAfter: BeforeAfter[];
-  gallery: { kind?: "image" | "video"; src?: string; label?: string; href?: string; aspect?: string; bg?: string }[];
+  gallery: { kind?: "image" | "video"; src?: string; label?: string; href?: string; aspect?: string; bg?: string; isInstagram?: boolean }[];
   timeline: TimelineStep[];
   deliverables: string[];
   testimonial: ProjectTestimonial;
