@@ -111,7 +111,7 @@ export function MediaSlot({
 
       {src && kind !== "video" && (
         <motion.img
-          className="h-full w-full object-cover"
+          className={`h-full w-full ${className.includes("object-contain") ? "object-contain" : "object-cover"}`}
           src={src}
           alt={alt ?? ""}
           onLoad={() => setLoaded(true)}
