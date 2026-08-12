@@ -966,6 +966,7 @@ function ServiceCard({ s, i }: { s: (typeof services)[number]; i: number }) {
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.92 }}
       transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
+      data-service-card={i}
       className="group relative overflow-hidden rounded-2xl border border-white/15 bg-[#0a0a0a] p-6 shadow-[0_1px_0_rgba(0,0,0,0.04),0_10px_28px_-18px_rgba(0,0,0,0.18)] ring-1 ring-white/5 transition-colors hover:border-[#ff1a1a]/60"
       style={{ minHeight: 180, willChange: "transform, opacity" }}
     >
