@@ -23,7 +23,7 @@ export default function HeroIntro() {
   const logoScale = useTransform(scrollSmooth, [0, 0.5], [1, 1.4]);
   const logoOpacity = useTransform(scrollSmooth, [0, 0.4, 0.6], [1, 1, 0]);
   const contentY = useTransform(scrollSmooth, [0, 0.5], [0, -100]);
-  const bgOpacity = useTransform(scrollSmooth, [0.6, 1], [1, 0]);
+  const bgOpacity = useTransform(scrollSmooth, [0, 0.4, 1], [1, 1, 0]);
   const waveScale = useTransform(scrollSmooth, [0.2, 0.8], [0, 2.5]);
   const waveOpacity = useTransform(scrollSmooth, [0.2, 0.5, 0.8], [0, 1, 0]);
 
@@ -247,7 +247,7 @@ export default function HeroIntro() {
           opacity: useTransform(scrollSmooth, [0.5, 0.8], [0, 1]),
           pointerEvents: "none"
         }}
-        className="fixed inset-0 z-[55] bg-gradient-to-b from-transparent via-[#ff1a1a]/5 to-[#0a0a0a]"
+        className="fixed inset-0 z-[55] bg-gradient-to-b from-transparent via-[#ff1a1a]/5 to-[#050505]"
       />
     </div>
   );
