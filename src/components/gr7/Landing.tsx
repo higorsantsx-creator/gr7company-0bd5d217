@@ -1814,7 +1814,6 @@ export default function Landing() {
       <GlobalScrollFlow logoTargetRef={logoTargetRef} />
       <ScrollProgress />
       <SharedAtmosphere />
-      <GlobalScrollFlow logoTargetRef={logoTargetRef} />
 
       <AnimatePresence>
         {loading && <Loader done={() => setLoading(false)} logoTargetRef={logoTargetRef} />}
