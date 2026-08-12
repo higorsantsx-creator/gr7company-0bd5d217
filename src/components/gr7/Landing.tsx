@@ -1835,12 +1835,16 @@ export default function Landing() {
           <HeroIntro />
           <Hero logoTargetRef={logoTargetRef} />
           <Services />
-          <ProjectsGrid />
+          <div id="projetos">
+            <ProjectsGrid />
+          </div>
           <Difference />
           
           <CinematicVideo />
           <Manifesto />
-          <ReelsSection />
+          <div id="reels">
+            <ReelsSection />
+          </div>
 
           
           <Process />
