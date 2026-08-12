@@ -1,24 +1,23 @@
 ---
-title: Fix abrupt visual jump in Hero transition
-description: Smooth the transition between HeroIntro and Hero by adjusting opacity curves, unmasking elements earlier, and synchronizing background layers.
+title: Fix HeroIntro to Hero scroll transition
+description: Smooth the background transition between the HeroIntro and the main Hero section by synchronizing colors and opacity curves.
 ---
 
 ## Proposed Changes
 
 ### HeroIntro Component
-- Refine `bgOpacity` and `waveOpacity` transforms to fade out intro elements more gradually.
-- Update `TRANSITION OVERLAY` to use a more balanced opacity curve to bridge the two sections.
-- Ensure intro text and secondary elements fade out early enough to not conflict with the incoming hero content.
+- Synchronize background color with the main landing page (`#0a0a0a`).
+- Adjust `bgOpacity` and `waveOpacity` scroll ranges to ensure a seamless fade-out of the intro elements.
+- Update the fixed overlay gradient to match the new background color.
 
 ### Landing Component
-- Adjust the `Hero` section's internal `opacity` transform to fade in earlier, creating a cross-fade effect.
-- Synchronize the `AnimatedBackground` grid and glow properties to match the `HeroIntro` atmospheric layers.
-- Check and fix any z-index conflicts that might cause sudden visibility changes.
+- Ensure the `AnimatedBackground` and `Hero` section maintain visual consistency during the transition.
+- Adjust the `Hero` section's top padding or margin if needed to align with the `HeroIntro` exit.
 
 ## Technical Details
 - In `HeroIntro.tsx`:
-    - Adjust `bgOpacity`: `useTransform(scrollSmooth, [0, 0.6, 0.9], [1, 1, 0])`.
-    - Adjust overlay: `useTransform(scrollSmooth, [0.4, 0.9], [0, 1])`.
+    - Change `bg-[#050505]` to `bg-[#0a0a0a]`.
+    - Modify `bgOpacity` transform: `useTransform(scrollSmooth, [0, 0.8, 1], [1, 1, 0])`.
+    - Update `TRANSITION OVERLAY` gradient: `from-transparent via-[#ff1a1a]/5 to-[#0a0a0a]`.
 - In `Landing.tsx`:
-    - In `Hero` section, change `opacity` transform to `useTransform(scrollYProgress, [0, 0.3], [0, 1])` (currently it might be reversed or too late).
-    - Ensure `z-index` of main `Landing` content doesn't suddenly "pop" over `HeroIntro`.
+    - Verify `AnimatedBackground` base color matches `#0a0a0a`.
