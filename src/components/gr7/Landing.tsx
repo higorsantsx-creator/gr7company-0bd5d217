@@ -538,18 +538,30 @@ function Nav({ logoRef }: { logoRef?: React.RefObject<HTMLDivElement | null> }) 
 /* ------------------------------------------------------------------ */
 /*  HERO                                                               */
 /* ------------------------------------------------------------------ */
-function Hero() {
+function Hero({ logoTargetRef }: { logoTargetRef?: React.RefObject<HTMLDivElement | null> }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const y2 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  
+  // Fusion transforms
+  const backgroundOpacity = useTransform(scrollYProgress, [0, 0.25, 0.8, 1], [0, 1, 1, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0.1, 0.25], [0, 1]);
+  const contentY = useTransform(scrollYProgress, [0.1, 0.25], [60, 0]);
 
   return (
     <section
       ref={ref}
       className="relative isolate min-h-screen w-full overflow-hidden pt-32 md:pt-40"
     >
+      {/* Background Fusion Layer */}
+      <motion.div 
+        style={{ opacity: backgroundOpacity }}
+        className="absolute inset-0 z-0 pointer-events-none"
+      >
+        <div className="absolute inset-0 bg-[#0a0a0a]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,26,26,0.25)_0%,transparent_70%)]" />
+      </motion.div>
       {/* grid */}
       <div
         className="absolute inset-0 -z-10 opacity-[0.06]"
@@ -630,7 +642,7 @@ function Hero() {
       </svg>
 
       <motion.div
-        style={{ opacity }}
+        style={{ opacity: contentOpacity, y: contentY }}
         className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 pb-32 md:px-10 lg:grid-cols-12"
       >
         <div className="lg:col-span-7 lg:pt-12">
