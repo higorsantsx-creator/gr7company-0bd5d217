@@ -69,11 +69,12 @@ export function MediaSlot({
   icon,
   label,
   ornate = false,
-}: SlotProps) {
+  bg,
+}: SlotProps & { bg?: string }) {
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden ${className}`} style={bg ? { backgroundColor: bg } : {}}>
       <AnimatePresence>
         {!loaded && (
           <motion.div
@@ -110,7 +111,7 @@ export function MediaSlot({
 
       {src && kind !== "video" && (
         <motion.img
-          className="h-full w-full object-cover"
+          className={`h-full w-full ${className.includes("object-contain") ? "object-contain" : "object-cover"}`}
           src={src}
           alt={alt ?? ""}
           onLoad={() => setLoaded(true)}

@@ -110,8 +110,9 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
+                    bg={p.bg}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -144,8 +145,9 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
+                    bg={p.bg}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
@@ -186,8 +188,9 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className="absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110"
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${projects[i]?.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
+                    bg={projects[i]?.bg}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   <div className="absolute inset-x-0 bottom-0 z-10 translate-y-6 p-6 opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">

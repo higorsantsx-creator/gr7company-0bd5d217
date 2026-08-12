@@ -208,7 +208,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Ads" },
     ],
     gallery: [
-      { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d870335e-9a0f-45dc-9411-3d23e0b3e7b5/lagosta-fitness-logo.png" },
+      { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png" },
       { label: "Campanha Força" },
       { label: "Bastidores Treino" },
       { label: "Dashboard Mensal" },
