@@ -5,6 +5,9 @@
  * basta empurrar mais um objeto em `projectDataset`. O layout do
  * dashboard é 100% dinâmico e não precisa ser alterado.
  */
+import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
+import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
+
 
 export interface ProjectKPI {
   label: string;
