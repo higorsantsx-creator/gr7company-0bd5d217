@@ -239,6 +239,7 @@ export const projectDataset: ProjectData[] = [
       quote:
         "A GR7 trouxe a inteligência de dados que precisávamos para escalar nossa operação de mobilidade elétrica. Performance real.",
     },
+  },
   {
     slug: "elva-cosmeticos",
     client: "Elva Cosméticos",
