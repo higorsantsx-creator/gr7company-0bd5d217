@@ -74,7 +74,7 @@ export function MediaSlot({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={bg ? { backgroundColor: bg } : {}}>
+    <div className={`relative overflow-hidden h-full w-full ${className}`} style={bg ? { backgroundColor: bg } : {}}>
       <AnimatePresence>
         {!loaded && (
           <motion.div
