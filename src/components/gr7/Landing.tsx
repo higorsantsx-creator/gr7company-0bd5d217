@@ -719,9 +719,19 @@ function HeroDashboard() {
       {/* main card */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
-        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl"
+        animate={{ 
+          opacity: 1, 
+          y: [0, -12, 0],
+        }}
+        transition={{ 
+          opacity: { duration: 1, delay: 0.5 },
+          y: { 
+            duration: 6, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }
+        }}
+        className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-black/[0.04] to-black/[0.01] p-6 backdrop-blur-xl transform-gpu"
         style={{
           boxShadow:
             "0 40px 120px -20px rgba(255,26,26,0.25), inset 0 1px 0 rgba(0,0,0,0.08)",
@@ -734,9 +744,16 @@ function HeroDashboard() {
               Meta Ads · Conversão
             </div>
           </div>
-          <div className="rounded-full border border-emerald-400/30 bg-emerald-400/10 px-2 py-1 text-[10px] font-medium text-emerald-300">
+          <motion.div 
+            animate={{ 
+              backgroundColor: ["rgba(52, 211, 153, 0.1)", "rgba(52, 211, 153, 0.3)", "rgba(52, 211, 153, 0.1)"],
+              boxShadow: ["0 0 0px rgba(52, 211, 153, 0)", "0 0 12px rgba(52, 211, 153, 0.4)", "0 0 0px rgba(52, 211, 153, 0)"]
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="rounded-full border border-emerald-400/30 px-2 py-1 text-[10px] font-medium text-emerald-300"
+          >
             LIVE
-          </div>
+          </motion.div>
         </div>
 
         <div className="mt-6 grid grid-cols-3 gap-3">
@@ -760,7 +777,7 @@ function HeroDashboard() {
         </div>
 
         {/* mini chart */}
-        <div className="mt-6 h-32 rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3">
+        <div className="mt-6 h-32 rounded-xl border border-white/5 bg-[#0a0a0a]/[0.03] p-3 overflow-hidden">
           <svg viewBox="0 0 200 80" className="h-full w-full">
             <defs>
               <linearGradient id="ch1" x1="0" x2="0" y1="0" y2="1">
@@ -772,8 +789,18 @@ function HeroDashboard() {
               d="M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6 L200 80 L0 80 Z"
               fill="url(#ch1)"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5, duration: 1 }}
+              animate={{ 
+                opacity: 1,
+                d: [
+                  "M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6 L200 80 L0 80 Z",
+                  "M0 62 L20 53 L40 60 L60 43 L80 42 L100 40 L120 32 L140 23 L160 20 L180 10 L200 8 L200 80 L0 80 Z",
+                  "M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6 L200 80 L0 80 Z"
+                ]
+              }}
+              transition={{ 
+                opacity: { delay: 1.5, duration: 1 },
+                d: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+              }}
             />
             <motion.path
               d="M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6"
@@ -781,8 +808,18 @@ function HeroDashboard() {
               strokeWidth="1.5"
               fill="none"
               initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ delay: 1.2, duration: 1.6, ease: "easeInOut" }}
+              animate={{ 
+                pathLength: 1,
+                d: [
+                  "M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6",
+                  "M0 62 L20 53 L40 60 L60 43 L80 42 L100 40 L120 32 L140 23 L160 20 L180 10 L200 8",
+                  "M0 60 L20 55 L40 58 L60 45 L80 40 L100 42 L120 30 L140 25 L160 18 L180 12 L200 6"
+                ]
+              }}
+              transition={{ 
+                pathLength: { delay: 1.2, duration: 1.6, ease: "easeInOut" },
+                d: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+              }}
             />
             {[20, 60, 100, 140, 180].map((x, i) => (
               <motion.circle
@@ -792,8 +829,14 @@ function HeroDashboard() {
                 r="2"
                 fill="#fff"
                 initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 2 + i * 0.1 }}
+                animate={{ 
+                  scale: 1,
+                  cy: i === 0 ? [55, 53, 55] : i === 1 ? [45, 43, 45] : i === 2 ? [42, 40, 42] : i === 3 ? [25, 23, 25] : [12, 10, 12]
+                }}
+                transition={{ 
+                  scale: { delay: 2 + i * 0.1 },
+                  cy: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+                }}
               />
             ))}
           </svg>
@@ -803,9 +846,22 @@ function HeroDashboard() {
       {/* floating instagram card */}
       <motion.div
         initial={{ opacity: 0, x: 30, y: 20 }}
-        animate={{ opacity: 1, x: 0, y: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/85 p-3 backdrop-blur-xl md:-right-10"
+        animate={{ 
+          opacity: 1, 
+          x: 0, 
+          y: [0, 15, 0],
+        }}
+        transition={{ 
+          opacity: { duration: 1, delay: 1 },
+          x: { duration: 1, delay: 1 },
+          y: { 
+            duration: 5, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 1 
+          }
+        }}
+        className="absolute -right-4 -top-6 w-44 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a]/85 p-3 backdrop-blur-xl md:-right-10 transform-gpu z-10"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
         <div className="flex items-center gap-2">
@@ -830,9 +886,20 @@ function HeroDashboard() {
       {/* floating google ads pill */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.3 }}
-        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0a]/85 px-4 py-3 backdrop-blur-xl md:-left-8"
+        animate={{ 
+          opacity: 1, 
+          y: [0, -10, 0],
+        }}
+        transition={{ 
+          opacity: { duration: 1, delay: 1.3 },
+          y: { 
+            duration: 4, 
+            repeat: Infinity, 
+            ease: "easeInOut",
+            delay: 1.3 
+          }
+        }}
+        className="absolute -bottom-6 -left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0a0a0a]/85 px-4 py-3 backdrop-blur-xl md:-left-8 transform-gpu z-10"
         style={{ boxShadow: "0 20px 50px -10px rgba(0,0,0,0.6)" }}
       >
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0a0a0a]/[0.03]">
