@@ -1878,7 +1878,7 @@ export default function Landing() {
 
         <main>
           <HeroIntro />
-          <Hero />
+          <Hero logoTargetRef={logoTargetRef} />
           <Services />
           <ProjectsGrid />
           <Difference />
