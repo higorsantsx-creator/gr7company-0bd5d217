@@ -209,8 +209,8 @@ export const projectDataset: ProjectData[] = [
     ],
     gallery: [
       { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white", aspect: "4/3" },
-      { label: "Campanha Força", src: "https://v1.screenshot.com/lagostafitness/p/DPWjQ8-juPV/1080x1080", href: "https://www.instagram.com/lagostafitness/p/DPWjQ8-juPV/", aspect: "1/1" },
-      { label: "Bastidores Treino", src: "https://v1.screenshot.com/lagostafitness/reel/DbOMi_ERcdt/1080x1920", href: "https://www.instagram.com/lagostafitness/reel/DbOMi_ERcdt/", aspect: "1/1" },
+      { label: "Campanha Força", src: "https://v1.screenshot.com/lagostafitness/p/DPWjQ8-juPV/1080x1080", href: "https://www.instagram.com/lagostafitness/p/DPWjQ8-juPV/", aspect: "1/1", isInstagram: true },
+      { label: "Bastidores Treino", src: "https://v1.screenshot.com/lagostafitness/reel/DbOMi_ERcdt/1080x1920", href: "https://www.instagram.com/lagostafitness/reel/DbOMi_ERcdt/", aspect: "1/1", isInstagram: true },
       { label: "Dashboard Mensal", src: "/__l5e/assets-v1/70823c34-8c85-408a-b86a-74d1a49f57eb/lagosta-dashboard-preview.png", aspect: "1/1" },
     ],
     timeline: [
