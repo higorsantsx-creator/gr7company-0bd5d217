@@ -23,9 +23,13 @@ export default function HeroIntro() {
   const logoScale = useTransform(scrollSmooth, [0, 0.5], [1, 1.4]);
   const logoOpacity = useTransform(scrollSmooth, [0, 0.4, 0.6], [1, 1, 0]);
   const contentY = useTransform(scrollSmooth, [0, 0.5], [0, -100]);
-  const bgOpacity = useTransform(scrollSmooth, [0, 0.7, 1], [1, 1, 0]);
+  const bgOpacity = useTransform(scrollSmooth, [0, 0.7, 0.95, 1], [1, 1, 0.3, 0]);
   const waveScale = useTransform(scrollSmooth, [0.2, 0.8], [0, 2.5]);
-  const waveOpacity = useTransform(scrollSmooth, [0.2, 0.5, 0.8], [0, 1, 0]);
+  const waveOpacity = useTransform(scrollSmooth, [0.2, 0.5, 0.8, 0.95], [0, 1, 0.2, 0]);
+  
+  // Transition Glow (Next section's color leaking in)
+  const transitionGlowOpacity = useTransform(scrollSmooth, [0.75, 0.95, 1], [0, 0.8, 1]);
+  const transitionGlowScale = useTransform(scrollSmooth, [0.75, 1], [0.6, 1.4]);
 
   useEffect(() => {
     setIsReady(true);
@@ -51,7 +55,7 @@ export default function HeroIntro() {
       {/* Fixed viewport container */}
       <motion.div 
         style={{ opacity: bgOpacity }}
-        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden"
+        className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#0a0a0a]"
       >
         {/* ATMOSPHERIC BACKGROUND */}
         <div className="absolute inset-0 z-0">
@@ -124,6 +128,18 @@ export default function HeroIntro() {
             />
           </svg>
         </div>
+        
+        {/* TRANSITION GLOW (Atmospheric light from next section) */}
+        <motion.div
+          style={{ 
+            opacity: transitionGlowOpacity,
+            scale: transitionGlowScale,
+          }}
+          className="absolute inset-0 z-0 pointer-events-none"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.2)_0%,transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,26,26,0.3)_0%,transparent_60%)]" />
+        </motion.div>
 
         {/* TRANSITION WAVE */}
         <motion.div 
@@ -241,14 +257,17 @@ export default function HeroIntro() {
         </motion.div>
       </motion.div>
 
-      {/* TRANSITION OVERLAY (appears during scroll) */}
+      {/* TRANSITION OVERLAY (Cinematic fog/light fusion) */}
       <motion.div 
         style={{ 
-          opacity: useTransform(scrollSmooth, [0.5, 0.8], [0, 1]),
+          opacity: useTransform(scrollSmooth, [0.75, 0.9, 1], [0, 0.6, 1]),
           pointerEvents: "none"
         }}
-        className="fixed inset-0 z-[55] bg-gradient-to-b from-transparent via-[#ff1a1a]/5 to-[#0a0a0a]"
-      />
+        className="absolute inset-x-0 bottom-0 h-full z-[55] transform-gpu"
+      >
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(255,26,26,0.4)_0%,transparent_70%)] blur-[80px]" />
+      </motion.div>
     </div>
   );
 }
