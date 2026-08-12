@@ -48,6 +48,7 @@ import {
   GR7InAction,
 } from "./MediaSections";
 import HeroIntro from "./HeroIntro";
+import GlobalScrollFlow from "./GlobalScrollFlow";
 
 
 
