@@ -77,7 +77,7 @@ function AnimatedBackground() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 20% 0%, #1a0505 0%, #050505 45%, #050505 100%)",
+            "radial-gradient(ellipse at 20% 0%, #1a0505 0%, #0a0a0a 45%, #0a0a0a 100%)",
         }}
       />
 
@@ -328,7 +328,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#050505]"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#0a0a0a]"
       exit={{ opacity: 0, transition: { duration: 0.6 } }}
     >
       <div className="absolute inset-0 opacity-30" style={{
