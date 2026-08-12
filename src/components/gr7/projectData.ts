@@ -7,6 +7,8 @@
  */
 import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
 import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
+import marketingAsset from "@/assets/projects/lagosta/marketing.png.asset.json";
+
 
 
 export interface ProjectKPI {
@@ -214,7 +216,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Logotipo Lagosta", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white", aspect: "4/3" },
       { label: "Campanha Força", src: campanhaForcaAsset.url, href: "https://www.instagram.com/lagostafitness/p/DPWjQ8-juPV/", aspect: "4/5" },
       { label: "Bastidores Treino", src: bastidoresTreinoAsset.url, href: "https://www.instagram.com/lagostafitness/reel/DbOMi_ERcdt/", aspect: "9/16" },
-      { label: "Dashboard Mensal", src: "/__l5e/assets-v1/70823c34-8c85-408a-b86a-74d1a49f57eb/lagosta-dashboard-preview.png", aspect: "16/9" },
+      { label: "Marketing", src: marketingAsset.url, href: "https://www.instagram.com/lagostafitness/reel/DW2R7OvkZw1/", aspect: "9/16" },
     ],
     timeline: [
       { title: "Onboarding", detail: "Análise de público e metas de conversão" },
