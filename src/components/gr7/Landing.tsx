@@ -1811,6 +1811,7 @@ export default function Landing() {
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden bg-[#0a0a0a] font-sans text-white antialiased selection:bg-[#ff1a1a] selection:text-white">
       <CustomCursor />
+      <GlobalScrollFlow logoTargetRef={logoTargetRef} />
       <ScrollProgress />
       <SharedAtmosphere />
       <GlobalScrollFlow logoTargetRef={logoTargetRef} />
