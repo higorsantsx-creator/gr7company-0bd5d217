@@ -63,12 +63,16 @@ function GR7Mark({ className = "h-8" }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 /*  Animated global background — floating blobs + grid + aurora        */
 /* ------------------------------------------------------------------ */
-function AnimatedBackground() {
+function SharedAtmosphere() {
   const { scrollYProgress } = useScroll();
   const yA = useTransform(scrollYProgress, [0, 1], [0, -220]);
   const yB = useTransform(scrollYProgress, [0, 1], [0, 180]);
   const yC = useTransform(scrollYProgress, [0, 1], [0, -120]);
   const rot = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
+  // Red light intensity increases as we scroll through the intro towards hero
+  // 0.0 to 0.15 is HeroIntro region (roughly)
+  const redIntensity = useTransform(scrollYProgress, [0, 0.1, 0.2], [0.05, 0.2, 0.35]);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden">
@@ -76,19 +80,18 @@ function AnimatedBackground() {
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "radial-gradient(ellipse at 20% 0%, #1a0505 0%, #0a0a0a 45%, #0a0a0a 100%)",
+          background: "#0a0a0a",
         }}
       />
 
       {/* red aurora — drifts with scroll */}
       <motion.div
-        style={{ y: yA }}
+        style={{ y: yA, opacity: redIntensity }}
         className="absolute -left-52 -top-40 h-[52rem] w-[52rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={{ x: [0, 60, 0], y: [0, 30, 0], opacity: [0.55, 0.75, 0.55] }}
+          animate={{ x: [0, 60, 0], y: [0, 30, 0] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
           style={{
             background:
@@ -98,12 +101,12 @@ function AnimatedBackground() {
       </motion.div>
 
       <motion.div
-        style={{ y: yB }}
+        style={{ y: yB, opacity: redIntensity }}
         className="absolute -right-40 top-1/3 h-[42rem] w-[42rem] will-change-transform"
       >
         <motion.div
           className="h-full w-full rounded-full blur-3xl"
-          animate={{ x: [0, -50, 0], y: [0, -30, 0], opacity: [0.45, 0.65, 0.45] }}
+          animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
           transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
           style={{
             background:
@@ -112,43 +115,13 @@ function AnimatedBackground() {
         />
       </motion.div>
 
-      <motion.div
-        style={{ y: yC }}
-        className="absolute left-1/2 bottom-[-20%] h-[48rem] w-[48rem] -translate-x-1/2 will-change-transform"
-      >
-        <motion.div
-          className="h-full w-full rounded-full blur-3xl"
-          animate={{ opacity: [0.3, 0.55, 0.3] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-          style={{
-            background:
-              "radial-gradient(circle at center, #b30000 0%, transparent 65%)",
-          }}
-        />
-      </motion.div>
-
-      {/* rotating conic sweep — very subtle, gives sense of motion */}
-      <motion.div
-        style={{ rotate: rot }}
-        className="absolute left-1/2 top-1/2 h-[140vmax] w-[140vmax] -translate-x-1/2 -translate-y-1/2 opacity-[0.08] will-change-transform"
-      >
-        <div
-          className="h-full w-full"
-          style={{
-            background:
-              "conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,26,26,0.6) 40deg, transparent 90deg, transparent 180deg, rgba(255,77,77,0.4) 220deg, transparent 270deg)",
-            filter: "blur(60px)",
-          }}
-        />
-      </motion.div>
-
-      {/* precision grid */}
+      {/* shared grid - unified size to 80px for seamless flow */}
       <div
         className="absolute inset-0 opacity-[0.06]"
         style={{
           backgroundImage:
             "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+          backgroundSize: "80px 80px",
           maskImage:
             "radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 90%)",
         }}
@@ -161,17 +134,6 @@ function AnimatedBackground() {
           backgroundImage:
             "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>\")",
           backgroundSize: "220px 220px",
-        }}
-      />
-
-      {/* scan line drifting */}
-      <motion.div
-        className="absolute inset-x-0 h-40 opacity-30 will-change-transform"
-        animate={{ y: ["-10%", "110%"] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 0%, rgba(255,26,26,0.08) 50%, transparent 100%)",
         }}
       />
 
@@ -552,15 +514,14 @@ function Hero({ logoTargetRef }: { logoTargetRef?: React.RefObject<HTMLDivElemen
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-screen w-full overflow-hidden pt-32 md:pt-40"
+      className="relative isolate min-h-screen w-full overflow-hidden pt-32 md:pt-40 bg-transparent"
     >
-      {/* Background Fusion Layer */}
+      {/* Background Fusion Layer is now handled by SharedAtmosphere, but we keep a local light target */}
       <motion.div 
         style={{ opacity: backgroundOpacity }}
         className="absolute inset-0 z-0 pointer-events-none"
       >
-        <div className="absolute inset-0 bg-[#0a0a0a]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,26,26,0.25)_0%,transparent_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,26,26,0.3)_0%,transparent_70%)]" />
       </motion.div>
       {/* grid */}
       <div
