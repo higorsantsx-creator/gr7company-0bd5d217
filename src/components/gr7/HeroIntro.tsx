@@ -171,13 +171,15 @@ export default function HeroIntro() {
           <div className="relative transform-gpu preserve-3d">
             {/* Continuous Glow behind the logo */}
             <motion.div
-              animate={{ 
-                opacity: [0.2, 0.5, 0.2],
-                scale: [1, 1.2, 1],
-              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={isReady ? { 
+                opacity: [0, 0.5, 0.2],
+                scale: [0.8, 1.2, 1],
+              } : {}}
               transition={{ 
                 duration: 4, 
                 repeat: Infinity, 
+                delay: 3, 
                 ease: "easeInOut" 
               }}
               className="absolute inset-0 -z-10 bg-[#ff1a1a]/20 blur-[40px] rounded-full"
