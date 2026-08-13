@@ -8,7 +8,6 @@
 import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
 import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
 import marketingAsset from "@/assets/projects/lagosta/marketing.png.asset.json";
-import bobbyLogoAsset from "@/assets/projects/bobby/logo.png.asset.json";
 
 
 
@@ -405,79 +404,6 @@ export const projectDataset: ProjectData[] = [
       company: "Nova Corretora",
       quote:
         "Reduzimos custo por lead pela metade e triplicamos o volume de contratos. A GR7 opera com nível de indústria.",
-    },
-  },
-  {
-    slug: "bobby-moveis",
-    client: "Bobby Móveis",
-    category: "Identidade Visual",
-    status: "Projeto Concluído",
-    clientSince: "2024",
-    duration: "4 meses",
-    summary:
-      "Desenvolvimento de identidade visual completa para a Bobby Móveis e Decorações. Criamos um sistema visual que comunica conforto, qualidade e sofisticação para o mercado de mobiliário premium.",
-    kpis: [
-      { label: "Aplicações", value: 42 },
-      { label: "Peças", value: 120 },
-      { label: "Reconhecimento", value: 45, prefix: "+", suffix: "%" },
-      { label: "Preferência", value: 38, prefix: "+", suffix: "%" },
-      { label: "NPS", value: 92 },
-      { label: "Ticket médio", value: 15, prefix: "+", suffix: "%" },
-      { label: "Engajamento", value: 24, prefix: "+", suffix: "%" },
-      { label: "Awareness", value: 2.8, suffix: "x", decimals: 1 },
-    ],
-    overallScore: 98,
-    scores: [
-      { label: "Branding", value: 97 },
-      { label: "Identidade Visual", value: 99 },
-      { label: "Aplicação", value: 96 },
-      { label: "Consistência", value: 98 },
-      { label: "Retenção", value: 94 },
-    ],
-    satisfaction: 5,
-    growth: [
-      { label: "M1", value: 20 },
-      { label: "M2", value: 45 },
-      { label: "M3", value: 72 },
-      { label: "M4", value: 100 },
-    ],
-    distribution: [
-      { label: "Identidade", value: 55, color: "#ff1a1a" },
-      { label: "Branding", value: 25, color: "#0a0a0a" },
-      { label: "Aplicação", value: 15, color: "#ff6b6b" },
-      { label: "Manual", value: 5, color: "#e5e5e5" },
-    ],
-    beforeAfter: [
-      { label: "Logotipo" },
-      { label: "Fachada" },
-      { label: "Papelaria" },
-      { label: "Digital" },
-    ],
-    gallery: [
-      { label: "Logotipo Bobby", src: bobbyLogoAsset.url, bg: "white", aspect: "4/3" },
-      { label: "Manual da Marca" },
-      { label: "Papelaria" },
-      { label: "Social Media" },
-    ],
-    timeline: [
-      { title: "Diagnóstico", detail: "Análise do nicho de móveis e decorações" },
-      { title: "Conceito", detail: "Definição de cores e tipografia premium" },
-      { title: "Criação", detail: "Desenvolvimento do símbolo e tipografia própria" },
-      { title: "Manual", detail: "Guia completo de uso da marca" },
-    ],
-    deliverables: [
-      "Logotipo",
-      "Manual da Marca",
-      "Papelaria",
-      "Identidade Visual",
-      "Direção Criativa",
-    ],
-    testimonial: {
-      name: "Diretoria",
-      role: "Fundadores",
-      company: "Bobby Móveis",
-      quote:
-        "A GR7 conseguiu captar exatamente a essência da nossa loja. A nova marca trouxe um ar de sofisticação que já estamos sentindo nas vendas.",
     },
   },
   {
