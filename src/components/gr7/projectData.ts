@@ -8,8 +8,6 @@
 import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
 import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
 import marketingAsset from "@/assets/projects/lagosta/marketing.png.asset.json";
-import bobbyLogoAsset from "@/assets/projects/bobby/logo.png.asset.json";
-
 
 
 
@@ -82,83 +80,6 @@ export interface ProjectData {
 /*  Dataset — realistas, prontos para substituição por dados reais    */
 /* ------------------------------------------------------------------ */
 export const projectDataset: ProjectData[] = [
-  {
-    slug: "bobby-moveis",
-    client: "Bobby Móveis",
-    category: "Branding · Social Media · Meta Ads",
-    status: "Em execução",
-    clientSince: "2024",
-    duration: "Cliente ativo",
-    summary:
-      "Transformamos a Bobby Móveis e Decorações em uma referência de elegância e sofisticação no digital. Nossa estratégia unifica um branding premium com campanhas de Meta Ads focadas em conversão, elevando o posicionamento da marca e atraindo o público certo.",
-    kpis: [
-      { label: "Impressões", value: 420000 },
-      { label: "Seguidores", value: 5800 },
-      { label: "Alcance", value: 310, prefix: "+", suffix: "%" },
-      { label: "ROAS", value: 5.4, suffix: "x", decimals: 1 },
-      { label: "Engajamento", value: 6.8, suffix: "%", decimals: 1 },
-      { label: "Leads", value: 890 },
-      { label: "CPL", value: 12.4, prefix: "R$ ", decimals: 2 },
-      { label: "ROI", value: 4.8, suffix: "x", decimals: 1 },
-    ],
-    overallScore: 96,
-    scores: [
-      { label: "Branding", value: 98 },
-      { label: "Meta Ads", value: 95 },
-      { label: "Social Media", value: 97 },
-      { label: "Design", value: 98 },
-      { label: "Estratégia", value: 96 },
-    ],
-    satisfaction: 5,
-    growth: [
-      { label: "M1", value: 15 },
-      { label: "M2", value: 32 },
-      { label: "M3", value: 48 },
-      { label: "M4", value: 64 },
-      { label: "M5", value: 82 },
-      { label: "M6", value: 100 },
-    ],
-    distribution: [
-      { label: "Meta Ads", value: 40, color: "#ff1a1a" },
-      { label: "Branding", value: 30, color: "#0a0a0a" },
-      { label: "Social", value: 20, color: "#ff6b6b" },
-      { label: "Conteúdo", value: 10, color: "#e5e5e5" },
-    ],
-    beforeAfter: [
-      { label: "Identidade" },
-      { label: "Instagram" },
-      { label: "Criativos" },
-      { label: "Catálogo" },
-    ],
-    gallery: [
-      { label: "Logo Bobby", src: bobbyLogoAsset.url, bg: "white", aspect: "4/3" },
-      { label: "Feed Premium" },
-      { label: "Campanha Sofisticação" },
-      { label: "Bastidores Design" },
-    ],
-    timeline: [
-      { title: "Imersão", detail: "Entendimento do DNA da marca e portfólio de produtos" },
-      { title: "Redesign Social", detail: "Nova grade visual alinhada ao público premium" },
-      { title: "Tráfego Pago", detail: "Campanhas geolocalizadas para showroom e site" },
-      { title: "Escala", detail: "Otimização de ROAS e ampliação de verba" },
-    ],
-    deliverables: [
-      "Branding",
-      "Social Media",
-      "Meta Ads",
-      "Direção de Arte",
-      "Copywriting",
-      "Relatórios Mensais",
-    ],
-    testimonial: {
-      name: "Diretoria Bobby",
-      role: "Fundadores",
-      company: "Bobby Móveis",
-      quote:
-        "A GR7 elevou o nível da nossa comunicação. Hoje o digital da Bobby reflete exatamente a qualidade dos nossos móveis.",
-    },
-  },
-
   {
     slug: "postos-total-giro",
     client: "Postos Total Giro",
