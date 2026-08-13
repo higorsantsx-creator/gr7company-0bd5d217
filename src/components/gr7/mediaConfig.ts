@@ -37,7 +37,6 @@ export interface ProjectCard extends MediaItem {
 
 export const projects: ProjectCard[] = [
   { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.png", import.meta.url).href },
-  { client: "Bobby Móveis", category: "Social Media · Branding · Estratégia", src: "/__l5e/assets-v1/9855cf35-c692-46ac-8963-14cb90736faf/marketing-capa.png", bg: "white" },
   { client: "Lagosta Fitness", category: "Performance · Social Media · Meta Ads", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white" },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
