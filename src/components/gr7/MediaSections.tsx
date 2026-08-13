@@ -110,7 +110,7 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-4" : "object-cover"}`}
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
                     bg={p.bg}
                   />
@@ -145,7 +145,7 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-4" : "object-cover"}`}
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${p.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
                     bg={p.bg}
                   />
@@ -188,7 +188,7 @@ export function ProjectsGrid() {
                     src={p.src}
                     kind={p.kind}
                     alt={`${p.client} — ${p.category}`}
-                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${projects[i]?.bg === "white" ? "object-contain p-4" : "object-cover"}`}
+                    className={`absolute inset-0 transition-transform duration-[900ms] ease-out group-hover:scale-110 ${projects[i]?.bg === "white" ? "object-contain p-8" : "object-cover"}`}
                     label={p.category}
                     bg={projects[i]?.bg}
                   />
