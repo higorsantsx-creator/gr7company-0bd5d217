@@ -40,7 +40,7 @@ export const projects: ProjectCard[] = [
   { client: "Lagosta Fitness", category: "Performance · Social Media · Meta Ads", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white" },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
-  { client: "Casa Nord", category: "Identidade Visual", src: "" },
+  { client: "Casa Nord", category: "Identidade Visual", src: new URL("../../assets/projects/casa-nord/logo.png", import.meta.url).href, bg: "white" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
   { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href, bg: "white" },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
