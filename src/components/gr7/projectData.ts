@@ -496,8 +496,8 @@ export const projectDataset: ProjectData[] = [
     status: "Em execução",
     clientSince: "2024",
     duration: "Cliente ativo",
-    cover: bobbyLogoAsset.url,
-    logo: bobbyLogoAsset.url,
+    cover: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
+    logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
     summary:
       "Gestão estratégica de tráfego pago e social media para a Bobby Móveis & Decorações. Focamos em transformar o showroom em uma experiência digital, atraindo clientes qualificados e impulsionando as vendas de móveis premium.",
     kpis: [
@@ -540,7 +540,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Bio & Destaques" },
     ],
     gallery: [
-      { label: "Logotipo Bobby", src: bobbyLogoAsset.url, bg: "white", aspect: "4/3" },
+      { label: "Logotipo Bobby", src: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png", bg: "white", aspect: "4/3" },
       { label: "Campanha Estofados" },
       { label: "Showroom" },
       { label: "Oferta da Semana" },
