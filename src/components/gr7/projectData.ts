@@ -8,6 +8,7 @@
 import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
 import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
 import marketingAsset from "@/assets/projects/lagosta/marketing.png.asset.json";
+import bobbyLogoAsset from "@/assets/projects/bobby/logo.png.asset.json";
 
 
 
@@ -812,6 +813,82 @@ export const projectDataset: ProjectData[] = [
       company: "Ateliê Gaia",
       quote:
         "As peças finalmente ganharam a vitrine que mereciam. E o resultado em vendas veio junto — sem exagero, número atrás de número.",
+    },
+  },
+  {
+    slug: "bobby-moveis",
+    client: "Bobby Móveis",
+    category: "Identidade Visual",
+    status: "Projeto Concluído",
+    clientSince: "2024",
+    duration: "4 meses",
+    summary:
+      "Desenvolvimento de identidade visual completa para a Bobby Móveis e Decorações. Criamos um sistema visual que equilibra o conforto do lar com a modernidade do design, transmitindo confiança e sofisticação em cada ponto de contato com o cliente.",
+    kpis: [
+      { label: "Aplicações", value: 42 },
+      { label: "Peças", value: 120 },
+      { label: "Reconhecimento", value: 45, prefix: "+", suffix: "%" },
+      { label: "NPS", value: 88 },
+      { label: "Conversão", value: 18, prefix: "+", suffix: "%" },
+      { label: "Engajamento", value: 3.4, suffix: "%", decimals: 1 },
+      { label: "Alcance", value: 125000 },
+      { label: "ROI", value: 4.8, suffix: "x", decimals: 1 },
+    ],
+    overallScore: 94,
+    scores: [
+      { label: "Branding", value: 95 },
+      { label: "Identidade Visual", value: 98 },
+      { label: "Design de Produto", value: 92 },
+      { label: "Consistência", value: 94 },
+      { label: "Aplicação", value: 93 },
+    ],
+    satisfaction: 5,
+    growth: [
+      { label: "M1", value: 10 },
+      { label: "M2", value: 25 },
+      { label: "M3", value: 48 },
+      { label: "M4", value: 72 },
+      { label: "M5", value: 88 },
+      { label: "M6", value: 100 },
+    ],
+    distribution: [
+      { label: "Identidade", value: 50, color: "#ff1a1a" },
+      { label: "Branding", value: 25, color: "#0a0a0a" },
+      { label: "Digital", value: 15, color: "#ff6b6b" },
+      { label: "Manual", value: 10, color: "#e5e5e5" },
+    ],
+    beforeAfter: [
+      { label: "Logotipo" },
+      { label: "Fachada" },
+      { label: "Papelaria" },
+      { label: "Social" },
+    ],
+    gallery: [
+      { label: "Logotipo Bobby", src: bobbyLogoAsset.url, bg: "white", aspect: "4/3" },
+      { label: "Brandbook", aspect: "16/9" },
+      { label: "Aplicações", aspect: "1/1" },
+    ],
+    timeline: [
+      { title: "Imersão", detail: "Entendimento do público e essência da marca" },
+      { title: "Conceito", detail: "Definição do território visual" },
+      { title: "Criação", detail: "Desenvolvimento do logotipo e sistema" },
+      { title: "Aplicações", detail: "Rollout para papelaria e digital" },
+      { title: "Manual", detail: "Entrega do guia de marca" },
+    ],
+    deliverables: [
+      "Identidade Visual",
+      "Branding",
+      "Manual de Marca",
+      "Papelaria",
+      "Aplicações Digitais",
+      "Sinalização",
+    ],
+    testimonial: {
+      name: "Bobby",
+      role: "Fundador",
+      company: "Bobby Móveis",
+      quote:
+        "A GR7 conseguiu captar exatamente o que queríamos transmitir: conforto com um toque moderno. A marca agora tem vida.",
     },
   },
 ];

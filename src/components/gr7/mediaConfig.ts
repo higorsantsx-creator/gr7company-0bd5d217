@@ -41,6 +41,7 @@ export const projects: ProjectCard[] = [
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
+  { client: "Bobby Móveis", category: "Identidade Visual", src: new URL("../../assets/projects/bobby/logo.png.asset.json", import.meta.url).href, bg: "white" },
   { client: "Restaurante Aro", category: "Vídeo · Captação", src: "" },
   { client: "Shineray", category: "Branding · Social · Performance", src: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href, bg: "white" },
   { client: "Bloom Skincare", category: "Direção Criativa", src: "" },
