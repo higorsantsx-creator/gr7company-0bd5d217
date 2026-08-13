@@ -8,6 +8,7 @@
 import campanhaForcaAsset from "@/assets/projects/lagosta/campanha-forca.png.asset.json";
 import bastidoresTreinoAsset from "@/assets/projects/lagosta/bastidores-treino.png.asset.json";
 import marketingAsset from "@/assets/projects/lagosta/marketing.png.asset.json";
+import bobbyLogoAsset from "@/assets/projects/bobby-moveis/logo.png.asset.json";
 
 
 
