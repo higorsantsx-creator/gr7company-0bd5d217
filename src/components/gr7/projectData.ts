@@ -455,7 +455,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Digital" },
     ],
     gallery: [
-      { label: "Logo" },
+      { label: "Logo Casa Nord", src: new URL("../../assets/projects/casa-nord/logo.png", import.meta.url).href, bg: "white", aspect: "4/3" },
       { label: "Papelaria" },
       { label: "Aplicação" },
       { label: "Manual" },
