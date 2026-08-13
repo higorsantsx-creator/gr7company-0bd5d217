@@ -229,7 +229,7 @@ function Loader({ done, logoTargetRef }: { done: () => void; logoTargetRef: Reac
       const sequence = async () => {
         const startElement = logoRef.current;
         // Search specifically for the HeroIntro logo image
-        const endElement = document.querySelector('.hero-intro-logo img');
+        const endElement = document.querySelector('.hero-intro-logo');
 
         if (startElement && endElement) {
           // 1. Zoom and 3D Rotation in center
