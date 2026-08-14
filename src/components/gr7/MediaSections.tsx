@@ -281,24 +281,35 @@ function ReelSmartphone({
   progress: any;
   rotation: number;
 }) {
-  // 1. Stacked Initial State (offset)
-  // We calculate the final grid position relative to the center stack
-  // Grid on desktop is 4 columns. Mobile is 2 columns.
-  // We'll use CSS grid for the final positions and animate the transform from center.
+  const [isMobile, setIsMobile] = useState(false);
   
-  // X-Travel (from center to 4 columns)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  // X-Travel (from center to grid)
   // Indices: 0 (-1.5 cols), 1 (-0.5 cols), 2 (0.5 cols), 3 (1.5 cols)
-  const xOffset = (index - 1.5) * 260; // Approximate spacing
-  const x = useTransform(progress, [0, 0.8, 1], [0, xOffset * 1.05, xOffset]);
+  const xDesktop = (index - 1.5) * 260; 
+  // Mobile layout: 2 columns. Indices 0,1 top; 2,3 bottom.
+  // Col positions: index 0,2 -> -0.5 width; index 1,3 -> 0.5 width
+  const xMobile = (index % 2 === 0 ? -0.55 : 0.55) * 160;
   
-  // Y-Travel (curved trajectory)
-  const y = useTransform(progress, [0, 0.5, 0.8, 1], [0, -40, 10, 0]);
+  const xTarget = isMobile ? xMobile : xDesktop;
+  const x = useTransform(progress, [0, 0.8, 1], [0, xTarget * 1.05, xTarget]);
+  
+  // Y-Travel
+  const yMobile = index < 2 ? -180 : 180;
+  const yTarget = isMobile ? yMobile : 0;
+  const y = useTransform(progress, [0, 0.5, 0.8, 1], [0, isMobile ? yTarget * 0.5 : -40, yTarget * 1.05, yTarget]);
   
   // Rotation
   const r = useTransform(progress, [0, 0.2, 0.8, 1], [0, 0, rotation * 1.2, rotation]);
   
   // Scale gain life
-  const scale = useTransform(progress, [0, 0.3, 1], [0.95, 1.05, 1]);
+  const scale = useTransform(progress, [0, 0.3, 1], [0.95, 1.05, isMobile ? 0.85 : 1]);
   
   // Z-index / Depth initial stack
   const zIndex = 10 - index;
@@ -327,8 +338,8 @@ function ReelSmartphone({
         top: 0,
         left: 0,
         width: "100%",
+        transformStyle: "preserve-3d",
       }}
-      className="perspective-1000"
     >
       <motion.div
         animate={isFinished ? {
