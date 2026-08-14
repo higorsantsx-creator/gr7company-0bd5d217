@@ -335,10 +335,10 @@ function ReelPhone({
   const mouseX = useSpring(mousePos.x * (isProtagonist ? 4 : 8), springConfig);
   
   const composition = [
-    { left: "24%", top: "52%", scale: 0.88, rotate: -4, z: 30, delay: 0.60 }, // 01 - Left
-    { left: "50%", top: "50%", scale: 1.0, rotate: 0, z: 50, delay: 0.45 },  // 02 - Center
-    { left: "76%", top: "52%", scale: 0.88, rotate: 4, z: 30, delay: 0.70 },  // 03 - Right
-    { left: "62%", top: "45%", scale: 0.78, rotate: 6, z: 20, delay: 0.85 },  // 04 - Depth
+    { left: "30%", top: "52%", scale: 0.88, rotate: -4, z: 30, delay: 0.60 }, // 01 - Left
+    { left: "50%", top: "50%", scale: 1.0, rotate: 0, z: 50, delay: 0.45 },  // 02 - Protagonist (Center)
+    { left: "70%", top: "52%", scale: 0.88, rotate: 4, z: 40, delay: 0.70 },  // 03 - Center-Right (Visible)
+    { left: "62%", top: "45%", scale: 0.78, rotate: 6, z: 20, delay: 0.85 },  // 04 - Background
   ];
 
   const pos = composition[index];
