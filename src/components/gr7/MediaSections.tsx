@@ -430,6 +430,10 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHoveredIndex(i)}
       onMouseLeave={handleMouseLeave}
+      transition={{ duration: 0.4 }}
+      className="relative cursor-pointer"
+    >
+
 
     >
       {/* Micro-identificação discreta */}
