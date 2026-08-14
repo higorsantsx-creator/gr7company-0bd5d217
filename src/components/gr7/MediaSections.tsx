@@ -423,10 +423,14 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
       animate={{
         scale: hoveredIndex === i ? 1.025 : 1,
         opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.88 : 1,
+        rotateX: rotation.x,
+        rotateY: rotation.y,
         z: hoveredIndex === i ? 50 : 0
       }}
-      transition={{ duration: 0.4 }}
-      className="relative"
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHoveredIndex(i)}
+      onMouseLeave={handleMouseLeave}
+
     >
       {/* Micro-identificação discreta */}
       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
