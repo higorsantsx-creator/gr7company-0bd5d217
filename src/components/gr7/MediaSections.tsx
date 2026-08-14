@@ -323,6 +323,8 @@ export function ReelsSection() {
           return (
             <motion.div
               key={i}
+              className={isMobile ? "mb-12 last:mb-0 flex justify-center" : ""}
+
               initial={{ opacity: 0, y: 100, rotate: pos.rotate, scale: 0.9 }}
               whileInView={{ opacity: 1, y: 0, rotate: pos.rotate, scale: pos.scale }}
               viewport={{ once: true, margin: "-100px" }}
