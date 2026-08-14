@@ -331,15 +331,16 @@ export function ReelsSection() {
                 ease: [0.22, 1, 0.36, 1] 
               }}
               style={{ 
-                y: typeof window !== 'undefined' && window.innerWidth > 768 ? pos.y : 0,
+                y: !isMobile ? pos.y : 0,
                 zIndex: isMain ? 40 : 10 + i,
-                x: typeof window !== 'undefined' && window.innerWidth > 768 ? pos.x : "0%",
+                x: !isMobile ? pos.x : "0%",
                 perspective: "1000px"
               }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               className="relative w-full max-w-[260px] md:w-[280px] shrink-0"
             >
+
               <motion.div
                 animate={{
                   scale: hoveredIndex === i ? 1.025 : 1,
