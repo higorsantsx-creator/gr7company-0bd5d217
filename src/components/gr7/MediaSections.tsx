@@ -426,10 +426,14 @@ export function ReelsSection() {
 
 // Subcomponente para controle de vídeo com IntersectionObserver
 function ReelVideo({ r, i }: { r: any; i: number }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const video = videoRef.current;
+    // MediaSlot renders the video inside, we need to find it
+    const container = videoRef.current;
+    if (!container) return;
+
+    const video = container.querySelector('video');
     if (!video) return;
 
     const observer = new IntersectionObserver(
@@ -445,21 +449,24 @@ function ReelVideo({ r, i }: { r: any; i: number }) {
       { threshold: 0.35 }
     );
 
-    observer.observe(video);
+    observer.observe(container);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <MediaSlot
-      src={r.src}
-      poster={r.poster}
-      kind="video"
-      className="absolute inset-0"
-      icon="reel"
-      label={`Reel ${i + 1}`}
-    />
+    <div ref={videoRef} className="absolute inset-0">
+      <MediaSlot
+        src={r.src}
+        poster={r.poster}
+        kind="video"
+        className="absolute inset-0"
+        icon="reel"
+        label={`Reel ${i + 1}`}
+      />
+    </div>
   );
 }
+
 
 
 /* ================================================================== */
