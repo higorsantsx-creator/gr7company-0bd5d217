@@ -391,13 +391,15 @@ export function ReelsSection() {
 }
 
 // Subcomponente de card individual do telefone para isolar estado de hover e UI
-function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: { 
+function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex, isMobile }: { 
   i: number, 
   isMain: boolean, 
   r: any, 
   hoveredIndex: number | null, 
-  setHoveredIndex: (idx: number | null) => void 
+  setHoveredIndex: (idx: number | null) => void,
+  isMobile: boolean
 }) {
+
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
