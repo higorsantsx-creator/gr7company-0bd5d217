@@ -343,7 +343,7 @@ export function ReelsSection() {
 
               <PhoneCard 
                 i={i} 
-                isMain={isMain} 
+                isMain={!!isMain} 
                 r={r} 
                 hoveredIndex={hoveredIndex} 
                 setHoveredIndex={setHoveredIndex} 
