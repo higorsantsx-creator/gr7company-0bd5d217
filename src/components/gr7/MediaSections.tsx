@@ -218,69 +218,249 @@ export function ProjectsGrid() {
 
 
 /* ================================================================== */
-/*  2. REELS — feed vertical em smartphones                            */
+/*  2. REELS — "THE ATTENTION MACHINE" Cinematic Composition           */
 /* ================================================================== */
-export function ReelsSection() {
-  return (
-    <section id="reels" className="relative py-32 md:py-40">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <SectionHead
-          kicker="Reels"
-          title={
-            <>
-              Formato vertical <br />
-              <span className="italic text-white/50">feito para viralizar.</span>
-            </>
-          }
-          lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
-        />
+import { useScroll as useMotionScroll, useTransform as useMotionTransform } from "motion/react";
 
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {reels.map((r, i) => (
+export function ReelsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  // Parallax de scroll
+  const { scrollYProgress } = useMotionScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Movimentos de parallax variados por telefone
+  const y1 = useMotionTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const y2 = useMotionTransform(scrollYProgress, [0, 1], [-20, 20]);
+  const y3 = useMotionTransform(scrollYProgress, [0, 1], [0, 15]);
+  const y4 = useMotionTransform(scrollYProgress, [0, 1], [30, -30]);
+
+  const phonePositions = [
+    { y: y1, rotate: -6, z: 10, scale: 0.95, delay: 0.25, x: "-15%", mobileX: "0", mobileY: "0", mobileRotate: -3 },
+    { y: y2, rotate: -3, z: 20, scale: 0.98, delay: 0.35, x: "-5%", mobileX: "0", mobileY: "0", mobileRotate: 0 },
+    { y: y3, rotate: 0, z: 40, scale: 1.12, delay: 0.45, x: "0%", isMain: true, mobileX: "0", mobileY: "0", mobileRotate: 0 },
+    { y: y4, rotate: 6, z: 10, scale: 0.95, delay: 0.55, x: "15%", mobileX: "0", mobileY: "0", mobileRotate: 3 },
+  ];
+
+  return (
+    <section 
+      id="reels" 
+      ref={sectionRef}
+      className="relative min-h-[120vh] py-32 flex flex-col items-center overflow-hidden"
+    >
+      {/* 1. Identificador Editorial */}
+      <div className="mx-auto max-w-7xl px-6 md:px-10 w-full mb-12">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-6"
+        >
+          <span className="text-[10px] font-medium uppercase tracking-[0.4em] text-white/40">
+            CONTEÚDO VERTICAL / 04
+          </span>
+          <div className="h-[1px] w-12 bg-white/10" />
+        </motion.div>
+
+        {/* 2. Título Principal */}
+        <h2 className="font-display text-5xl md:text-7xl leading-[1.05] tracking-tight text-white max-w-4xl">
+          <motion.span 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="block"
+          >
+            CONTEÚDO QUE
+          </motion.span>
+          <motion.span 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="block italic text-white/50"
+          >
+            FAZ O SCROLL PARAR.
+          </motion.span>
+        </h2>
+
+        {/* 3. Texto de Apoio */}
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.35 }}
+          className="mt-8 max-w-[520px] text-base md:text-lg text-white/60 leading-relaxed"
+        >
+          Reels, campanhas e narrativas visuais criadas para transformar atenção em percepção, desejo e ação.
+        </motion.p>
+      </div>
+
+      {/* 4. Composição Central de Smartphones */}
+      <div 
+        ref={containerRef}
+        className="relative w-full max-w-7xl px-6 md:px-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 mt-20 md:mt-32 perspective-1000"
+      >
+        {reels.map((r, i) => {
+          const pos = phonePositions[i];
+          const isMain = pos.isMain;
+          
+          return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ scale: 1.04 }}
-              className="mx-auto w-full max-w-[220px]"
+              initial={{ opacity: 0, y: 100, rotate: pos.rotate, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, rotate: pos.rotate, scale: pos.scale }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ 
+                duration: 1.2, 
+                delay: pos.delay,
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+              style={{ 
+                y: typeof window !== 'undefined' && window.innerWidth > 768 ? pos.y : 0,
+                zIndex: isMain ? 40 : 10 + i,
+                x: typeof window !== 'undefined' && window.innerWidth > 768 ? pos.x : "0%",
+                perspective: "1000px"
+              }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              className="relative w-full max-w-[260px] md:w-[280px] shrink-0"
             >
-              <PhoneFrame>
-                <MediaSlot
-                  src={r.src}
-                  poster={r.poster}
-                  kind="video"
-                  className="absolute inset-0"
-                  icon="reel"
-                  label={`Reel ${i + 1}`}
-                />
-                {/* UI overlay estilo Reels */}
-                <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4 text-white">
-                  <div className="flex items-center justify-between text-[10px]">
-                    <span className="font-semibold">Reels</span>
-                    <span className="opacity-70">•</span>
-                  </div>
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <div className="text-[11px] font-semibold">@gr7.company</div>
-                      <div className="text-[10px] opacity-80">Direção GR7 · 2026</div>
-                    </div>
-                    <div className="flex flex-col gap-2 opacity-90">
-                      <Heart className="h-4 w-4" />
-                      <MsgIcon className="h-4 w-4" />
-                      <Send className="h-4 w-4" />
-                    </div>
-                  </div>
+              <motion.div
+                animate={{
+                  scale: hoveredIndex === i ? 1.025 : 1,
+                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.88 : 1,
+                  z: hoveredIndex === i ? 50 : 0
+                }}
+                transition={{ duration: 0.4 }}
+                className="relative"
+              >
+                {/* Micro-identificação discreta */}
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                   <span className="text-[9px] font-mono tracking-widest text-white/30 italic">REEL / 0{i+1}</span>
                 </div>
-              </PhoneFrame>
+
+                <PhoneFrame className={`${isMain ? 'ring-1 ring-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)]' : 'shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]'}`}>
+                  {/* Smartphone Gloss Effect */}
+                  <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden rounded-[2rem]">
+                    <motion.div 
+                      animate={{
+                        x: ["-100%", "200%"],
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: i * 2
+                      }}
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent w-1/2 -skew-x-12"
+                    />
+                  </div>
+
+                  <ReelVideo r={r} i={i} />
+
+                  {/* UI Discreta */}
+                  <div className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 text-white z-20">
+                    <div className="flex items-end justify-between">
+                      <div className="mb-2">
+                        <div className="flex items-center gap-2 mb-1">
+                           <div className="w-1.5 h-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
+                           <span className="text-[9px] font-bold tracking-tighter opacity-80 uppercase">Playing</span>
+                        </div>
+                        <div className="text-[11px] font-bold tracking-tight">@gr7.company</div>
+                      </div>
+                      <div className="flex flex-col gap-4 mb-3 opacity-60">
+                         <div className="w-1 h-1 rounded-full bg-white/40" />
+                         <div className="w-1 h-1 rounded-full bg-white/40" />
+                         <div className="w-1 h-1 rounded-full bg-white/40" />
+                      </div>
+                    </div>
+                  </div>
+                </PhoneFrame>
+
+                {isMain && (
+                  <div className="absolute -inset-4 z-[-1] rounded-[3rem] bg-[#ff1a1a]/5 blur-3xl opacity-50" />
+                )}
+              </motion.div>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
       </div>
+
+      {/* 5. Microcopy lateral */}
+      <motion.div 
+        style={{ y: y2 }}
+        className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 pointer-events-none"
+      >
+        <div className="flex items-center gap-6 rotate-90 origin-right translate-x-1/2">
+          <div className="h-[1px] w-20 bg-white/5" />
+          <span className="text-[10px] font-medium tracking-[0.5em] text-white/20 uppercase whitespace-nowrap">
+            FEITO PARA O FORMATO QUE DOMINA A ATENÇÃO.
+          </span>
+        </div>
+      </motion.div>
+
+      {/* 6. Indicador de Scroll */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+        className="mt-auto pt-24 pb-12 flex flex-col items-center gap-4"
+      >
+        <span className="text-[9px] font-medium tracking-[0.3em] text-white/30 uppercase">
+          Continue
+        </span>
+        <motion.div 
+          animate={{ height: [20, 60, 20], opacity: [0.2, 0.5, 0.2] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-[1px] bg-[#ff1a1a]"
+        />
+      </motion.div>
     </section>
   );
 }
+
+// Subcomponente para controle de vídeo com IntersectionObserver
+function ReelVideo({ r, i }: { r: any; i: number }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <MediaSlot
+      src={r.src}
+      poster={r.poster}
+      kind="video"
+      className="absolute inset-0"
+      icon="reel"
+      label={`Reel ${i + 1}`}
+    />
+  );
+}
+
 
 /* ================================================================== */
 /*  3. STORIES — círculos horizontais + modal                          */
