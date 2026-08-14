@@ -211,17 +211,82 @@ export const dashboards: DashboardItem[] = [
 export interface VideoTestimonial extends MediaItem {
   name: string;
   company: string;
+  segment: string;
+  quote: string;
+  tags: string[];
+  role: string;
+  logo?: string;
   href?: string;
 }
 
 export const videoTestimonials: VideoTestimonial[] = [
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
-  
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-04.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
-  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-05.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/" },
-  { name: "Ruivo G.", company: "@ruivoo_g", kind: "image", src: new URL("../../assets/testimonials/test-06.jpg", import.meta.url).href, href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/" },
+  {
+    name: "Ricardo S.",
+    company: "EcoChalés",
+    role: "Proprietário",
+    segment: "CONSTRUÇÃO DE CHALÉS",
+    quote: "A GR7 conseguiu mostrar o valor do nosso trabalho antes mesmo do cliente conhecer o nosso projeto.",
+    tags: ["POSICIONAMENTO", "CONTEÚDO", "ESTRATÉGIA"],
+    kind: "video",
+    src: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/",
+    poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/734756130_1362753955989848_982293462439290108_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=aADYI2SEDisQ7kNvwFxNR86&_nc_oc=AdonAvOkI2nnXgmwkgZ0nttISuodnxE4U-tJJFvWAqj6lKiB22rvbXNj6rS9XH0L0PrzdkMGne0VEJQq2TOPvifQ&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=qrTH1f2Z6Ax3xujqblGtQA&_nc_ss=7f689&oh=00_AQFiTJcj0mEIfQoffZZnr90EnBghi5bjzHHbSziPExOYgg&oe=6A854C0F",
+    logo: "", // Fallback
+    href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/"
+  },
+  {
+    name: "Ana C.",
+    company: "Bobby Móveis",
+    role: "CEO",
+    segment: "MÓVEIS & DECORAÇÃO",
+    quote: "A nossa comunicação finalmente começou a transmitir o nível dos produtos que realmente entregamos.",
+    tags: ["BRANDING", "CONTEÚDO", "POSICIONAMENTO"],
+    kind: "video",
+    src: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/",
+    poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/753241567_17878938009616549_6743635849889329520_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=cSBsZVdJZTIQ7kNvwHI1kqm&_nc_oc=Adpt5w0LJLMzVU3Djj5PvxeIcIXK-wr0f5YJv7HOCElOxjZCx4cRldmtfVV5LjvWksAoWp-gUOZx_cSF6p9pCq4T&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=R-kix6PhVqc1ViMCDEGWQg&_nc_ss=7f689&oh=00_AQG7wIkSNrdMjFuZ8WZLa3lJW3-Mt4dFyoaDvqfu3L0n5A&oe=6A853D1B",
+    logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
+    href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/"
+  },
+  {
+    name: "Carlos M.",
+    company: "JVE Forros",
+    role: "Diretor Comercial",
+    segment: "FORROS & DIVISÓRIAS",
+    quote: "A GR7 fez nossa empresa parecer nas redes tão profissional quanto ela é no trabalho.",
+    tags: ["ESTRATÉGIA", "MARCA", "PRESENÇA DIGITAL"],
+    kind: "video",
+    src: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/",
+    poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/726621172_17874396585616549_9212805662157504507_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=vp3HyrwU1o4Q7kNvwELarI4&_nc_oc=AdoKATONK12OZ1KN9pbc-ythzA-16KJ1hYva4ODxyjTVNSljT1Xs6yUBXvvQsslJqOFkpsG50BJ0RlHObtYwBsY8&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=7fiuMi7VBtNHo6gzZyrBBg&_nc_ss=7f689&oh=00_AQGUk-lXEb3KWHpJ4nBZFF2S0zdrnszRGqPnZRrot6Mm7A&oe=6A8547DD",
+    logo: "",
+    href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/"
+  },
+  {
+    name: "Felipe G.",
+    company: "Lagosta Fitness",
+    role: "Fundador",
+    segment: "FITNESS & PERFORMANCE",
+    quote: "A gente começou a mostrar a energia da academia de um jeito que realmente dá vontade de fazer parte.",
+    tags: ["CONTEÚDO", "ENGAJAMENTO", "PERFORMANCE"],
+    kind: "video",
+    src: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/",
+    poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/716270537_1812948483001906_7282143060730353334_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=NMQyFQK0tNMQ7kNvwE3E2iQ&_nc_oc=AdrZqmqfPtHrY0zX_ZpiQala1q8XM04I2PWd2sP-8N-aoXWHRhoi4mlVFW4xFEHYr-N9b3Sl41S1y2emT4Mh0JYZ&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=JvGKqAZCxjfwIYxY4sN-Lw&_nc_ss=7f689&oh=00_AQHtIuHCPwJaxgZH0O0Jue-DpSr2AgwIsEVYAc6L2cCMTw&oe=6A854B01",
+    logo: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png",
+    href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/"
+  },
+  {
+    name: "Marcos L.",
+    company: "Shineray MotoNow",
+    role: "Gestor",
+    segment: "MOTOCICLETAS & AUTOMOTIVO",
+    quote: "A comunicação da nossa loja passou a ter a mesma presença que as motos que vendemos.",
+    tags: ["MARCA", "PERFORMANCE", "PRESENÇA"],
+    kind: "video",
+    src: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/",
+    poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/718398400_1508187670714397_6688170240713227539_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=H45vmc7MNTQQ7kNvwFh0WBl&_nc_oc=Adqtn-ZZl7wrJime4PUKvIcAy_gjUliliaJIf6sIH2VKh8_xuA4Rl4WqUFQZxVdP-y1Ezm8EFStuCZQ1bOQuJqkc&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=7Bly2R93DWdxgCAiUrqjWw&_nc_ss=7f689&oh=00_AQEb3FocbZZRmo2JtVh-kLjjDRraJRVtdcWLao29_fYwJQ&oe=6A853A7C",
+    logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
+    href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/"
+  },
 ];
+
 
 
 /* ------------------------------------------------------------------ */

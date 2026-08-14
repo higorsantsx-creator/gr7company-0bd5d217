@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import {
   motion,
   useScroll,
@@ -1840,13 +1840,15 @@ export default function Landing() {
           </div>
           <Difference />
           
-          <CinematicVideo />
-          <Manifesto />
           <div id="reels">
             <ReelsSection />
           </div>
 
+          <CinematicVideo />
+          <Manifesto />
           
+          <VideoTestimonialsSection />
+
           <Process />
           <ArtsMasonry />
           <Stack />
@@ -1855,9 +1857,9 @@ export default function Landing() {
           <Results />
           <DashboardsSection />
           <FAQ />
-          <VideoTestimonialsSection />
           <ClientsMarquee />
           <InstagramProfile />
+
           <GR7InAction />
           <CTA />
         </main>
