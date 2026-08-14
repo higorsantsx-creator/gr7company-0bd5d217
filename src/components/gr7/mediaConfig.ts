@@ -50,7 +50,7 @@ export const projects: ProjectCard[] = [
 /*  REELS — feed vertical em smartphones                              */
 /* ------------------------------------------------------------------ */
 export const reels: MediaItem[] = [
-  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "https://www.instagram.com/postostotalgiro/reel/DYnv9i8uqLv/", poster: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/703184506_1496681588532468_7183933579813364459_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=V6CLll61gS4Q7kNvwFmvGJ_&_nc_oc=AdqZM8qvUf6RX0pRVpujI9FeO6wiAHymOVT1Zb8IuuBHOiCVrFOHOmu4ZewPA0MiJDql03HHuWzMiMspEMg1Sp52&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=XFO7Y7AXB_ENIPKdn7sQ1A&_nc_ss=7f689&oh=00_AQH0A771IFOgFzS5dZLvLdNhcjak0pYcoVZinyWbqPCl-w&oe=6A8542D3" },
   { kind: "video", src: "", poster: "" },
   { kind: "video", src: "", poster: "" },
   { kind: "video", src: "", poster: "" },
