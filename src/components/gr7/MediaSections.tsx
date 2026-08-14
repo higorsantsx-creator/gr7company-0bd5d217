@@ -389,10 +389,10 @@ export function ReelsSection() {
 
             // Responsive positioning logic (simplified for code-replace)
             const desktopPositions = [
-              { left: "20%", zIndex: 10, scale: 0.85, rotation: -3, delay: 0.2, top: "48%" },
-              { left: "50%", zIndex: 30, scale: 1.05, rotation: 0, delay: 0, top: "50%" },
-              { left: "80%", zIndex: 10, scale: 0.85, rotation: 3, delay: 0.4, top: "48%" },
-              { left: "68%", zIndex: 5, scale: 0.75, rotation: 2, delay: 0.6, top: "65%" },
+              { left: "15%", zIndex: 10, scale: 0.85, rotation: -2, delay: 0.2 },
+              { left: "50%", zIndex: 30, scale: 1.05, rotation: 0, delay: 0 },
+              { left: "85%", zIndex: 10, scale: 0.85, rotation: 2, delay: 0.4 },
+              { left: "70%", zIndex: 5, scale: 0.75, rotation: 1, delay: 0.6, top: "60%" },
             ];
 
             const pos = desktopPositions[i];
