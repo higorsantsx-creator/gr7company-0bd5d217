@@ -3,8 +3,8 @@
  * Cada seção consome dados de `mediaConfig.ts` e usa `MediaSlot`
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
-import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { motion, AnimatePresence, useScroll as useMotionScroll, useTransform as useMotionTransform } from "motion/react";
 import {
   ArrowRight,
   Play,
@@ -17,6 +17,7 @@ import {
   Send,
   MoreHorizontal,
 } from "lucide-react";
+
 import { MediaSlot, PhoneFrame, NotebookFrame } from "./MediaSlot";
 
 import gr7LogoDark from "@/assets/gr7-logo-dark.png";
