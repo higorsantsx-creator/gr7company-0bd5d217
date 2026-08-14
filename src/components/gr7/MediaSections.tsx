@@ -434,8 +434,6 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
       className="relative cursor-pointer"
     >
 
-
-    >
       {/* Micro-identificação discreta */}
       <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
          <span className="text-[9px] font-mono tracking-widest text-white/30 italic">REEL / 0{i+1}</span>
