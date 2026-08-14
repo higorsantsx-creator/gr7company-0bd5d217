@@ -4,7 +4,14 @@
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+} from "motion/react";
 import {
   ArrowRight,
   Play,
@@ -37,6 +44,91 @@ import {
 } from "./mediaConfig";
 import { projectDataset, type ProjectData } from "./projectData";
 import { ProjectDashboard } from "./ProjectDashboard";
+
+/* ------------------------------------------------------------------ */
+/*  Reveal helper (Local version for MediaSections)                    */
+/* ------------------------------------------------------------------ */
+type RevealVariant =
+  | "rise"
+  | "fall"
+  | "slide-left"
+  | "slide-right"
+  | "scale"
+  | "mask"
+  | "tilt";
+
+const REVEAL_VARIANTS: Record<
+  RevealVariant,
+  { hidden: Record<string, any>; shown: Record<string, any> }
+> = {
+  rise: {
+    hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
+    shown: { opacity: 1, y: 0, filter: "blur(0px)" },
+  },
+  fall: {
+    hidden: { opacity: 0, y: -40, rotate: -1.5, filter: "blur(4px)" },
+    shown: { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" },
+  },
+  "slide-left": {
+    hidden: { opacity: 0, x: -60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  "slide-right": {
+    hidden: { opacity: 0, x: 60, filter: "blur(4px)" },
+    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
+  },
+  scale: {
+    hidden: { opacity: 0, scale: 0.9, y: 20 },
+    shown: { opacity: 1, scale: 1, y: 0 },
+  },
+  mask: {
+    hidden: {
+      opacity: 0,
+      y: 60,
+      clipPath: "inset(100% 0 0 0)",
+    },
+    shown: {
+      opacity: 1,
+      y: 0,
+      clipPath: "inset(0% 0 0 0)",
+    },
+  },
+  tilt: {
+    hidden: { opacity: 0, rotate: -3, scale: 0.96, y: 24 },
+    shown: { opacity: 1, rotate: 0, scale: 1, y: 0 },
+  },
+};
+
+function Reveal({
+  children,
+  delay = 0,
+  y = 24,
+  className = "",
+  variant = "rise",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  y?: number;
+  className?: string;
+  variant?: RevealVariant;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "-80px", once: true });
+  const v = REVEAL_VARIANTS[variant];
+  const hidden = variant === "rise" ? { ...v.hidden, y } : v.hidden;
+  return (
+    <motion.div
+      ref={ref}
+      initial={hidden}
+      animate={inView ? v.shown : hidden}
+      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
+      style={{ willChange: "transform, opacity, filter" }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 
 /* ------------------------------------------------------------------ */
@@ -221,62 +313,203 @@ export function ProjectsGrid() {
 /*  2. REELS — feed vertical em smartphones                            */
 /* ================================================================== */
 export function ReelsSection() {
-  return (
-    <section id="reels" className="relative py-32 md:py-40">
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
-        <SectionHead
-          kicker="Reels"
-          title={
-            <>
-              Formato vertical <br />
-              <span className="italic text-white/50">feito para viralizar.</span>
-            </>
-          }
-          lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
-        />
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {reels.map((r, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ scale: 1.04 }}
-              className="mx-auto w-full max-w-[220px]"
-            >
-              <PhoneFrame>
-                <MediaSlot
-                  src={r.src}
-                  poster={r.poster}
-                  kind="video"
-                  className="absolute inset-0"
-                  icon="reel"
-                  label={`Reel ${i + 1}`}
-                />
-                {/* UI overlay estilo Reels */}
-                <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4 text-white">
-                  <div className="flex items-center justify-between text-[10px]">
-                    <span className="font-semibold">Reels</span>
-                    <span className="opacity-70">•</span>
-                  </div>
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <div className="text-[11px] font-semibold">@gr7.company</div>
-                      <div className="text-[10px] opacity-80">Direção GR7 · 2026</div>
-                    </div>
-                    <div className="flex flex-col gap-2 opacity-90">
-                      <Heart className="h-4 w-4" />
-                      <MsgIcon className="h-4 w-4" />
-                      <Send className="h-4 w-4" />
-                    </div>
-                  </div>
-                </div>
-              </PhoneFrame>
-            </motion.div>
-          ))}
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Parallax offsets for different phones
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 0]); // Protagonist is stable
+  const y3 = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const y4 = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setMousePos({
+      x: (e.clientX - rect.left) / rect.width - 0.5,
+      y: (e.clientY - rect.top) / rect.height - 0.5,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setMousePos({ x: 0, y: 0 });
+    setHoveredIdx(null);
+  };
+
+  return (
+    <section
+      id="reels"
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative overflow-hidden py-32 md:py-48"
+    >
+      {/* Subtle environment glow behind phones */}
+      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-30">
+        <div className="h-[60%] w-[80%] rounded-full bg-[#ff1a1a]/5 blur-[120px]" />
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 md:px-10 relative z-10">
+        <div className="flex flex-col items-center text-center mb-24 md:mb-32">
+          <Reveal delay={0.1} variant="rise">
+            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.4em] text-[#ff1a1a]">
+              / Showreel
+            </div>
+          </Reveal>
+          <Reveal delay={0.2} variant="rise">
+            <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-7xl">
+              CONTEÚDO QUE <br />
+              <span className="italic text-white/50">PARA O SCROLL.</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.3} variant="rise" className="mt-8">
+            <p className="max-w-xl text-base text-white/50 md:text-lg font-light leading-relaxed">
+              Transformamos estratégia em movimento. Design, edição e narrativa 
+              pensados para dominar a economia da atenção no formato vertical.
+            </p>
+          </Reveal>
         </div>
+
+        {/* Cinematic Smartphone Composition */}
+        <div className="relative mt-20 flex h-[600px] items-center justify-center md:h-[800px]">
+          {reels.map((r, i) => {
+            const isProtagonist = i === 1; // Phone 2 is index 1
+            const parallaxY = [y1, y2, y3, y4][i];
+            
+            // Interaction values
+            const springConfig = { stiffness: 150, damping: 30 };
+            const mouseX = useSpring(mousePos.x * (isProtagonist ? 10 : 25), springConfig);
+            const mouseY = useSpring(mousePos.y * (isProtagonist ? 10 : 25), springConfig);
+
+            // Responsive positioning logic (simplified for code-replace)
+            const desktopPositions = [
+              { left: "15%", zIndex: 10, scale: 0.85, rotation: -2, delay: 0.2 },
+              { left: "50%", zIndex: 30, scale: 1.05, rotation: 0, delay: 0 },
+              { left: "85%", zIndex: 10, scale: 0.85, rotation: 2, delay: 0.4 },
+              { left: "70%", zIndex: 5, scale: 0.75, rotation: 1, delay: 0.6, top: "60%" },
+            ];
+
+            const pos = desktopPositions[i];
+
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 100, scale: 0.8, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, scale: pos.scale, filter: "blur(0px)" }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ 
+                  duration: 1.2, 
+                  delay: pos.delay, 
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                onMouseEnter={() => setHoveredIdx(i)}
+                style={{
+                  position: "absolute",
+                  left: pos.left,
+                  top: pos.top || "50%",
+                  translateX: "-50%",
+                  translateY: "-50%",
+                  y: parallaxY,
+                  zIndex: pos.zIndex,
+                  rotate: pos.rotation,
+                  x: mouseX,
+                  // Note: Removed duplicate y: mouseY because it conflicts with parallax y
+                  width: "280px",
+                  willChange: "transform, opacity, filter",
+                }}
+                className={`transition-all duration-700 ${
+                  hoveredIdx !== null && hoveredIdx !== i 
+                    ? "opacity-40 grayscale-[0.5] scale-[0.95]" 
+                    : hoveredIdx === i 
+                      ? "z-50 scale-[1.08]" 
+                      : ""
+                } hidden md:block`}
+              >
+                {/* Reel Info Label */}
+                <div className="absolute -top-12 left-0 w-full flex items-center gap-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 whitespace-nowrap">
+                   <div className="h-[1px] w-8 bg-[#ff1a1a]/50" />
+                   <span className="text-[9px] font-mono tracking-[0.3em] text-white/40 uppercase">
+                     GR7 / REEL 0{i + 1}
+                   </span>
+                </div>
+
+                <PhoneFrame active={hoveredIdx === i}>
+                  <div className="group relative h-full w-full">
+                    <MediaSlot
+                      src={r.src}
+                      poster={r.poster}
+                      kind="video"
+                      className="absolute inset-0 object-cover"
+                      icon="reel"
+                    />
+                    
+                    {/* Live indicator overlay */}
+                    <div className="absolute top-6 left-6 z-30 flex items-center gap-2">
+                       <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
+                       <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-80">
+                         Playing
+                       </span>
+                    </div>
+
+                    {/* Content Overlay */}
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-8 bg-gradient-to-t from-black/80 to-transparent">
+                       <div className="text-[10px] font-medium text-white/50 mb-1">Vertical Strategy</div>
+                       <div className="text-xs font-display text-white tracking-wide">ALTO IMPACTO VISUAL</div>
+                    </div>
+                  </div>
+                </PhoneFrame>
+              </motion.div>
+            );
+          })}
+
+          {/* Mobile Layout: Horizontal scrollable showcase */}
+          <div className="flex w-full gap-6 overflow-x-auto px-6 pb-12 snap-x snap-mandatory md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {reels.map((r, i) => (
+              <motion.div
+                key={`mobile-${i}`}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                className="w-[280px] shrink-0 snap-center"
+              >
+                <div className="mb-4 flex items-center justify-between text-[10px] text-white/40 uppercase tracking-[0.2em]">
+                  <span>REEL 0{i + 1}</span>
+                  <span>GR7 CONTENT</span>
+                </div>
+                <PhoneFrame>
+                  <MediaSlot
+                    src={r.src}
+                    poster={r.poster}
+                    kind="video"
+                    className="absolute inset-0"
+                    icon="reel"
+                  />
+                </PhoneFrame>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Sub-context message */}
+        <Reveal delay={0.8} variant="rise" className="mt-20 flex justify-center text-center">
+           <div className="inline-flex items-center gap-6 border-y border-white/5 py-6 px-10">
+              <div className="flex flex-col">
+                <span className="text-[10px] text-[#ff1a1a] font-bold tracking-[0.3em] uppercase mb-1">Performance</span>
+                <span className="text-lg text-white font-medium">10M+ Alcance</span>
+              </div>
+              <div className="w-[1px] h-8 bg-white/10" />
+              <div className="flex flex-col">
+                <span className="text-[10px] text-[#ff1a1a] font-bold tracking-[0.3em] uppercase mb-1">Engagement</span>
+                <span className="text-lg text-white font-medium">85% Retenção</span>
+              </div>
+           </div>
+        </Reveal>
       </div>
     </section>
   );
