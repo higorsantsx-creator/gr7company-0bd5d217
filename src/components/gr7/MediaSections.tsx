@@ -221,7 +221,7 @@ export function ProjectsGrid() {
 /* ================================================================== */
 /*  2. REELS — "THE ATTENTION MACHINE" Cinematic Composition           */
 /* ================================================================== */
-import { useScroll as useMotionScroll, useTransform as useMotionTransform } from "motion/react";
+
 
 export function ReelsSection() {
   const sectionRef = useRef<HTMLElement>(null);
