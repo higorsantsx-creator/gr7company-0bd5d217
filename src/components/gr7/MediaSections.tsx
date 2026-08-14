@@ -4,7 +4,14 @@
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+  useSpring,
+  useInView,
+} from "motion/react";
 import {
   ArrowRight,
   Play,
