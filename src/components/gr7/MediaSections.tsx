@@ -387,7 +387,75 @@ export function ReelsSection() {
   );
 }
 
-// Subcomponente para controle de vídeo com IntersectionObserver
+// Subcomponente de card individual do telefone para isolar estado de hover e UI
+function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: { 
+  i: number, 
+  isMain: boolean, 
+  r: any, 
+  hoveredIndex: number | null, 
+  setHoveredIndex: (idx: number | null) => void 
+}) {
+  return (
+    <motion.div
+      animate={{
+        scale: hoveredIndex === i ? 1.025 : 1,
+        opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.88 : 1,
+        z: hoveredIndex === i ? 50 : 0
+      }}
+      transition={{ duration: 0.4 }}
+      className="relative"
+    >
+      {/* Micro-identificação discreta */}
+      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+         <span className="text-[9px] font-mono tracking-widest text-white/30 italic">REEL / 0{i+1}</span>
+      </div>
+
+      <PhoneFrame className={`${isMain ? 'ring-1 ring-white/10 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.6)]' : 'shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)]'}`}>
+        {/* Smartphone Gloss Effect */}
+        <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden rounded-[2rem]">
+          <motion.div 
+            animate={{
+              x: ["-100%", "200%"],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "linear",
+              delay: i * 2
+            }}
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent w-1/2 -skew-x-12"
+          />
+        </div>
+
+        <ReelVideo r={r} i={i} />
+
+        {/* UI Discreta */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 text-white z-20">
+          <div className="flex items-end justify-between">
+            <div className="mb-2">
+              <div className="flex items-center gap-2 mb-1">
+                 <div className="w-1.5 h-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
+                 <span className="text-[9px] font-bold tracking-tighter opacity-80 uppercase">Playing</span>
+              </div>
+              <div className="text-[11px] font-bold tracking-tight">@gr7.company</div>
+            </div>
+            <div className="flex flex-col gap-4 mb-3 opacity-60">
+               <div className="w-1 h-1 rounded-full bg-white/40" />
+               <div className="w-1 h-1 rounded-full bg-white/40" />
+               <div className="w-1 h-1 rounded-full bg-white/40" />
+            </div>
+          </div>
+        </div>
+      </PhoneFrame>
+
+      {isMain && (
+        <div className="absolute -inset-4 z-[-1] rounded-[3rem] bg-[#ff1a1a]/5 blur-3xl opacity-50" />
+      )}
+    </motion.div>
+  );
+}
+
+
 function ReelVideo({ r, i }: { r: any; i: number }) {
   const videoRef = useRef<HTMLDivElement>(null);
 
