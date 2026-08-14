@@ -341,15 +341,15 @@ export function ReelsSection() {
               className="relative w-full max-w-[260px] md:w-[280px] shrink-0"
             >
 
-              <motion.div
-                animate={{
-                  scale: hoveredIndex === i ? 1.025 : 1,
-                  opacity: hoveredIndex !== null && hoveredIndex !== i ? 0.88 : 1,
-                  z: hoveredIndex === i ? 50 : 0
-                }}
-                transition={{ duration: 0.4 }}
-                className="relative"
-              >
+              <PhoneCard 
+                i={i} 
+                isMain={isMain} 
+                r={r} 
+                hoveredIndex={hoveredIndex} 
+                setHoveredIndex={setHoveredIndex} 
+                isMobile={isMobile}
+              />
+
                 {/* Micro-identificação discreta */}
                 <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
                    <span className="text-[9px] font-mono tracking-widest text-white/30 italic">REEL / 0{i+1}</span>
