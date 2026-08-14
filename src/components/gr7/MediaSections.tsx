@@ -238,7 +238,7 @@ export function ReelsSection() {
   const rotations = [-8, -3, 3, 8];
 
   return (
-    <section id="reels" className="relative py-32 md:py-40 overflow-hidden" ref={containerRef}>
+    <section className="relative py-32 md:py-40 overflow-hidden" ref={containerRef}>
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHead
           kicker="Reels"
