@@ -142,51 +142,18 @@ export function MediaSlot({
 export function PhoneFrame({
   children,
   className = "",
-  active = false,
 }: {
   children: React.ReactNode;
   className?: string;
-  active?: boolean;
 }) {
   return (
     <div
-      className={`relative aspect-[9/19.5] w-full rounded-[2.8rem] border border-white/10 bg-[#0a0a0a] p-[6px] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] transition-all duration-500 ${className} ${active ? "ring-2 ring-[#ff1a1a]/30 shadow-[0_40px_100px_-20px_rgba(255,26,26,0.15)]" : ""}`}
-      style={{
-        perspective: "1200px",
-        transformStyle: "preserve-3d",
-      }}
+      className={`relative aspect-[9/19.5] w-full rounded-[2.5rem] border border-white/10 bg-black p-2 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)] ${className}`}
     >
-      {/* Outer bezel depth */}
-      <div className="absolute inset-0 rounded-[2.8rem] bg-gradient-to-b from-white/10 to-transparent opacity-20" />
-      
-      {/* Dynamic Island */}
-      <div className="absolute left-1/2 top-4 z-30 h-5 w-20 -translate-x-1/2 rounded-full bg-[#0a0a0a] shadow-inner" />
-      
-      {/* Screen area */}
-      <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-black shadow-2xl">
+      <div className="absolute left-1/2 top-2 z-20 h-5 w-24 -translate-x-1/2 rounded-full bg-black" />
+      <div className="relative h-full w-full overflow-hidden rounded-[2rem] bg-neutral-900">
         {children}
-        
-        {/* Cinematic screen reflection */}
-        <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden rounded-[2.4rem]">
-          <motion.div
-            animate={{
-              x: ["-100%", "200%"],
-              y: ["-100%", "200%"],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute -inset-x-1/2 top-0 h-[200%] w-[50%] rotate-[35deg] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent"
-          />
-        </div>
       </div>
-
-      {/* Side buttons sutil detail */}
-      <div className="absolute -left-[2px] top-24 h-12 w-[3px] rounded-r-sm bg-white/10" />
-      <div className="absolute -left-[2px] top-40 h-8 w-[3px] rounded-r-sm bg-white/10" />
-      <div className="absolute -right-[2px] top-32 h-16 w-[3px] rounded-l-sm bg-white/10" />
     </div>
   );
 }

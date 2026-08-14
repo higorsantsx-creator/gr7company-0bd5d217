@@ -4,14 +4,7 @@
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
 import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-} from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   ArrowRight,
   Play,
@@ -44,91 +37,6 @@ import {
 } from "./mediaConfig";
 import { projectDataset, type ProjectData } from "./projectData";
 import { ProjectDashboard } from "./ProjectDashboard";
-
-/* ------------------------------------------------------------------ */
-/*  Reveal helper (Local version for MediaSections)                    */
-/* ------------------------------------------------------------------ */
-type RevealVariant =
-  | "rise"
-  | "fall"
-  | "slide-left"
-  | "slide-right"
-  | "scale"
-  | "mask"
-  | "tilt";
-
-const REVEAL_VARIANTS: Record<
-  RevealVariant,
-  { hidden: Record<string, any>; shown: Record<string, any> }
-> = {
-  rise: {
-    hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
-    shown: { opacity: 1, y: 0, filter: "blur(0px)" },
-  },
-  fall: {
-    hidden: { opacity: 0, y: -40, rotate: -1.5, filter: "blur(4px)" },
-    shown: { opacity: 1, y: 0, rotate: 0, filter: "blur(0px)" },
-  },
-  "slide-left": {
-    hidden: { opacity: 0, x: -60, filter: "blur(4px)" },
-    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
-  },
-  "slide-right": {
-    hidden: { opacity: 0, x: 60, filter: "blur(4px)" },
-    shown: { opacity: 1, x: 0, filter: "blur(0px)" },
-  },
-  scale: {
-    hidden: { opacity: 0, scale: 0.9, y: 20 },
-    shown: { opacity: 1, scale: 1, y: 0 },
-  },
-  mask: {
-    hidden: {
-      opacity: 0,
-      y: 60,
-      clipPath: "inset(100% 0 0 0)",
-    },
-    shown: {
-      opacity: 1,
-      y: 0,
-      clipPath: "inset(0% 0 0 0)",
-    },
-  },
-  tilt: {
-    hidden: { opacity: 0, rotate: -3, scale: 0.96, y: 24 },
-    shown: { opacity: 1, rotate: 0, scale: 1, y: 0 },
-  },
-};
-
-function Reveal({
-  children,
-  delay = 0,
-  y = 24,
-  className = "",
-  variant = "rise",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  y?: number;
-  className?: string;
-  variant?: RevealVariant;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { margin: "-80px", once: true });
-  const v = REVEAL_VARIANTS[variant];
-  const hidden = variant === "rise" ? { ...v.hidden, y } : v.hidden;
-  return (
-    <motion.div
-      ref={ref}
-      initial={hidden}
-      animate={inView ? v.shown : hidden}
-      transition={{ duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] }}
-      style={{ willChange: "transform, opacity, filter" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 
 /* ------------------------------------------------------------------ */
@@ -312,232 +220,62 @@ export function ProjectsGrid() {
 /* ================================================================== */
 /*  2. REELS — feed vertical em smartphones                            */
 /* ================================================================== */
-
-function ReelPhone({ 
-  reel, 
-  index, 
-  mousePos, 
-  hoveredIdx, 
-  setHoveredIdx, 
-  parallaxY 
-}: { 
-  reel: any; 
-  index: number; 
-  mousePos: { x: number; y: number }; 
-  hoveredIdx: number | null; 
-  setHoveredIdx: (i: number | null) => void; 
-  parallaxY: any;
-}) {
-  const isProtagonist = index === 1;
-  const springConfig = { stiffness: 150, damping: 30 };
-  
-  // Subtle mouse response (max ±2deg)
-  const mouseX = useSpring(mousePos.x * (isProtagonist ? 4 : 8), springConfig);
-  
-  const composition = [
-    { left: "30%", top: "52%", scale: 0.88, rotate: -4, z: 30, delay: 0.60 }, // 01 - Left
-    { left: "50%", top: "50%", scale: 1.0, rotate: 0, z: 50, delay: 0.45 },  // 02 - Protagonist (Center)
-    { left: "70%", top: "52%", scale: 0.88, rotate: 4, z: 25, delay: 0.70 },  // 03 - Center-Right (Visible)
-    { left: "62%", top: "45%", scale: 0.78, rotate: 6, z: 20, delay: 0.85 },  // 04 - Background
-  ];
-
-  const pos = composition[index];
-  const isHovered = hoveredIdx === index;
-  const isDimmed = hoveredIdx !== null && hoveredIdx !== index;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40, scale: pos.scale * 0.9, filter: "blur(10px)" }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0, 
-        scale: pos.scale, 
-        filter: "blur(0px)" 
-      }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        duration: 1.4, 
-        delay: pos.delay, 
-        ease: [0.22, 1, 0.36, 1] 
-      }}
-      onMouseEnter={() => setHoveredIdx(index)}
-      onMouseLeave={() => setHoveredIdx(null)}
-      style={{
-        position: "absolute",
-        left: pos.left,
-        top: pos.top,
-        x: "-50%",
-        y: "-50%",
-        translateY: parallaxY,
-        rotate: pos.rotate,
-        zIndex: isHovered ? 60 : pos.z,
-        width: "280px",
-        rotateY: mouseX,
-        willChange: "transform, opacity, filter",
-      }}
-      className={`transition-all duration-700 ease-out hidden md:block ${
-        isDimmed ? "opacity-80 brightness-[0.8] scale-[0.98]" : "opacity-100 scale-[1]"
-      } ${isHovered ? "scale-[1.02] drop-shadow-[0_40px_80px_rgba(255,26,26,0.15)]" : ""}`}
-    >
-      {/* Editorial Reel Label */}
-      <div className={`absolute -top-10 left-0 w-full flex items-center gap-3 transition-all duration-500 ${isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
-         <div className="h-[1px] w-8 bg-[#ff1a1a]/40" />
-         <span className="text-[9px] font-mono tracking-[0.3em] text-white/50 uppercase">
-           GR7 / REEL 0{index + 1}
-         </span>
-      </div>
-
-      <PhoneFrame active={isHovered || (hoveredIdx === null && isProtagonist)}>
-        <a 
-          href={reel.href} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="relative block h-full w-full overflow-hidden group/reel"
-        >
-          <MediaSlot
-            src={reel.src}
-            poster={reel.poster}
-            kind={reel.kind || "video"}
-            className="absolute inset-0 object-cover transition-transform duration-700 group-hover/reel:scale-105"
-            icon="reel"
-          />
-          
-          {/* Instagram UI Overlay Simulation */}
-          <div className="absolute inset-x-0 bottom-0 z-30 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
-             <div className="flex items-center gap-2 mb-3">
-               <div className="h-6 w-6 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm overflow-hidden">
-                 <img src={gr7LogoDark} alt="Avatar" className="w-full h-full object-contain p-1" />
-               </div>
-               <span className="text-[9px] font-bold text-white tracking-wide">gr7company</span>
-             </div>
-             <div className="h-1 w-[40%] bg-white/30 rounded-full overflow-hidden mb-2">
-                <motion.div 
-                  initial={{ x: "-100%" }}
-                  animate={{ x: "100%" }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  className="h-full w-full bg-white/80"
-                />
-             </div>
-          </div>
-
-          {/* Unified Playing indicator */}
-          <div className="absolute top-8 left-6 z-30 flex items-center gap-2">
-             <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse shadow-[0_0_8px_#ff1a1a]" />
-             <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-90">
-               ● PLAYING
-             </span>
-          </div>
-        </a>
-      </PhoneFrame>
-    </motion.div>
-  );
-}
-
 export function ReelsSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Cinematic parallax offsets (subtle range: -20px to -45px)
-  const py1 = useTransform(scrollYProgress, [0, 1], [0, -35]);
-  const py2 = useTransform(scrollYProgress, [0, 1], [0, -20]);
-  const py3 = useTransform(scrollYProgress, [0, 1], [0, -45]);
-  const py4 = useTransform(scrollYProgress, [0, 1], [0, -25]);
-  const parallaxYs = [py1, py2, py3, py4];
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    setMousePos({
-      x: (e.clientX - rect.left) / rect.width - 0.5,
-      y: (e.clientY - rect.top) / rect.height - 0.5,
-    });
-  };
-
   return (
-    <section
-      id="reels"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setMousePos({ x: 0, y: 0 })}
-      className="relative overflow-hidden py-24 md:py-32"
-    >
-      {/* Atmosphere Glow */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-        <div 
-          className="h-[50%] w-[100%] max-w-4xl rounded-[100%] blur-[120px] opacity-10"
-          style={{ background: "radial-gradient(circle at center, #ff1a1a 0%, transparent 70%)" }}
+    <section id="reels" className="relative py-32 md:py-40">
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <SectionHead
+          kicker="Reels"
+          title={
+            <>
+              Formato vertical <br />
+              <span className="italic text-white/50">feito para viralizar.</span>
+            </>
+          }
+          lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
         />
-      </div>
 
-      <div className="mx-auto max-w-7xl px-6 md:px-10 relative z-10 flex flex-col items-center">
-        {/* Editorial Header - Compact and integrated */}
-        <div className="text-center mb-12 md:mb-16">
-          <Reveal delay={0} variant="rise">
-            <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]/80">
-              VERTICAL CONTENT / GR7
-            </div>
-          </Reveal>
-          <Reveal delay={0.12} variant="rise">
-            <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
-              IDEIAS QUE <br />
-              <span className="italic text-white/50">GANHAM MOVIMENTO.</span>
-            </h2>
-          </Reveal>
-          <Reveal delay={0.25} variant="rise" className="mt-6">
-            <p className="max-w-lg mx-auto text-sm text-white/40 font-light leading-relaxed">
-              Conteúdo pensado para chamar atenção, construir percepção e 
-              transformar visualizações em ação na economia da atenção.
-            </p>
-          </Reveal>
-        </div>
-
-        {/* Smartphone Composition Wrapper */}
-        <div className="relative w-full max-w-[1100px] h-[520px] md:h-[620px] flex items-center justify-center">
+        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
           {reels.map((r, i) => (
-            <ReelPhone
+            <motion.div
               key={i}
-              reel={r}
-              index={i}
-              mousePos={mousePos}
-              hoveredIdx={hoveredIdx}
-              setHoveredIdx={setHoveredIdx}
-              parallaxY={parallaxYs[i]}
-            />
-          ))}
-
-          {/* Mobile Layout Adaptation */}
-          <div className="flex w-screen max-w-full gap-5 overflow-x-auto px-6 pb-12 snap-x snap-mandatory md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden absolute inset-0 items-center">
-            {reels.map((r, i) => (
-              <motion.div
-                key={`mobile-${i}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="w-[260px] shrink-0 snap-center"
-              >
-                <div className="mb-3 flex items-center justify-between text-[9px] text-white/30 uppercase tracking-[0.2em]">
-                  <span>REEL 0{i + 1}</span>
-                  <span>GR7 CONTENT</span>
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
+              whileHover={{ scale: 1.04 }}
+              className="mx-auto w-full max-w-[220px]"
+            >
+              <PhoneFrame>
+                <MediaSlot
+                  src={r.src}
+                  poster={r.poster}
+                  kind="video"
+                  className="absolute inset-0"
+                  icon="reel"
+                  label={`Reel ${i + 1}`}
+                />
+                {/* UI overlay estilo Reels */}
+                <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4 text-white">
+                  <div className="flex items-center justify-between text-[10px]">
+                    <span className="font-semibold">Reels</span>
+                    <span className="opacity-70">•</span>
+                  </div>
+                  <div className="flex items-end justify-between">
+                    <div>
+                      <div className="text-[11px] font-semibold">@gr7.company</div>
+                      <div className="text-[10px] opacity-80">Direção GR7 · 2026</div>
+                    </div>
+                    <div className="flex flex-col gap-2 opacity-90">
+                      <Heart className="h-4 w-4" />
+                      <MsgIcon className="h-4 w-4" />
+                      <Send className="h-4 w-4" />
+                    </div>
+                  </div>
                 </div>
-                <PhoneFrame active={i === 0}>
-                  <MediaSlot
-                    src={r.src}
-                    poster={r.poster}
-                    kind="video"
-                    className="absolute inset-0"
-                    icon="reel"
-                  />
-                </PhoneFrame>
-              </motion.div>
-            ))}
-          </div>
+              </PhoneFrame>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

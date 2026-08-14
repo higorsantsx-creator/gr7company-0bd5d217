@@ -36,8 +36,8 @@ export interface ProjectCard extends MediaItem {
 }
 
 export const projects: ProjectCard[] = [
-  { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/703184506_1496681588532468_7183933579813364459_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=V6CLll61gS4Q7kNvwFmvGJ_&_nc_oc=AdqZM8qvUf6RX0pRVpujI9FeO6wiAHymOVT1Zb8IuuBHOiCVrFOHOmu4ZewPA0MiJDql03HHuWzMiMspEMg1Sp52&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=-qkQLr_hoVH5FAMIpeqKAg&_nc_ss=79689&oh=00_AQFabx7q1ZvPO45lvjaRuS5lV16ToW7FqzsZNtJiUhCNmA&oe=6A8542D3" },
-  { client: "Lagosta Fitness", category: "Performance · Social Media · Meta Ads", src: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/755195094_17892625230592338_4945066796046848831_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=ZegDwIwktjIQ7kNvwEQWb-q&_nc_oc=AdpD5VL6WyhC4yDOzlyrevctUc7Tthfksna6dHLlmYKdV3Q2GsTKtIvPUeI3tOq1IqLBZFm2a-CF0QzzFyqC9gSm&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=QKKxEDH7kXcMQDQJfN0jqw&_nc_ss=79689&oh=00_AQF1cqkGca17KpmUM4KCA2Lq743Jpu6JzzyEoMBThGALRw&oe=6A853E85" },
+  { client: "Postos Total Giro", category: "Social Media · Branding · Meta Ads", src: new URL("../../assets/projects/totalgiro/cover.png", import.meta.url).href },
+  { client: "Lagosta Fitness", category: "Performance · Social Media · Meta Ads", src: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png", bg: "white" },
   { client: "Elva Cosméticos", category: "Social · Reels", src: "" },
   { client: "Nova Corretora", category: "Performance · Google Ads", src: "" },
   { client: "Casa Nord", category: "Identidade Visual", src: "" },
@@ -49,25 +49,10 @@ export const projects: ProjectCard[] = [
 /* ------------------------------------------------------------------ */
 /*  REELS — feed vertical em smartphones                              */
 /* ------------------------------------------------------------------ */
-export const reels: (MediaItem & { href?: string })[] = [
-  { 
-    kind: "image", 
-    src: "https://scontent-ams2-1.cdninstagram.com/v/t51.71878-15/703184506_1496681588532468_7183933579813364459_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=V6CLll61gS4Q7kNvwFmvGJ_&_nc_oc=AdqZM8qvUf6RX0pRVpujI9FeO6wiAHymOVT1Zb8IuuBHOiCVrFOHOmu4ZewPA0MiJDql03HHuWzMiMspEMg1Sp52&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=-qkQLr_hoVH5FAMIpeqKAg&_nc_ss=79689&oh=00_AQFabx7q1ZvPO45lvjaRuS5lV16ToW7FqzsZNtJiUhCNmA&oe=6A8542D3",
-    href: "https://www.instagram.com/postostotalgiro/reel/DYnv9i8uqLv/",
-    alt: "Postos Total Giro Reel"
-  },
-  { 
-    kind: "image", 
-    src: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/754372404_17879255334616549_5100462248136633376_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=104&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=Ad4_reO4EzwQ7kNvwF1lRKS&_nc_oc=Adoi3w-Pnl-yl6lJD8xhcWc6OGRBfxXr61Hq2KCTgw3ySDKEPOHsH-Y_bZlqmLJtJYw9hFEQU8BvhUEREPgthmuv&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=yL0cfoiMyta45d0tzp7nag&_nc_ss=79689&oh=00_AQHU1Ruq6XGyLFapd6NgH1X4S6tayeDFU8L3Jcl4kMYGdg&oe=6A851D57",
-    href: "https://www.instagram.com/gr7company/reel/DbJqI34SxWJ/",
-    alt: "GR7 Company Reel"
-  },
-  { 
-    kind: "image", 
-    src: "https://scontent-ams2-1.cdninstagram.com/v/t51.82787-15/755195094_17892625230592338_4945066796046848831_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=110&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=ZegDwIwktjIQ7kNvwEQWb-q&_nc_oc=AdpD5VL6WyhC4yDOzlyrevctUc7Tthfksna6dHLlmYKdV3Q2GsTKtIvPUeI3tOq1IqLBZFm2a-CF0QzzFyqC9gSm&_nc_zt=23&_nc_ht=scontent-ams2-1.cdninstagram.com&_nc_gid=QKKxEDH7kXcMQDQJfN0jqw&_nc_ss=79689&oh=00_AQF1cqkGca17KpmUM4KCA2Lq743Jpu6JzzyEoMBThGALRw&oe=6A853E85",
-    href: "https://www.instagram.com/lagostafitness/reel/DbOMi_ERcdt/",
-    alt: "Lagosta Fitness Reel"
-  },
+export const reels: MediaItem[] = [
+  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "", poster: "" },
   { kind: "video", src: "", poster: "" },
 ];
 
