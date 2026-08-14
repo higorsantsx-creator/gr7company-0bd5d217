@@ -314,7 +314,7 @@ export function ReelsSection() {
       {/* 4. Composição Central de Smartphones */}
       <div 
         ref={containerRef}
-        className="relative w-full max-w-7xl px-6 md:px-10 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-0 mt-20 md:mt-32 perspective-1000"
+        className="relative w-full max-w-7xl px-6 md:px-10 flex flex-col md:block mt-20 md:mt-32 perspective-1000 md:h-[600px]"
       >
         {reels.map((r, i) => {
           const pos = phonePositions[i];
