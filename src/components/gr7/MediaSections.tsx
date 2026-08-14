@@ -459,8 +459,8 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
         <ReelVideo r={r} i={i} />
 
         {/* UI Discreta */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col justify-end p-5 text-white z-20">
-          <div className="flex items-end justify-between">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex flex-col justify-end p-5 text-white z-20">
+          <div className="flex items-end justify-between w-full">
             <div className="mb-2">
               <div className="flex items-center gap-2 mb-1">
                  <div className="w-1.5 h-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
@@ -468,13 +468,14 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
               </div>
               <div className="text-[11px] font-bold tracking-tight">@gr7.company</div>
             </div>
-            <div className="flex flex-col gap-4 mb-3 opacity-60">
+            <div className="flex flex-col gap-3 mb-1 opacity-60">
                <div className="w-1 h-1 rounded-full bg-white/40" />
                <div className="w-1 h-1 rounded-full bg-white/40" />
                <div className="w-1 h-1 rounded-full bg-white/40" />
             </div>
           </div>
         </div>
+
       </PhoneFrame>
 
       {isMain && (
