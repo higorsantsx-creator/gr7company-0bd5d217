@@ -419,7 +419,7 @@ export function ReelsSection() {
                   zIndex: pos.zIndex,
                   rotate: pos.rotation,
                   x: mouseX,
-                  y: mouseY,
+                  // Note: Removed duplicate y: mouseY because it conflicts with parallax y
                   width: "280px",
                   willChange: "transform, opacity, filter",
                 }}
