@@ -348,36 +348,42 @@ export function ReelsSection() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden py-32 md:py-48"
+      className="relative overflow-hidden py-20 md:py-32"
     >
-      {/* Subtle environment glow behind phones */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center opacity-30">
-        <div className="h-[60%] w-[80%] rounded-full bg-[#ff1a1a]/5 blur-[120px]" />
+      {/* Cinematic Studio Glow behind phones */}
+      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+        <div 
+          className="h-[60%] w-[100%] max-w-5xl rounded-[100%] blur-[120px] opacity-20"
+          style={{
+            background: "radial-gradient(circle at center, #ff1a1a 0%, transparent 70%)"
+          }}
+        />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 md:px-10 relative z-10">
-        <div className="flex flex-col items-center text-center mb-24 md:mb-32">
+        {/* New Editorial Hierarchy */}
+        <div className="flex flex-col items-center text-center mb-16 md:mb-20">
           <Reveal delay={0.1} variant="rise">
-            <div className="mb-4 text-[11px] font-medium uppercase tracking-[0.4em] text-[#ff1a1a]">
-              / Showreel
+            <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+              VERTICAL CONTENT / GR7
             </div>
           </Reveal>
-          <Reveal delay={0.2} variant="rise">
+          <Reveal delay={0.25} variant="rise">
             <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-7xl">
-              CONTEÚDO QUE <br />
-              <span className="italic text-white/50">PARA O SCROLL.</span>
+              IDEIAS QUE <br />
+              <span className="italic text-white/50">GANHAM MOVIMENTO.</span>
             </h2>
           </Reveal>
-          <Reveal delay={0.3} variant="rise" className="mt-8">
+          <Reveal delay={0.4} variant="rise" className="mt-8">
             <p className="max-w-xl text-base text-white/50 md:text-lg font-light leading-relaxed">
-              Transformamos estratégia em movimento. Design, edição e narrativa 
-              pensados para dominar a economia da atenção no formato vertical.
+              Conteúdo pensado para chamar atenção, construir percepção e 
+              transformar visualizações em ação na economia da atenção.
             </p>
           </Reveal>
         </div>
 
         {/* Cinematic Smartphone Composition */}
-        <div className="relative mt-20 flex h-[600px] items-center justify-center md:h-[800px]">
+        <div className="relative flex h-[500px] items-center justify-center md:h-[750px]">
           {reels.map((r, i) => {
             const isProtagonist = i === 1; // Phone 2 is index 1
             const parallaxY = [y1, y2, y3, y4][i];
@@ -385,14 +391,13 @@ export function ReelsSection() {
             // Interaction values
             const springConfig = { stiffness: 150, damping: 30 };
             const mouseX = useSpring(mousePos.x * (isProtagonist ? 10 : 25), springConfig);
-            const mouseY = useSpring(mousePos.y * (isProtagonist ? 10 : 25), springConfig);
-
-            // Responsive positioning logic (simplified for code-replace)
+            
+            // Responsive positioning logic - Editorial Composition
             const desktopPositions = [
-              { left: "15%", zIndex: 10, scale: 0.85, rotation: -2, delay: 0.2 },
-              { left: "50%", zIndex: 30, scale: 1.05, rotation: 0, delay: 0 },
-              { left: "85%", zIndex: 10, scale: 0.85, rotation: 2, delay: 0.4 },
-              { left: "70%", zIndex: 5, scale: 0.75, rotation: 1, delay: 0.6, top: "60%" },
+              { left: "22%", zIndex: 20, scale: 0.9, rotation: -4, delay: 0.65, top: "50%", opacity: 1 },
+              { left: "50%", zIndex: 50, scale: 1.1, rotation: 0, delay: 0.5, top: "50%", opacity: 1 },
+              { left: "78%", zIndex: 20, scale: 0.9, rotation: 4, delay: 0.65, top: "50%", opacity: 1 },
+              { left: "64%", zIndex: 10, scale: 0.75, rotation: 6, delay: 0.8, top: "42%", opacity: 0.6 },
             ];
 
             const pos = desktopPositions[i];
@@ -400,8 +405,13 @@ export function ReelsSection() {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 100, scale: 0.8, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, y: 0, scale: pos.scale, filter: "blur(0px)" }}
+                initial={{ opacity: 0, y: 60, scale: pos.scale * 0.8, filter: "blur(10px)" }}
+                whileInView={{ 
+                  opacity: pos.opacity, 
+                  y: 0, 
+                  scale: pos.scale, 
+                  filter: "blur(0px)" 
+                }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ 
                   duration: 1.2, 
@@ -412,22 +422,21 @@ export function ReelsSection() {
                 style={{
                   position: "absolute",
                   left: pos.left,
-                  top: pos.top || "50%",
+                  top: pos.top,
                   translateX: "-50%",
                   translateY: "-50%",
                   y: parallaxY,
                   zIndex: pos.zIndex,
                   rotate: pos.rotation,
                   x: mouseX,
-                  // Note: Removed duplicate y: mouseY because it conflicts with parallax y
                   width: "280px",
                   willChange: "transform, opacity, filter",
                 }}
                 className={`transition-all duration-700 ${
                   hoveredIdx !== null && hoveredIdx !== i 
-                    ? "opacity-40 grayscale-[0.5] scale-[0.95]" 
+                    ? "opacity-30 grayscale-[0.3] scale-[0.98]" 
                     : hoveredIdx === i 
-                      ? "z-50 scale-[1.08]" 
+                      ? "z-50 scale-[1.05]" 
                       : ""
                 } hidden md:block`}
               >
@@ -439,7 +448,7 @@ export function ReelsSection() {
                    </span>
                 </div>
 
-                <PhoneFrame active={hoveredIdx === i}>
+                <PhoneFrame active={hoveredIdx === i || isProtagonist}>
                   <div className="group relative h-full w-full">
                     <MediaSlot
                       src={r.src}
@@ -453,14 +462,14 @@ export function ReelsSection() {
                     <div className="absolute top-6 left-6 z-30 flex items-center gap-2">
                        <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
                        <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-80">
-                         Playing
+                         ● Playing
                        </span>
                     </div>
 
                     {/* Content Overlay */}
                     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-8 bg-gradient-to-t from-black/80 to-transparent">
                        <div className="text-[10px] font-medium text-white/50 mb-1">Vertical Strategy</div>
-                       <div className="text-xs font-display text-white tracking-wide">ALTO IMPACTO VISUAL</div>
+                       <div className="text-xs font-display text-white tracking-wide uppercase">GR7 Original Content</div>
                     </div>
                   </div>
                 </PhoneFrame>
@@ -476,13 +485,14 @@ export function ReelsSection() {
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 className="w-[280px] shrink-0 snap-center"
               >
                 <div className="mb-4 flex items-center justify-between text-[10px] text-white/40 uppercase tracking-[0.2em]">
                   <span>REEL 0{i + 1}</span>
                   <span>GR7 CONTENT</span>
                 </div>
-                <PhoneFrame>
+                <PhoneFrame active={i === 0}>
                   <MediaSlot
                     src={r.src}
                     poster={r.poster}
@@ -497,8 +507,8 @@ export function ReelsSection() {
         </div>
 
         {/* Sub-context message */}
-        <Reveal delay={0.8} variant="rise" className="mt-20 flex justify-center text-center">
-           <div className="inline-flex items-center gap-6 border-y border-white/5 py-6 px-10">
+        <Reveal delay={0.9} variant="rise" className="mt-12 flex justify-center text-center">
+           <div className="inline-flex items-center gap-6 border-y border-white/5 py-6 px-10 bg-white/[0.02] backdrop-blur-sm rounded-xl">
               <div className="flex flex-col">
                 <span className="text-[10px] text-[#ff1a1a] font-bold tracking-[0.3em] uppercase mb-1">Performance</span>
                 <span className="text-lg text-white font-medium">10M+ Alcance</span>
