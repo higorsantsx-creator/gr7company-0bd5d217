@@ -545,7 +545,7 @@ export const projectDataset: ProjectData[] = [
       { label: "Showroom", aspect: "16/9" },
       { label: "Ambientes Bobby", src: "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/772853762_18082170497667580_9072551851269469705_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=103&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=hNZ1-LzIiiEQ7kNvwEvttTk&_nc_oc=AdotGWuXm2CRPSIpppkgTFM4iqKv5XY2-5cS1WykATJv4Ztg85g8XhtLgu7JMWK2unHZGgP5so9hFIYNwgM-3qW0&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=RABhyZxurXHp5eS1z5Dvbg&_nc_ss=7f689&oh=00_AQEyumtWu66L2jOw6mN86gekC4gpLfaV8Ef-BkLKZisOyw&oe=6A8530D2", href: "https://www.instagram.com/bobbymoveis/reel/Db9dkzGRw9I/", aspect: "9/16" },
       { label: "Bastidores Loja" },
-      { label: "Anúncio Reels" },
+      { label: "Marketing", src: "https://scontent-bru2-1.cdninstagram.com/v/t51.82787-15/734069481_18077252846667580_8032072811321268061_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=106&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=EmWjgjQolpkQ7kNvwGxIBAs&_nc_oc=AdptcCmnokdEx51_at15RRWXelXn-uHRiSq53G_add-zKrY7C66Wg7uoT6XmcHMyZeSrndv_aKj0ubXcZyz_BlFC&_nc_zt=23&_nc_ht=scontent-bru2-1.cdninstagram.com&_nc_gid=SD1Xjt_PEIVwLJuP4lSUoQ&_nc_ss=79689&oh=00_AQH7mAscpplu0Lq8DfLHx8YhVlKgj8bh4tZL_HimKksGpQ&oe=6A851177", href: "https://www.instagram.com/bobbymoveis/reel/DaqtVcWRJsb/", aspect: "9/16" },
     ],
     timeline: [
       { title: "Onboarding", detail: "Alinhamento de estoque e metas de venda" },
