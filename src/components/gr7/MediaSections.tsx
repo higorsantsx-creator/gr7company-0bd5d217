@@ -335,7 +335,9 @@ export function ReelsSection() {
                 y: !isMobile ? pos.y : 0,
                 zIndex: isMain ? 40 : 10 + i,
                 x: !isMobile ? pos.x : "0%",
+                left: !isMobile ? "auto" : "0",
                 perspective: "1000px"
+
               }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
