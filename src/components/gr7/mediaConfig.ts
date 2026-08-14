@@ -50,7 +50,7 @@ export const projects: ProjectCard[] = [
 /*  REELS — feed vertical em smartphones                              */
 /* ------------------------------------------------------------------ */
 export const reels: MediaItem[] = [
-  { kind: "video", src: "", poster: "" },
+  { kind: "video", src: "https://www.instagram.com/postostotalgiro/reel/DYnv9i8uqLv/", poster: "" },
   { kind: "video", src: "", poster: "" },
   { kind: "video", src: "", poster: "" },
   { kind: "video", src: "", poster: "" },
