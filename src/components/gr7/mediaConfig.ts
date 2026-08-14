@@ -215,7 +215,6 @@ export interface VideoTestimonial extends MediaItem {
 }
 
 export const videoTestimonials: VideoTestimonial[] = [
-  { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/" },
   { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/" },
   { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-03.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DaWXQ2VyFzL/" },
   { name: "Cliente GR7", company: "@gr7company", kind: "image", src: new URL("../../assets/testimonials/test-04.jpg", import.meta.url).href, href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/" },
