@@ -431,7 +431,13 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setHoveredIndex(i)}
       onMouseLeave={handleMouseLeave}
-      transition={{ duration: 0.4 }}
+      transition={{ 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 30,
+        mass: 1
+      }}
+
       className="relative cursor-pointer"
     >
 
