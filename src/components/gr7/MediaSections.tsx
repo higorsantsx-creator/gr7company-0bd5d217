@@ -4,7 +4,7 @@
  * para permitir troca instantânea de imagens/vídeos sem alterar layout.
  */
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from "motion/react";
 import {
   ArrowRight,
   Play,
@@ -221,8 +221,24 @@ export function ProjectsGrid() {
 /*  2. REELS — feed vertical em smartphones                            */
 /* ================================================================== */
 export function ReelsSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "center center"],
+  });
+
+  // Smooth scroll progression
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Specific rotations for each phone as requested
+  const rotations = [-8, -3, 3, 8];
+
   return (
-    <section id="reels" className="relative py-32 md:py-40">
+    <section id="reels" className="relative py-32 md:py-40 overflow-hidden" ref={containerRef}>
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <SectionHead
           kicker="Reels"
@@ -235,50 +251,126 @@ export function ReelsSection() {
           lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
         />
 
-        <div className="mt-16 grid grid-cols-2 gap-6 md:grid-cols-4">
-          {reels.map((r, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              whileHover={{ scale: 1.04 }}
-              className="mx-auto w-full max-w-[220px]"
-            >
-              <PhoneFrame>
-                <MediaSlot
-                  src={r.src}
-                  poster={r.poster}
-                  kind="video"
-                  className="absolute inset-0"
-                  icon="reel"
-                  label={`Reel ${i + 1}`}
-                />
-                {/* UI overlay estilo Reels */}
-                <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4 text-white">
-                  <div className="flex items-center justify-between text-[10px]">
-                    <span className="font-semibold">Reels</span>
-                    <span className="opacity-70">•</span>
-                  </div>
-                  <div className="flex items-end justify-between">
-                    <div>
-                      <div className="text-[11px] font-semibold">@gr7.company</div>
-                      <div className="text-[10px] opacity-80">Direção GR7 · 2026</div>
-                    </div>
-                    <div className="flex flex-col gap-2 opacity-90">
-                      <Heart className="h-4 w-4" />
-                      <MsgIcon className="h-4 w-4" />
-                      <Send className="h-4 w-4" />
-                    </div>
-                  </div>
-                </div>
-              </PhoneFrame>
-            </motion.div>
-          ))}
+        <div className="mt-24 relative min-h-[500px] md:min-h-[600px]">
+          {/* Centered stack container */}
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-[220px]">
+            {reels.map((r, i) => (
+              <ReelSmartphone 
+                key={i} 
+                index={i} 
+                media={r} 
+                progress={smoothProgress} 
+                rotation={rotations[i]} 
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
+  );
+}
+
+function ReelSmartphone({
+  index,
+  media,
+  progress,
+  rotation,
+}: {
+  index: number;
+  media: any;
+  progress: any;
+  rotation: number;
+}) {
+  // 1. Stacked Initial State (offset)
+  // We calculate the final grid position relative to the center stack
+  // Grid on desktop is 4 columns. Mobile is 2 columns.
+  // We'll use CSS grid for the final positions and animate the transform from center.
+  
+  // X-Travel (from center to 4 columns)
+  // Indices: 0 (-1.5 cols), 1 (-0.5 cols), 2 (0.5 cols), 3 (1.5 cols)
+  const xOffset = (index - 1.5) * 260; // Approximate spacing
+  const x = useTransform(progress, [0, 0.8, 1], [0, xOffset * 1.05, xOffset]);
+  
+  // Y-Travel (curved trajectory)
+  const y = useTransform(progress, [0, 0.5, 0.8, 1], [0, -40, 10, 0]);
+  
+  // Rotation
+  const r = useTransform(progress, [0, 0.2, 0.8, 1], [0, 0, rotation * 1.2, rotation]);
+  
+  // Scale gain life
+  const scale = useTransform(progress, [0, 0.3, 1], [0.95, 1.05, 1]);
+  
+  // Z-index / Depth initial stack
+  const zIndex = 10 - index;
+  const initialZ = index * -10;
+  const z = useTransform(progress, [0, 1], [initialZ, 0]);
+
+  // Continuous micro-animation after expansion
+  const [isFinished, setIsFinished] = useState(false);
+  useEffect(() => {
+    return progress.on("change", (v: number) => {
+      if (v >= 0.99) setIsFinished(true);
+      else setIsFinished(false);
+    });
+  }, [progress]);
+
+  return (
+    <motion.div
+      style={{
+        x,
+        y,
+        z,
+        rotateZ: r,
+        scale,
+        zIndex,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+      }}
+      className="perspective-1000"
+    >
+      <motion.div
+        animate={isFinished ? {
+          y: [0, index % 2 === 0 ? -5 : 5, 0],
+          rotateZ: [rotation, rotation + (index % 2 === 0 ? 0.5 : -0.5), rotation],
+        } : {}}
+        transition={{
+          duration: 4 + index,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <PhoneFrame className="!shadow-2xl">
+          <MediaSlot
+            src={media.src}
+            poster={media.poster}
+            kind="video"
+            className="absolute inset-0"
+            icon="reel"
+            label={`Reel ${index + 1}`}
+          />
+          {/* UI overlay estilo Reels */}
+          <div className="pointer-events-none absolute inset-0 flex flex-col justify-between p-4 text-white">
+            <div className="flex items-center justify-between text-[10px]">
+              <span className="font-semibold">Reels</span>
+              <span className="opacity-70">•</span>
+            </div>
+            <div className="flex items-end justify-between">
+              <div>
+                <div className="text-[11px] font-semibold">@gr7.company</div>
+                <div className="text-[10px] opacity-80">Direção GR7 · 2026</div>
+              </div>
+              <div className="flex flex-col gap-2 opacity-90">
+                <Heart className="h-4 w-4" />
+                <MsgIcon className="h-4 w-4" />
+                <Send className="h-4 w-4" />
+              </div>
+            </div>
+          </div>
+        </PhoneFrame>
+      </motion.div>
+    </motion.div>
   );
 }
 
