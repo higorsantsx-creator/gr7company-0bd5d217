@@ -345,7 +345,7 @@ export function ReelsSection() {
               }}
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
-              className="relative w-full max-w-[260px] md:w-[280px] shrink-0"
+              className={`relative shrink-0 ${isMobile ? "w-full max-w-[260px] mb-12 last:mb-0 mx-auto" : "w-[280px]"}`}
             >
 
               <PhoneCard 
