@@ -395,6 +395,29 @@ function PhoneCard({ i, isMain, r, hoveredIndex, setHoveredIndex }: {
   hoveredIndex: number | null, 
   setHoveredIndex: (idx: number | null) => void 
 }) {
+  const [rotation, setRotation] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.innerWidth < 768) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const mouseX = e.clientX - centerX;
+    const mouseY = e.clientY - centerY;
+    
+    // Intensidade baixa para o 3D parallax (máximo 8 graus)
+    const factor = isMain ? 4 : 8;
+    setRotation({
+      x: (mouseY / (rect.height / 2)) * -factor,
+      y: (mouseX / (rect.width / 2)) * factor
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+    setRotation({ x: 0, y: 0 });
+  };
+
   return (
     <motion.div
       animate={{
