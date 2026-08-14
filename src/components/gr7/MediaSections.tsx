@@ -251,7 +251,7 @@ export function ReelsSection() {
           lead="Substitua o placeholder por um MP4/WebM vertical. Autoplay silencioso, loop infinito, borda premium — pronto para publicar."
         />
 
-        <div className="mt-24 relative min-h-[500px] md:min-h-[600px]">
+        <div className="mt-24 relative min-h-[700px] md:min-h-[600px]">
           {/* Centered stack container */}
           <div className="absolute left-1/2 top-0 -translate-x-1/2 w-full max-w-[220px]">
             {reels.map((r, i) => (
