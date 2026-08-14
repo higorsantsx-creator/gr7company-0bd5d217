@@ -347,7 +347,9 @@ export function ReelsSection() {
                 r={r} 
                 hoveredIndex={hoveredIndex} 
                 setHoveredIndex={setHoveredIndex} 
+                isMobile={isMobile}
               />
+
             </motion.div>
           );
         })}
