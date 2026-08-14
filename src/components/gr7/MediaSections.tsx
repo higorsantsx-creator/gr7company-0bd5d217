@@ -335,10 +335,10 @@ export function ReelsSection() {
                 y: !isMobile ? pos.y : 0,
                 zIndex: isMain ? 40 : 10 + i,
                 position: isMobile ? 'relative' : 'absolute',
-
-                x: !isMobile ? pos.x : "0%",
-                left: !isMobile ? "auto" : "0",
+                left: !isMobile ? '50%' : '0',
+                x: !isMobile ? `calc(-50% + ${pos.x})` : '0%',
                 perspective: "1000px"
+
 
               }}
               onMouseEnter={() => setHoveredIndex(i)}
