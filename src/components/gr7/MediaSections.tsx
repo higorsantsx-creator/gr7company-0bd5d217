@@ -249,10 +249,11 @@ export function ReelsSection() {
   const y4 = useMotionTransform(scrollYProgress, [0, 1], [30, -30]);
 
   const phonePositions = useMemo(() => [
-    { y: y1, rotate: -6, z: 10, scale: 0.95, delay: 0.25, x: "-15%" },
-    { y: y2, rotate: -3, z: 20, scale: 0.98, delay: 0.35, x: "-5%" },
-    { y: y3, rotate: 0, z: 40, scale: 1.12, delay: 0.45, x: "0%", isMain: true },
-    { y: y4, rotate: 6, z: 10, scale: 0.95, delay: 0.55, x: "15%" },
+    { y: y1, rotate: -6, z: 10, scale: 0.95, delay: 0.25, x: "-18%" },
+    { y: y2, rotate: -3, z: 20, scale: 0.98, delay: 0.35, x: "-7%" },
+    { y: y3, rotate: 0, z: 40, scale: 1.15, delay: 0.45, x: "0%", isMain: true },
+    { y: y4, rotate: 6, z: 10, scale: 0.95, delay: 0.55, x: "18%" },
+
   ], [y1, y2, y3, y4]);
 
 
