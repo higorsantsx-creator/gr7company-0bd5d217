@@ -388,28 +388,46 @@ function ReelPhone({
       </div>
 
       <PhoneFrame active={isHovered || (hoveredIdx === null && isProtagonist)}>
-        <div className="relative h-full w-full overflow-hidden">
+        <a 
+          href={reel.href} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="relative block h-full w-full overflow-hidden group/reel"
+        >
           <MediaSlot
             src={reel.src}
             poster={reel.poster}
-            kind="video"
-            className="absolute inset-0 object-cover"
+            kind={reel.kind || "video"}
+            className="absolute inset-0 object-cover transition-transform duration-700 group-hover/reel:scale-105"
             icon="reel"
           />
           
+          {/* Instagram UI Overlay Simulation */}
+          <div className="absolute inset-x-0 bottom-0 z-30 p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+             <div className="flex items-center gap-2 mb-3">
+               <div className="h-6 w-6 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm overflow-hidden">
+                 <img src={gr7LogoDark} alt="Avatar" className="w-full h-full object-contain p-1" />
+               </div>
+               <span className="text-[9px] font-bold text-white tracking-wide">gr7company</span>
+             </div>
+             <div className="h-1 w-[40%] bg-white/30 rounded-full overflow-hidden mb-2">
+                <motion.div 
+                  initial={{ x: "-100%" }}
+                  animate={{ x: "100%" }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  className="h-full w-full bg-white/80"
+                />
+             </div>
+          </div>
+
           {/* Unified Playing indicator */}
-          <div className="absolute top-6 left-6 z-30 flex items-center gap-2">
+          <div className="absolute top-8 left-6 z-30 flex items-center gap-2">
              <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse shadow-[0_0_8px_#ff1a1a]" />
              <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-90">
                ● PLAYING
              </span>
           </div>
-
-          {/* Minimal Placeholder overlay if needed */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-8 bg-gradient-to-t from-black/80 to-transparent opacity-60">
-             <div className="text-[9px] font-mono text-white/40 tracking-widest uppercase">Vertical Strategy</div>
-          </div>
-        </div>
+        </a>
       </PhoneFrame>
     </motion.div>
   );
