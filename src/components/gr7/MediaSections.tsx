@@ -357,13 +357,14 @@ export function ReelsSection() {
       {/* 5. Microcopy lateral */}
       <motion.div 
         style={{ y: y2 }}
-        className="hidden lg:block absolute right-10 top-1/2 -translate-y-1/2 pointer-events-none"
+        className="hidden lg:block absolute -right-4 top-1/2 -translate-y-1/2 pointer-events-none"
       >
-        <div className="flex items-center gap-6 rotate-90 origin-right translate-x-1/2">
+        <div className="flex items-center gap-6 rotate-90 origin-right">
           <div className="h-[1px] w-20 bg-white/5" />
           <span className="text-[10px] font-medium tracking-[0.5em] text-white/20 uppercase whitespace-nowrap">
             FEITO PARA O FORMATO QUE DOMINA A ATENÇÃO.
           </span>
+
         </div>
       </motion.div>
 
