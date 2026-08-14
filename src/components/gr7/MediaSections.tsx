@@ -312,6 +312,109 @@ export function ProjectsGrid() {
 /* ================================================================== */
 /*  2. REELS — feed vertical em smartphones                            */
 /* ================================================================== */
+
+function ReelPhone({ 
+  reel, 
+  index, 
+  mousePos, 
+  hoveredIdx, 
+  setHoveredIdx, 
+  parallaxY 
+}: { 
+  reel: any; 
+  index: number; 
+  mousePos: { x: number; y: number }; 
+  hoveredIdx: number | null; 
+  setHoveredIdx: (i: number | null) => void; 
+  parallaxY: any;
+}) {
+  const isProtagonist = index === 1;
+  const springConfig = { stiffness: 150, damping: 30 };
+  
+  // Subtle mouse response (max ±2deg)
+  const mouseX = useSpring(mousePos.x * (isProtagonist ? 4 : 8), springConfig);
+  
+  const composition = [
+    { left: "24%", top: "52%", scale: 0.88, rotate: -4, z: 30, delay: 0.60 }, // 01 - Left
+    { left: "50%", top: "50%", scale: 1.0, rotate: 0, z: 50, delay: 0.45 },  // 02 - Center
+    { left: "76%", top: "52%", scale: 0.88, rotate: 4, z: 30, delay: 0.70 },  // 03 - Right
+    { left: "62%", top: "45%", scale: 0.78, rotate: 6, z: 20, delay: 0.85 },  // 04 - Depth
+  ];
+
+  const pos = composition[index];
+  const isHovered = hoveredIdx === index;
+  const isDimmed = hoveredIdx !== null && hoveredIdx !== index;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40, scale: pos.scale * 0.9, filter: "blur(10px)" }}
+      whileInView={{ 
+        opacity: 1, 
+        y: 0, 
+        scale: pos.scale, 
+        filter: "blur(0px)" 
+      }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ 
+        duration: 1.4, 
+        delay: pos.delay, 
+        ease: [0.22, 1, 0.36, 1] 
+      }}
+      onMouseEnter={() => setHoveredIdx(index)}
+      onMouseLeave={() => setHoveredIdx(null)}
+      style={{
+        position: "absolute",
+        left: pos.left,
+        top: pos.top,
+        x: "-50%",
+        y: "-50%",
+        translateY: parallaxY,
+        rotate: pos.rotate,
+        zIndex: isHovered ? 60 : pos.z,
+        width: "280px",
+        rotateY: mouseX,
+        willChange: "transform, opacity, filter",
+      }}
+      className={`transition-all duration-700 ease-out hidden md:block ${
+        isDimmed ? "opacity-80 brightness-[0.8] scale-[0.98]" : "opacity-100 scale-[1]"
+      } ${isHovered ? "scale-[1.02] drop-shadow-[0_40px_80px_rgba(255,26,26,0.15)]" : ""}`}
+    >
+      {/* Editorial Reel Label */}
+      <div className={`absolute -top-10 left-0 w-full flex items-center gap-3 transition-all duration-500 ${isHovered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}>
+         <div className="h-[1px] w-8 bg-[#ff1a1a]/40" />
+         <span className="text-[9px] font-mono tracking-[0.3em] text-white/50 uppercase">
+           GR7 / REEL 0{index + 1}
+         </span>
+      </div>
+
+      <PhoneFrame active={isHovered || (hoveredIdx === null && isProtagonist)}>
+        <div className="relative h-full w-full overflow-hidden">
+          <MediaSlot
+            src={reel.src}
+            poster={reel.poster}
+            kind="video"
+            className="absolute inset-0 object-cover"
+            icon="reel"
+          />
+          
+          {/* Unified Playing indicator */}
+          <div className="absolute top-6 left-6 z-30 flex items-center gap-2">
+             <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse shadow-[0_0_8px_#ff1a1a]" />
+             <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-90">
+               ● PLAYING
+             </span>
+          </div>
+
+          {/* Minimal Placeholder overlay if needed */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-8 bg-gradient-to-t from-black/80 to-transparent opacity-60">
+             <div className="text-[9px] font-mono text-white/40 tracking-widest uppercase">Vertical Strategy</div>
+          </div>
+        </div>
+      </PhoneFrame>
+    </motion.div>
+  );
+}
+
 export function ReelsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
@@ -322,11 +425,12 @@ export function ReelsSection() {
     offset: ["start end", "end start"],
   });
 
-  // Parallax offsets for different phones
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 0]); // Protagonist is stable
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const y4 = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  // Cinematic parallax offsets (subtle range: -20px to -45px)
+  const py1 = useTransform(scrollYProgress, [0, 1], [0, -35]);
+  const py2 = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  const py3 = useTransform(scrollYProgress, [0, 1], [0, -45]);
+  const py4 = useTransform(scrollYProgress, [0, 1], [0, -25]);
+  const parallaxYs = [py1, py2, py3, py4];
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
@@ -337,158 +441,70 @@ export function ReelsSection() {
     });
   };
 
-  const handleMouseLeave = () => {
-    setMousePos({ x: 0, y: 0 });
-    setHoveredIdx(null);
-  };
-
   return (
     <section
       id="reels"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden py-20 md:py-32"
+      onMouseLeave={() => setMousePos({ x: 0, y: 0 })}
+      className="relative overflow-hidden py-24 md:py-32"
     >
-      {/* Cinematic Studio Glow behind phones */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center overflow-hidden">
+      {/* Atmosphere Glow */}
+      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
         <div 
-          className="h-[60%] w-[100%] max-w-5xl rounded-[100%] blur-[120px] opacity-20"
-          style={{
-            background: "radial-gradient(circle at center, #ff1a1a 0%, transparent 70%)"
-          }}
+          className="h-[50%] w-[100%] max-w-4xl rounded-[100%] blur-[120px] opacity-10"
+          style={{ background: "radial-gradient(circle at center, #ff1a1a 0%, transparent 70%)" }}
         />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 md:px-10 relative z-10">
-        {/* New Editorial Hierarchy */}
-        <div className="flex flex-col items-center text-center mb-16 md:mb-20">
-          <Reveal delay={0.1} variant="rise">
-            <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 relative z-10 flex flex-col items-center">
+        {/* Editorial Header - Compact and integrated */}
+        <div className="text-center mb-12 md:mb-16">
+          <Reveal delay={0} variant="rise">
+            <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]/80">
               VERTICAL CONTENT / GR7
             </div>
           </Reveal>
-          <Reveal delay={0.25} variant="rise">
-            <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-7xl">
+          <Reveal delay={0.12} variant="rise">
+            <h2 className="font-display text-4xl leading-[1.05] tracking-tight text-white md:text-6xl">
               IDEIAS QUE <br />
               <span className="italic text-white/50">GANHAM MOVIMENTO.</span>
             </h2>
           </Reveal>
-          <Reveal delay={0.4} variant="rise" className="mt-8">
-            <p className="max-w-xl text-base text-white/50 md:text-lg font-light leading-relaxed">
+          <Reveal delay={0.25} variant="rise" className="mt-6">
+            <p className="max-w-lg mx-auto text-sm text-white/40 font-light leading-relaxed">
               Conteúdo pensado para chamar atenção, construir percepção e 
               transformar visualizações em ação na economia da atenção.
             </p>
           </Reveal>
         </div>
 
-        {/* Cinematic Smartphone Composition */}
-        <div className="relative flex h-[500px] items-center justify-center md:h-[750px]">
-          {reels.map((r, i) => {
-            const isProtagonist = i === 1; // Phone 2 is index 1
-            const parallaxY = [y1, y2, y3, y4][i];
-            
-            // Interaction values
-            const springConfig = { stiffness: 150, damping: 30 };
-            const mouseX = useSpring(mousePos.x * (isProtagonist ? 10 : 25), springConfig);
-            
-            // Responsive positioning logic - Editorial Composition
-            const desktopPositions = [
-              { left: "22%", zIndex: 20, scale: 0.9, rotation: -4, delay: 0.65, top: "50%", opacity: 1 },
-              { left: "50%", zIndex: 50, scale: 1.1, rotation: 0, delay: 0.5, top: "50%", opacity: 1 },
-              { left: "78%", zIndex: 20, scale: 0.9, rotation: 4, delay: 0.65, top: "50%", opacity: 1 },
-              { left: "64%", zIndex: 10, scale: 0.75, rotation: 6, delay: 0.8, top: "42%", opacity: 0.6 },
-            ];
+        {/* Smartphone Composition Wrapper */}
+        <div className="relative w-full max-w-[1100px] h-[520px] md:h-[620px] flex items-center justify-center">
+          {reels.map((r, i) => (
+            <ReelPhone
+              key={i}
+              reel={r}
+              index={i}
+              mousePos={mousePos}
+              hoveredIdx={hoveredIdx}
+              setHoveredIdx={setHoveredIdx}
+              parallaxY={parallaxYs[i]}
+            />
+          ))}
 
-            const pos = desktopPositions[i];
-
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 60, scale: pos.scale * 0.8, filter: "blur(10px)" }}
-                whileInView={{ 
-                  opacity: pos.opacity, 
-                  y: 0, 
-                  scale: pos.scale, 
-                  filter: "blur(0px)" 
-                }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ 
-                  duration: 1.2, 
-                  delay: pos.delay, 
-                  ease: [0.22, 1, 0.36, 1] 
-                }}
-                onMouseEnter={() => setHoveredIdx(i)}
-                style={{
-                  position: "absolute",
-                  left: pos.left,
-                  top: pos.top,
-                  translateX: "-50%",
-                  translateY: "-50%",
-                  y: parallaxY,
-                  zIndex: pos.zIndex,
-                  rotate: pos.rotation,
-                  x: mouseX,
-                  width: "280px",
-                  willChange: "transform, opacity, filter",
-                }}
-                className={`transition-all duration-700 ${
-                  hoveredIdx !== null && hoveredIdx !== i 
-                    ? "opacity-30 grayscale-[0.3] scale-[0.98]" 
-                    : hoveredIdx === i 
-                      ? "z-50 scale-[1.05]" 
-                      : ""
-                } hidden md:block`}
-              >
-                {/* Reel Info Label */}
-                <div className="absolute -top-12 left-0 w-full flex items-center gap-3 opacity-0 transition-opacity duration-500 group-hover:opacity-100 whitespace-nowrap">
-                   <div className="h-[1px] w-8 bg-[#ff1a1a]/50" />
-                   <span className="text-[9px] font-mono tracking-[0.3em] text-white/40 uppercase">
-                     GR7 / REEL 0{i + 1}
-                   </span>
-                </div>
-
-                <PhoneFrame active={hoveredIdx === i || isProtagonist}>
-                  <div className="group relative h-full w-full">
-                    <MediaSlot
-                      src={r.src}
-                      poster={r.poster}
-                      kind="video"
-                      className="absolute inset-0 object-cover"
-                      icon="reel"
-                    />
-                    
-                    {/* Live indicator overlay */}
-                    <div className="absolute top-6 left-6 z-30 flex items-center gap-2">
-                       <div className="h-1.5 w-1.5 rounded-full bg-[#ff1a1a] animate-pulse" />
-                       <span className="text-[8px] font-bold tracking-[0.2em] text-white uppercase opacity-80">
-                         ● Playing
-                       </span>
-                    </div>
-
-                    {/* Content Overlay */}
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 p-8 bg-gradient-to-t from-black/80 to-transparent">
-                       <div className="text-[10px] font-medium text-white/50 mb-1">Vertical Strategy</div>
-                       <div className="text-xs font-display text-white tracking-wide uppercase">GR7 Original Content</div>
-                    </div>
-                  </div>
-                </PhoneFrame>
-              </motion.div>
-            );
-          })}
-
-          {/* Mobile Layout: Horizontal scrollable showcase */}
-          <div className="flex w-full gap-6 overflow-x-auto px-6 pb-12 snap-x snap-mandatory md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {/* Mobile Layout Adaptation */}
+          <div className="flex w-screen max-w-full gap-5 overflow-x-auto px-6 pb-12 snap-x snap-mandatory md:hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden absolute inset-0 items-center">
             {reels.map((r, i) => (
               <motion.div
                 key={`mobile-${i}`}
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="w-[280px] shrink-0 snap-center"
+                className="w-[260px] shrink-0 snap-center"
               >
-                <div className="mb-4 flex items-center justify-between text-[10px] text-white/40 uppercase tracking-[0.2em]">
+                <div className="mb-3 flex items-center justify-between text-[9px] text-white/30 uppercase tracking-[0.2em]">
                   <span>REEL 0{i + 1}</span>
                   <span>GR7 CONTENT</span>
                 </div>
@@ -505,21 +521,6 @@ export function ReelsSection() {
             ))}
           </div>
         </div>
-
-        {/* Sub-context message */}
-        <Reveal delay={0.9} variant="rise" className="mt-12 flex justify-center text-center">
-           <div className="inline-flex items-center gap-6 border-y border-white/5 py-6 px-10 bg-white/[0.02] backdrop-blur-sm rounded-xl">
-              <div className="flex flex-col">
-                <span className="text-[10px] text-[#ff1a1a] font-bold tracking-[0.3em] uppercase mb-1">Performance</span>
-                <span className="text-lg text-white font-medium">10M+ Alcance</span>
-              </div>
-              <div className="w-[1px] h-8 bg-white/10" />
-              <div className="flex flex-col">
-                <span className="text-[10px] text-[#ff1a1a] font-bold tracking-[0.3em] uppercase mb-1">Engagement</span>
-                <span className="text-lg text-white font-medium">85% Retenção</span>
-              </div>
-           </div>
-        </Reveal>
       </div>
     </section>
   );
