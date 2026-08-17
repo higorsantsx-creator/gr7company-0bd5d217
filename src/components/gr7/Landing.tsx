@@ -1832,36 +1832,48 @@ export default function Landing() {
         </div>
 
         <main>
-          <HeroIntro />
-          <Hero logoTargetRef={logoTargetRef} />
-          <Services />
-          <div id="projetos">
+          <div data-scroll-flow="hero-intro">
+            <HeroIntro />
+          </div>
+          <div data-scroll-flow="hero">
+            <Hero logoTargetRef={logoTargetRef} />
+          </div>
+          <div data-scroll-flow="services">
+            <Services />
+          </div>
+          <div id="projetos" data-scroll-flow="portfolio">
             <ProjectsGrid />
           </div>
           <Difference />
           
-          <div id="reels">
+          <div id="reels" data-scroll-flow="reels">
             <ReelsSection />
           </div>
 
           <CinematicVideo />
           <Manifesto />
           
-          <VideoTestimonialsSection />
+          <div data-scroll-flow="testimonials">
+            <VideoTestimonialsSection />
+          </div>
 
           <Process />
           <ArtsMasonry />
           <Stack />
           <BackstageGrid />
           <CasesShowcase />
-          <Results />
+          <div data-scroll-flow="results">
+            <Results />
+          </div>
           <DashboardsSection />
           <FAQ />
           <ClientsMarquee />
           <InstagramProfile />
 
           <GR7InAction />
-          <CTA />
+          <div data-scroll-flow="cta">
+            <CTA />
+          </div>
         </main>
 
         <Footer />
