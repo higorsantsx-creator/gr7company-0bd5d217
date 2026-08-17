@@ -138,7 +138,12 @@ export const GlobalScrollFlow: React.FC<{ logoTargetRef?: React.RefObject<HTMLDi
         // Find the LAST section that has been started
         let activeIdx = 0;
         for (let i = 0; i < sectionsRef.current.length; i++) {
-          if (progress >= sectionsRef.current[i].start - 0.01) {
+          // Use window.scrollY directly for more reliable real-time progress check
+          const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          const currentProgress = scrollY / (totalHeight || 1);
+          
+          if (currentProgress >= sectionsRef.current[i].start - 0.01) {
             activeIdx = i;
           }
         }
@@ -158,7 +163,7 @@ export const GlobalScrollFlow: React.FC<{ logoTargetRef?: React.RefObject<HTMLDi
           gsap.to(pathRef.current, {
             attr: { d: targetPath },
             opacity: targetOpacity,
-            duration: 1.2, // Slightly slower for better visibility
+            duration: 1.2,
             ease: "power2.inOut",
             overwrite: 'auto'
           });
