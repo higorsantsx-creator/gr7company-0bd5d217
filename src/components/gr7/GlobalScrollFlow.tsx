@@ -63,7 +63,7 @@ class Particle {
   }
 }
 
-export const GlobalScrollFlow: React.FC = () => {
+export const GlobalScrollFlow: React.FC<{ logoTargetRef?: React.RefObject<HTMLDivElement | null> }> = ({ logoTargetRef }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
