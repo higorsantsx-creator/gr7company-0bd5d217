@@ -125,6 +125,11 @@ export const GlobalScrollFlow: React.FC<{ logoTargetRef?: React.RefObject<HTMLDi
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
       
+      const mouseOffset = {
+        x: (mouseRef.current.x / (window.innerWidth || 1) - 0.5) * 20,
+        y: (mouseRef.current.y / (window.innerHeight || 1) - 0.5) * 20
+      };
+      
       // Find active sections and interpolate
       let targetPath = PATH_STATES.heroIntro;
       let targetOpacity = 0.3;
