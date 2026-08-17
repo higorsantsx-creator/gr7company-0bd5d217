@@ -201,13 +201,19 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
 
       // Update Path & Active Node
       if (pathRef.current) {
+        // We use a direct set for transform properties to avoid tween overhead
+        // but keep a quick transition for the path 'd' attribute.
         gsap.to(pathRef.current, {
           attr: { d: targetPath },
           opacity: targetOpacity,
-          x: mouseOffset.x,
-          y: mouseOffset.y,
-          duration: 0.5,
+          duration: 0.8,
+          ease: "power2.out",
           overwrite: 'auto'
+        });
+
+        gsap.set(pathRef.current, {
+          x: mouseOffset.x,
+          y: mouseOffset.y
         });
 
         // Position Active Node along path
