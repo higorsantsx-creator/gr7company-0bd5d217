@@ -174,28 +174,22 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
       };
 
       // Find active sections and interpolate
-      let targetPath = PATH_STATES.hero;
-      let targetOpacity = 0.5;
+      let targetPath = PATH_STATES.heroIntro;
+      let targetOpacity = 0.3;
 
-      for (let i = 0; i < sectionsRef.current.length; i++) {
-        const s = sectionsRef.current[i];
-        if (progress >= s.start && progress <= s.end) {
-          const localProgress = (progress - s.start) / (s.end - s.start);
-          
-          const next = sectionsRef.current[i + 1];
-          if (next && localProgress > 0.8) {
-            // Morph to next section
-            const transitionProgress = (localProgress - 0.8) / 0.2;
-            // Note: Complex morphing is usually handled by GSAP MorphSVG, 
-            // but we use compatible path strings and manual interpolation if needed.
-            // For now, we'll use gsap.to on the path 'attr: { d }' which handles matching paths.
+      if (sectionsRef.current.length > 0) {
+        // Fallback to the first section state if we're before it
+        targetPath = sectionsRef.current[0].path;
+        targetOpacity = sectionsRef.current[0].opacity;
+
+        for (let i = 0; i < sectionsRef.current.length; i++) {
+          const s = sectionsRef.current[i];
+          if (progress >= s.start) {
             targetPath = s.path;
             targetOpacity = s.opacity;
           } else {
-            targetPath = s.path;
-            targetOpacity = s.opacity;
+            break;
           }
-          break;
         }
       }
 
