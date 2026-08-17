@@ -125,36 +125,36 @@ export const GlobalScrollFlow: React.FC<{ logoTargetRef?: React.RefObject<HTMLDi
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
       
-      const mouseOffset = {
-        x: (mouseRef.current.x / window.innerWidth - 0.5) * 20,
-        y: (mouseRef.current.y / window.innerHeight - 0.5) * 20
-      };
-
-      // Find active sections
+      // Find active sections and interpolate
       let targetPath = PATH_STATES.heroIntro;
       let targetOpacity = 0.3;
 
       if (sectionsRef.current.length > 0) {
+        // Find the LAST section that has been started
         let activeIdx = 0;
         for (let i = 0; i < sectionsRef.current.length; i++) {
           if (progress >= sectionsRef.current[i].start - 0.01) {
             activeIdx = i;
           }
         }
+        
         const s = sectionsRef.current[activeIdx];
         targetPath = s.path;
         targetOpacity = s.opacity;
       }
 
-      // Update Path
+      // Update Path & Active Node
       if (pathRef.current) {
-        if (pathRef.current.getAttribute('data-last-path') !== targetPath) {
+        // Only trigger tween if target changed
+        const currentLast = pathRef.current.getAttribute('data-last-path');
+        if (currentLast !== targetPath) {
           pathRef.current.setAttribute('data-last-path', targetPath);
+          
           gsap.to(pathRef.current, {
             attr: { d: targetPath },
             opacity: targetOpacity,
-            duration: 0.8,
-            ease: "power2.out",
+            duration: 1.2, // Slightly slower for better visibility
+            ease: "power2.inOut",
             overwrite: 'auto'
           });
         }
