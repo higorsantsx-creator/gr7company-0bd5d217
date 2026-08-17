@@ -1,35 +1,18 @@
-import { useRef, useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 
-gsap.registerPlugin(ScrollTrigger);
-
-interface GlobalScrollFlowProps {
-  logoTargetRef: React.RefObject<HTMLDivElement | null>;
-}
-
-interface SectionMeta {
-  id: string;
-  el: HTMLElement;
-  start: number;
-  end: number;
-  progress: number;
-  path: string;
-  opacity: number;
-}
-
-// Normalized paths using cubic Beziers for smooth interpolation
-// Command count must match for stable morphing
+// Unified path states with matching command structures for smooth morphing
+// Using 6 cubic Bezier segments per path
 const PATH_STATES = {
-  heroIntro: "M 500,500 C 500,500 500,500 500,500 C 500,500 500,500 500,500 C 500,500 500,500 500,500",
-  hero: "M 100,400 C 300,200 700,200 900,400 C 900,400 900,400 900,400 C 900,400 900,400 900,400",
-  services: "M 50,500 C 250,800 500,200 750,800 C 850,500 950,500 950,500 C 950,500 950,500 950,500",
-  portfolio: "M 900,200 C 700,800 300,200 100,800 C 100,800 100,800 100,800 C 100,800 100,800 100,800",
-  reels: "M 500,100 C 800,400 200,600 500,900 C 500,900 500,900 500,900 C 500,900 500,900 500,900",
-  results: "M 100,500 C 300,500 350,200 400,800 C 450,500 900,500 900,500 C 900,500 900,500 900,500",
-  testimonials: "M 50,300 C 300,700 700,300 950,700 C 950,700 950,700 950,700 C 950,700 950,700 950,700",
-  cta: "M 500,500 C 500,700 500,900 500,1000 C 500,1000 500,1000 500,1000 C 500,1000 500,1000 500,1000"
+  heroIntro: "M 500,100 C 600,100 700,200 800,300 C 900,400 950,550 900,700 C 850,850 700,900 500,900 C 300,900 150,850 100,700 C 50,550 100,400 200,300 C 300,200 400,100 500,100 Z",
+  hero: "M 500,50 C 700,50 950,200 950,500 C 950,800 700,950 500,950 C 300,950 50,800 50,500 C 50,200 300,50 500,50 C 500,50 500,50 500,50 C 500,50 500,50 500,50 Z",
+  services: "M 100,500 C 100,200 300,100 500,100 C 700,100 900,200 900,500 C 900,800 700,900 500,900 C 300,900 100,800 100,500 C 100,500 100,500 100,500 C 100,500 100,500 100,500 Z",
+  portfolio: "M 500,200 C 800,200 900,300 900,500 C 900,700 800,800 500,800 C 200,800 100,700 100,500 C 100,300 200,200 500,200 C 500,200 500,200 500,200 C 500,200 500,200 500,200 Z",
+  reels: "M 200,500 C 200,300 350,200 500,200 C 650,200 800,300 800,500 C 800,700 650,800 500,800 C 350,800 200,700 200,500 C 200,500 200,500 200,500 C 200,500 200,500 200,500 Z",
+  results: "M 500,100 C 900,100 900,300 900,500 C 900,700 900,900 500,900 C 100,900 100,700 100,500 C 100,300 100,100 500,100 C 500,100 500,100 500,100 C 500,100 500,100 500,100 Z",
+  testimonials: "M 500,400 C 600,400 700,450 700,500 C 700,550 600,600 500,600 C 400,600 300,550 300,500 C 300,450 400,400 500,400 C 500,400 500,400 500,400 C 500,400 500,400 500,400 Z",
+  cta: "M 500,50 C 950,50 950,500 950,500 C 950,500 950,950 500,950 C 50,950 50,500 50,500 C 50,500 50,50 500,50 C 500,50 500,50 500,50 C 500,50 500,50 500,50 Z"
 };
 
 const SECTION_PATH_MAP: Record<string, string> = {
@@ -43,130 +26,102 @@ const SECTION_PATH_MAP: Record<string, string> = {
   'cta': PATH_STATES.cta
 };
 
+interface SectionInfo {
+  id: string;
+  el: HTMLElement;
+  start: number;
+  end: number;
+  progress: number;
+  path: string;
+  opacity: number;
+}
+
 class Particle {
   x: number;
   y: number;
-  baseX: number;
-  baseY: number;
   vx: number;
   vy: number;
   size: number;
-  opacity: number;
-  life: number;
+  baseSize: number;
 
-  constructor() {
-    this.x = this.baseX = Math.random() * 1000;
-    this.y = this.baseY = Math.random() * 1000;
-    this.vx = (Math.random() - 0.5) * 0.2;
-    this.vy = (Math.random() - 0.5) * 0.2;
-    this.size = Math.random() * 1.5 + 0.5;
-    this.opacity = Math.random() * 0.2 + 0.1;
-    this.life = Math.random();
+  constructor(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+    this.vx = (Math.random() - 0.5) * 0.5;
+    this.vy = (Math.random() - 0.5) * 0.5;
+    this.baseSize = Math.random() * 2 + 1;
+    this.size = this.baseSize;
   }
 
-  update(velocity: number, mouseX: number, mouseY: number, isMobile: boolean) {
-    // Scroll velocity influence
-    const vFactor = Math.min(velocity / 1000, 2);
-    this.x += this.vx * (1 + vFactor * 5);
-    this.y += this.vy * (1 + vFactor * 5);
-
-    // Mouse influence (disabled on mobile)
-    if (!isMobile) {
-      const dx = mouseX - this.x;
-      const dy = mouseY - this.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 100) {
-        const force = (100 - dist) / 100;
-        this.x -= dx * force * 0.02;
-        this.y -= dy * force * 0.02;
-      }
-    }
-
-    // Boundary wrap
-    if (this.x < 0) this.x = 1000;
-    if (this.x > 1000) this.x = 0;
-    if (this.y < 0) this.y = 1000;
-    if (this.y > 1000) this.y = 0;
-
-    // Organic drift
-    this.vx += (Math.random() - 0.5) * 0.01;
-    this.vy += (Math.random() - 0.5) * 0.01;
+  update(velocity: number) {
+    this.x += this.vx * (1 + velocity * 2);
+    this.y += this.vy * (1 + velocity * 2);
     
-    // Speed limit
-    const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-    if (speed > 0.5) {
-      this.vx *= 0.95;
-      this.vy *= 0.95;
-    }
+    // Bounce particles within viewbox
+    if (this.x < 0 || this.x > 1000) this.vx *= -1;
+    if (this.y < 0 || this.y > 1000) this.vy *= -1;
   }
 }
 
-export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProps) {
+export const GlobalScrollFlow: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const activePointRef = useRef<SVGCircleElement>(null);
   const particlesRef = useRef<Particle[]>([]);
-  const particleElsRef = useRef<SVGCircleElement[]>([]);
-  
-  const mouseRef = useRef({ x: 500, y: 500, targetX: 500, targetY: 500 });
-  const scrollRef = useRef({ velocity: 0, progress: 0, lastY: 0 });
-  const sectionsRef = useRef<SectionMeta[]>([]);
-
-  const isMobile = useMemo(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth < 768;
-  }, []);
-
-  const { contextSafe } = useGSAP({ scope: containerRef });
-
-  const refreshMeasurements = contextSafe(() => {
-    const sectionEls = document.querySelectorAll('[data-scroll-flow]');
-    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-    
-    sectionsRef.current = Array.from(sectionEls).map((el) => {
-      const rect = el.getBoundingClientRect();
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const start = (rect.top + scrollTop) / (totalHeight || 1);
-      const end = (rect.bottom + scrollTop) / (totalHeight || 1);
-      const id = (el as HTMLElement).dataset.scrollFlow || '';
-      
-      console.log(`Section ${id}: start=${start.toFixed(3)}, end=${end.toFixed(3)}`);
-
-      return {
-        id,
-        el: el as HTMLElement,
-        start,
-        end,
-        progress: 0,
-        path: SECTION_PATH_MAP[id] || PATH_STATES.hero,
-        opacity: id === 'hero-intro' ? 0.3 : 0.6
-      };
-    });
-    
-    ScrollTrigger.refresh();
-  });
+  const sectionsRef = useRef<SectionInfo[]>([]);
+  const scrollRef = useRef({ current: 0, target: 0, velocity: 0 });
+  const mouseRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
   useGSAP(() => {
-    if (!pathRef.current) return;
+    // 1. Initialize Particles
+    particlesRef.current = Array.from({ length: 40 }, () => 
+      new Particle(Math.random() * 1000, Math.random() * 1000)
+    );
 
-    // Initialize particles
-    const count = isMobile ? 15 : 35;
-    particlesRef.current = Array.from({ length: count }, () => new Particle());
-
-    // Single Animation Loop
-    const ticker = (time: number, deltaTime: number) => {
-      const scrollY = window.scrollY;
+    // 2. Section Detection & Measurement
+    const refreshMeasurements = () => {
+      const sectionEls = document.querySelectorAll('[data-scroll-flow]');
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? scrollY / totalHeight : 0;
       
-      // Calculate Velocity
-      const dy = scrollY - scrollRef.current.lastY;
-      scrollRef.current.velocity = dy / (deltaTime / 1000);
-      scrollRef.current.lastY = scrollY;
-      scrollRef.current.progress = progress;
+      sectionsRef.current = Array.from(sectionEls).map((el) => {
+        const rect = el.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const start = (rect.top + scrollTop) / (totalHeight || 1);
+        const end = (rect.bottom + scrollTop) / (totalHeight || 1);
+        const id = (el as HTMLElement).dataset.scrollFlow || '';
+        
+        return {
+          id,
+          el: el as HTMLElement,
+          start,
+          end,
+          progress: 0,
+          path: SECTION_PATH_MAP[id] || PATH_STATES.hero,
+          opacity: id === 'hero-intro' ? 0.3 : 0.6
+        };
+      });
+    };
 
-      // Mouse smoothing (1-2% displacement)
+    refreshMeasurements();
+    window.addEventListener('resize', refreshMeasurements);
+    
+    // Performance: Refresh on load and dynamic changes
+    const mutationObserver = new MutationObserver(refreshMeasurements);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    // 3. The Engine: Single high-performance ticker loop
+    const ticker = (time: number, deltaTime: number) => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollY / (totalHeight || 1);
+      
+      // Smooth scroll tracking
+      scrollRef.current.target = progress;
+      scrollRef.current.current += (scrollRef.current.target - scrollRef.current.current) * 0.1;
+      scrollRef.current.velocity = Math.abs(scrollRef.current.target - scrollRef.current.current) * 100;
+
+      // Smooth mouse tracking
       mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * 0.05;
       mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * 0.05;
       
@@ -175,27 +130,24 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
         y: (mouseRef.current.y / window.innerHeight - 0.5) * 20
       };
 
-      // Find active sections and interpolate
+      // Find active sections
       let targetPath = PATH_STATES.heroIntro;
       let targetOpacity = 0.3;
 
       if (sectionsRef.current.length > 0) {
-        // Find the LAST section that has been started
         let activeIdx = 0;
         for (let i = 0; i < sectionsRef.current.length; i++) {
           if (progress >= sectionsRef.current[i].start - 0.01) {
             activeIdx = i;
           }
         }
-        
         const s = sectionsRef.current[activeIdx];
         targetPath = s.path;
         targetOpacity = s.opacity;
       }
 
-      // Update Path & Active Node
+      // Update Path
       if (pathRef.current) {
-        // Only trigger tween if target changed
         if (pathRef.current.getAttribute('data-last-path') !== targetPath) {
           pathRef.current.setAttribute('data-last-path', targetPath);
           gsap.to(pathRef.current, {
@@ -221,22 +173,26 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
               cx: point.x,
               cy: point.y,
               x: mouseOffset.x,
-              y: mouseOffset.y
+              y: mouseOffset.y,
+              opacity: targetOpacity + 0.2
             });
           }
-        } catch (e) {}
+        } catch (e) {
+          // Path might not be ready
+        }
       }
 
       // Update Particles
+      const particleEls = containerRef.current?.querySelectorAll('.flow-particle');
       particlesRef.current.forEach((p, i) => {
-        p.update(Math.abs(scrollRef.current.velocity), mouseRef.current.x, mouseRef.current.y, isMobile);
-        const el = particleElsRef.current[i];
+        p.update(scrollRef.current.velocity);
+        const el = particleEls?.[i];
         if (el) {
           gsap.set(el, {
-            cx: p.x,
-            cy: p.y,
-            opacity: p.opacity,
-            scale: 1 + Math.abs(scrollRef.current.velocity) / 5000
+            x: p.x + mouseOffset.x * 0.5,
+            y: p.y + mouseOffset.y * 0.5,
+            scale: 1 + scrollRef.current.velocity * 0.05,
+            opacity: Math.max(0.1, 0.4 - scrollRef.current.velocity * 0.1)
           });
         }
       });
@@ -244,94 +200,78 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
 
     gsap.ticker.add(ticker);
 
-    // Initial measurements
-    refreshMeasurements();
-
-    // Listeners
-    window.addEventListener('resize', refreshMeasurements);
-    window.addEventListener('scroll', ScrollTrigger.update);
-    
-    // Handle dynamic content
-    const observer = new MutationObserver(refreshMeasurements);
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Mouse events
+    const onMouseMove = (e: MouseEvent) => {
+      mouseRef.current.targetX = e.clientX;
+      mouseRef.current.targetY = e.clientY;
+    };
+    window.addEventListener('mousemove', onMouseMove);
 
     return () => {
       gsap.ticker.remove(ticker);
       window.removeEventListener('resize', refreshMeasurements);
-      window.removeEventListener('scroll', ScrollTrigger.update);
-      observer.disconnect();
+      window.removeEventListener('mousemove', onMouseMove);
+      mutationObserver.disconnect();
     };
   }, { scope: containerRef });
-
-  // Mouse Interaction
-  useEffect(() => {
-    if (isMobile) return;
-    const handleMove = (e: MouseEvent) => {
-      mouseRef.current.targetX = e.clientX;
-      mouseRef.current.targetY = e.clientY;
-    };
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, [isMobile]);
 
   return (
     <div 
       ref={containerRef}
-      className="pointer-events-none fixed inset-0 z-[2] overflow-hidden will-change-transform"
+      className="fixed inset-0 pointer-events-none z-2 overflow-hidden"
+      aria-hidden="true"
     >
-      <svg
+      <svg 
         ref={svgRef}
-        viewBox="0 0 1000 1000"
+        viewBox="0 0 1000 1000" 
+        className="absolute inset-0 w-full h-full opacity-60"
         preserveAspectRatio="xMidYMid slice"
-        className="h-full w-full"
       >
         <defs>
           <filter id="flow-blur-new" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="glow" />
-            <feComposite in="SourceGraphic" in2="glow" operator="over" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="20" />
           </filter>
           
-          <linearGradient id="flow-grad-new" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#ff1a1a" stopOpacity="0" />
-            <stop offset="50%" stopColor="#ff1a1a" stopOpacity="1" />
+          <radialGradient id="flow-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#ff1a1a" stopOpacity="0.4" />
             <stop offset="100%" stopColor="#ff1a1a" stopOpacity="0" />
-          </linearGradient>
+          </radialGradient>
         </defs>
 
-        {/* The Core Path */}
+        {/* The Core Flow Path */}
         <path
           ref={pathRef}
           d={PATH_STATES.heroIntro}
           fill="none"
-          stroke="url(#flow-grad-new)"
-          strokeWidth="1.2"
-          strokeLinecap="round"
+          stroke="url(#flow-grad)"
+          strokeWidth="2"
           filter="url(#flow-blur-new)"
-          className="will-change-[d,opacity]"
+          className="will-change-[d,transform,opacity]"
+        />
+
+        {/* The Active Node */}
+        <circle
+          ref={activePointRef}
+          r="4"
+          fill="#ff1a1a"
+          className="filter blur-[2px] will-change-[transform,opacity]"
         />
 
         {/* Particles */}
-        <g className="particles-layer">
-          {Array.from({ length: 35 }).map((_, i) => (
-            <circle
-              key={i}
-              ref={el => { if (el) particleElsRef.current[i] = el; }}
-              r={1}
-              fill="#ff1a1a"
-              className="will-change-[cx,cy,opacity]"
-            />
-          ))}
-        </g>
-
-        {/* Active Node */}
-        <circle
-          ref={activePointRef}
-          r="3"
-          fill="#ff1a1a"
-          filter="url(#flow-blur-new)"
-          className="opacity-80 will-change-[cx,cy]"
-        />
+        {Array.from({ length: 40 }).map((_, i) => (
+          <circle
+            key={i}
+            r="1.5"
+            fill="#ff1a1a"
+            className="flow-particle opacity-20 will-change-transform"
+          />
+        ))}
       </svg>
+      
+      {/* Background Ambience Bloom */}
+      <div className="absolute inset-0 bg-radial-[at_50%_50%] from-[#ff1a1a]/5 to-transparent pointer-events-none" />
     </div>
   );
-}
+};
+
+export default GlobalScrollFlow;
