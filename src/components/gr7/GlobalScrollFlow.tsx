@@ -186,11 +186,10 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
 
         for (let i = 0; i < sectionsRef.current.length; i++) {
           const s = sectionsRef.current[i];
-          if (progress >= s.start) {
+          // Use a small buffer to prevent sticking at the top
+          if (progress >= s.start - 0.01) {
             targetPath = s.path;
             targetOpacity = s.opacity;
-          } else {
-            break;
           }
         }
       }
