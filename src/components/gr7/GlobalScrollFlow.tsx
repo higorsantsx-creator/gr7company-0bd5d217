@@ -126,11 +126,13 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
     
     sectionsRef.current = Array.from(sectionEls).map((el) => {
       const rect = el.getBoundingClientRect();
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const start = (rect.top + scrollTop) / (totalHeight || 1);
       const end = (rect.bottom + scrollTop) / (totalHeight || 1);
       const id = (el as HTMLElement).dataset.scrollFlow || '';
       
+      console.log(`Section ${id}: start=${start.toFixed(3)}, end=${end.toFixed(3)}`);
+
       return {
         id,
         el: el as HTMLElement,
