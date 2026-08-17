@@ -180,31 +180,32 @@ export default function GlobalScrollFlow({ logoTargetRef }: GlobalScrollFlowProp
       let targetOpacity = 0.3;
 
       if (sectionsRef.current.length > 0) {
-        // Fallback to the first section state if we're before it
-        targetPath = sectionsRef.current[0].path;
-        targetOpacity = sectionsRef.current[0].opacity;
-
+        // Find the LAST section that has been started
+        let activeIdx = 0;
         for (let i = 0; i < sectionsRef.current.length; i++) {
-          const s = sectionsRef.current[i];
-          // Use a small buffer to prevent sticking at the top
-          if (progress >= s.start - 0.01) {
-            targetPath = s.path;
-            targetOpacity = s.opacity;
+          if (progress >= sectionsRef.current[i].start - 0.01) {
+            activeIdx = i;
           }
         }
+        
+        const s = sectionsRef.current[activeIdx];
+        targetPath = s.path;
+        targetOpacity = s.opacity;
       }
 
       // Update Path & Active Node
       if (pathRef.current) {
-        // We use a direct set for transform properties to avoid tween overhead
-        // but keep a quick transition for the path 'd' attribute.
-        gsap.to(pathRef.current, {
-          attr: { d: targetPath },
-          opacity: targetOpacity,
-          duration: 0.8,
-          ease: "power2.out",
-          overwrite: 'auto'
-        });
+        // Only trigger tween if target changed
+        if (pathRef.current.getAttribute('data-last-path') !== targetPath) {
+          pathRef.current.setAttribute('data-last-path', targetPath);
+          gsap.to(pathRef.current, {
+            attr: { d: targetPath },
+            opacity: targetOpacity,
+            duration: 0.8,
+            ease: "power2.out",
+            overwrite: 'auto'
+          });
+        }
 
         gsap.set(pathRef.current, {
           x: mouseOffset.x,
