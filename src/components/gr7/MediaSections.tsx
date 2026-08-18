@@ -1109,8 +1109,8 @@ function TestimonialCard({
           </a>
 
           <div className="absolute inset-x-0 bottom-0 p-5 lg:hidden">
-            <div className="font-display text-lg text-white">{data.company}</div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff1a1a]">
+            <div className="font-display text-lg text-white line-clamp-1">{data.company}</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff1a1a] line-clamp-1">
               {data.segment}
             </div>
           </div>
