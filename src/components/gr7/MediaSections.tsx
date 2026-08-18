@@ -1087,12 +1087,10 @@ function TestimonialCard({
         )}
         {/* Media Column */}
         <motion.div
-          className="relative h-full w-full lg:flex-none"
+          className={`relative h-full shrink-0 ${
+            isActive ? "lg:aspect-[9/16] lg:w-auto" : "w-full"
+          }`}
           initial={false}
-          animate={{
-            flexBasis: isActive ? "42%" : "100%",
-            width: isActive ? "42%" : "100%",
-          }}
           transition={{
             duration: 0.55,
             ease: [0.22, 1, 0.36, 1],
@@ -1125,10 +1123,10 @@ function TestimonialCard({
               className="pointer-events-none absolute inset-0 h-full w-full object-cover"
               initial={false}
               animate={{
-                opacity: isActive ? 0.45 : 0,
+                opacity: isActive ? 0.20 : 0,
                 scale: isActive ? 1.15 : 1.05,
                 filter: isActive
-                  ? "blur(22px) brightness(0.4) saturate(0.85)"
+                  ? "blur(16px) brightness(0.4) saturate(0.85)"
                   : "blur(8px) brightness(0.7)",
               }}
               transition={{ duration: 0.55 }}
@@ -1136,11 +1134,11 @@ function TestimonialCard({
 
             {/* LAYER C — ORIGINAL COVER / POSTER (Active Poster Mode) */}
             <motion.div
-              className="absolute inset-[15px] z-20 h-[calc(100%-30px)] w-[calc(100%-30px)]"
+              className="absolute inset-0 z-20"
               initial={false}
               animate={{
                 opacity: isActive ? 1 : 0,
-                scale: isActive ? 1 : 0.95,
+                scale: isActive ? 1 : 0.97,
                 translateZ: isActive ? 12 : 0,
               }}
               transition={{
@@ -1155,6 +1153,7 @@ function TestimonialCard({
               />
             </motion.div>
           </div>
+
 
           <div
             className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-30" : "opacity-60"}`}
@@ -1212,22 +1211,21 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "58%" : "0%",
-            width: isActive ? "58%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 20,
           }}
           transition={{
-            flexBasis: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-            width: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
             opacity: {
               duration: isActive ? 0.35 : 0.15,
               delay: isActive ? 0.15 : 0,
             },
             x: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
           }}
-          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
+          className={`relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 xl:p-6 ${
+            isActive ? "flex-1" : "w-0 basis-0"
+          }`}
         >
+
           <div className="flex min-h-0 flex-1 flex-col">
             <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
               {data.logo ? (
