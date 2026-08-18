@@ -1025,10 +1025,10 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 24 : isAnyActive ? 0.08 : 1,
+        flexGrow: isActive ? 3.2 : isAnyActive ? 0.55 : 1,
       }}
       transition={{
-        duration: 0.6,
+        duration: 0.55,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "460px" : "100%",
-            width: isActive ? "460px" : "100%",
+            flexBasis: isActive ? "40%" : "100%",
+            width: isActive ? "40%" : "100%",
           }}
           transition={{
             duration: 0.42,
@@ -1134,8 +1134,8 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "100%" : "0%",
-            width: isActive ? "100%" : "0%",
+            flexBasis: isActive ? "60%" : "0%",
+            width: isActive ? "60%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 12,
           }}
@@ -1157,7 +1157,7 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:pb-6 xl:pl-9 xl:pr-7 xl:pt-5"
+          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
         >
           <div className="flex min-h-0 flex-1 flex-col">
             <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
@@ -1174,21 +1174,21 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-4">
+            <div className="mt-5">
               <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
-              <h3 className="mt-1 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[26px]">
+              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[28px]">
                 {data.company}
               </h3>
             </div>
  
-            <blockquote className="mt-4 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.4] text-white/70 xl:text-[14px]">
+            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]">
               “{data.quote}”
             </blockquote>
           </div>
 
-          <div className="mt-4 shrink-0 space-y-3">
+          <div className="mt-5 shrink-0 space-y-3">
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
