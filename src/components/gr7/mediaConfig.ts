@@ -169,12 +169,14 @@ export interface VideoTestimonial {
   quote: string;
   tags: string[];
   thumbnail: string;
+  thumbnailPosition?: string;
   logo?: string;
   // perfil oficial do cliente
   href: string;
   // Reel específico do depoimento
   reelHref: string;
 }
+
 
 const chalesIaThumb = new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href;
 const bobbyThumb = new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href;
