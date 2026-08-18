@@ -1170,7 +1170,7 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
@@ -1178,8 +1178,8 @@ function TestimonialCard({
                 {data.company}
               </h3>
             </div>
-
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-relaxed text-white/70 xl:text-base">
+ 
+            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm xl:text-[15px] italic leading-[1.6] text-white/70">
               “{data.quote}”
             </blockquote>
           </div>
