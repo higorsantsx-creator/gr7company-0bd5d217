@@ -1184,7 +1184,7 @@ function TestimonialCard({
             </blockquote>
           </div>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-6 space-y-4">
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
