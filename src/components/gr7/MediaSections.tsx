@@ -1100,9 +1100,13 @@ function TestimonialCard({
               className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 ${
                 isActive ? "opacity-0" : "opacity-100 scale-[1.03] brightness-[1.05]"
               }`}
+              style={{
+                objectPosition: data.thumbnailPosition ?? "50% 50%"
+              }}
               icon="reel"
               ornate={false}
             />
+
 
             {/* Layer 1: Atmospheric Background (Active Only) */}
             <motion.img
