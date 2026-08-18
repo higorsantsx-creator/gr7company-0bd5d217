@@ -16,6 +16,8 @@ import {
   MessageCircle as MsgIcon,
   Send,
   MoreHorizontal,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { MediaSlot, PhoneFrame, NotebookFrame } from "./MediaSlot";
 
@@ -1016,6 +1018,34 @@ function TestimonialCard({
   const mid = (total - 1) / 2;
   const tiltY = (mid - index) * 2.5;
 
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoReady, setVideoReady] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isActive && data.videoSrc && !videoError) {
+      video.play().catch(() => {
+        // Fallback for browsers that block autoplay
+      });
+    } else {
+      video.pause();
+      try {
+        video.currentTime = 0;
+      } catch (e) {}
+      setIsMuted(true); // Reset audio on exit
+    }
+  }, [isActive, data.videoSrc, videoError]);
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMuted((prev) => !prev);
+  };
+
+
   return (
     <motion.div
       className="testimonial-slot relative h-[450px] w-full lg:h-[500px] lg:basis-0"
@@ -1058,24 +1088,67 @@ function TestimonialCard({
               : "relative h-full w-full"
           }
         >
-          <MediaSlot
-            poster={data.thumbnail}
-            kind="image"
-            alt={data.company}
-            className="absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0"
-            icon="reel"
-            ornate={false}
-          />
+          <div className="absolute inset-0 overflow-hidden">
+            <MediaSlot
+              poster={data.thumbnail}
+              kind="image"
+              alt={data.company}
+              className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 ${
+                isActive && videoReady ? "opacity-0" : "opacity-100"
+              }`}
+              icon="reel"
+              ornate={false}
+            />
+
+            {data.videoSrc && !videoError && (
+              <video
+                ref={videoRef}
+                src={data.videoSrc}
+                muted={isMuted}
+                playsInline
+                loop
+                preload="metadata"
+                onCanPlay={() => setVideoReady(true)}
+                onError={() => setVideoError(true)}
+                className={`h-full w-full object-cover transition-opacity duration-500 ${
+                  isActive && videoReady ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            )}
+          </div>
+
           <div
             className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-60"}`}
           />
 
-          {/* Active indicator */}
+          {/* Volume Control */}
+          <AnimatePresence>
+            {isActive && data.videoSrc && !videoError && (
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.25 }}
+                type="button"
+                onClick={toggleMute}
+                className="absolute right-4 top-4 z-40 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a]/70 text-white backdrop-blur-md transition-all hover:border-[#ff1a1a] hover:bg-[#0a0a0a]/90"
+                aria-label={isMuted ? "Ativar áudio" : "Desativar áudio"}
+                aria-pressed={!isMuted}
+              >
+                {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+              </motion.button>
+            )}
+          </AnimatePresence>
+
+          {/* Active indicator (only if not playing video or muted) */}
           <div
-            className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${isActive ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}
+            className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${
+              isActive && !videoReady ? "scale-100 opacity-100" : "scale-75 opacity-0"
+            }`}
           >
             <Play className="h-3 w-3 fill-[#ff1a1a] text-[#ff1a1a]" />
           </div>
+
 
           <div className="absolute inset-x-0 bottom-0 p-5 lg:hidden">
             <div className="font-display text-lg text-white">{data.company}</div>
@@ -1160,8 +1233,8 @@ function TestimonialCard({
                   onClick={(e) => e.stopPropagation()}
                   className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
                 >
-                  <Play className="h-2.5 w-2.5 fill-current" />
-                  Assistir
+                  <InstagramIcon className="h-3 w-3" />
+                  Ver no Instagram
                 </a>
               </div>
             </motion.div>
