@@ -1128,7 +1128,9 @@ function TestimonialCard({
             <motion.img
               src={data.thumbnail}
               alt={`${data.company} — capa do depoimento`}
-              className="absolute inset-0 h-full w-full object-contain p-[4%]"
+              className="absolute inset-0 h-full w-full object-contain p-[5%]"
+              style={{ objectPosition: data.thumbnailPosition ?? "50% 50%" }}
+
               initial={{ opacity: 0, scale: 0.97, translateZ: 0 }}
               animate={{
                 opacity: isActive ? 1 : 0,
@@ -1268,12 +1270,12 @@ function TestimonialCard({
             <motion.blockquote 
               animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : 8 }}
               transition={{ delay: 0.20 }}
-              className="relative mt-5 pl-5 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]"
+              className="relative mt-5 pl-5 text-sm italic leading-[1.45] text-white/70 xl:text-[14.5px]"
             >
               <motion.div 
                 initial={{ height: "0%" }}
                 animate={{ height: isActive ? "100%" : "0%" }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
                 className="absolute left-0 top-0 w-[1px] bg-[#ff1a1a]"
               />
               “{data.quote}”
@@ -1282,9 +1284,10 @@ function TestimonialCard({
 
           <motion.div 
             animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-            transition={{ delay: 0.25 }}
-            className="mt-5 shrink-0 space-y-3"
+            transition={{ delay: 0.28 }}
+            className="mt-4 shrink-0 space-y-3 pb-2"
           >
+
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
