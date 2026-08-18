@@ -939,6 +939,9 @@ export function VideoTestimonialsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
+  const activeIndex = hoveredIndex ?? selectedIndex;
+  const hasActiveCard = activeIndex !== null;
+
   return (
     <section 
       id="depoimentos" 
@@ -964,19 +967,18 @@ export function VideoTestimonialsSection() {
 
         {/* Testimonials Row */}
         <div 
-          className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-center lg:justify-between lg:gap-2"
+          className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-2"
           style={{ transformStyle: "preserve-3d" }}
+          onPointerLeave={() => setHoveredIndex(null)}
         >
           {videoTestimonials.map((v, i) => (
             <TestimonialCard
               key={i}
               index={i}
               data={v}
-              isHovered={hoveredIndex === i}
-              isAnyHovered={hoveredIndex !== null}
-              isSelected={selectedIndex === i}
-              onHover={() => setHoveredIndex(i)}
-              onLeave={() => setHoveredIndex(null)}
+              isActive={activeIndex === i}
+              isAnyActive={hasActiveCard}
+              onPointerEnter={() => setHoveredIndex(i)}
               onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
             />
           ))}
