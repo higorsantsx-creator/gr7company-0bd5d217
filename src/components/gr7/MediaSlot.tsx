@@ -70,22 +70,71 @@ export function MediaSlot({
   label,
   ornate = false,
   bg,
-}: SlotProps & { bg?: string }) {
+  autoPlay = true,
+  muted = true,
+  loop = true,
+  onClick,
+}: SlotProps & { 
+  bg?: string;
+  autoPlay?: boolean;
+  muted?: boolean;
+  loop?: boolean;
+  onClick?: () => void;
+}) {
   const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    setLoaded(false);
+    setError(false);
+  }, [src, kind, poster]);
+
+  useEffect(() => {
+    if (kind === 'video' && videoRef.current && autoPlay) {
+      if (loaded) {
+        videoRef.current.play().catch(() => {});
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  }, [kind, autoPlay, loaded]);
+
+  const handleMediaLoad = () => {
+    setLoaded(true);
+  };
+
+  const handleMediaError = () => {
+    setError(true);
+    setLoaded(true);
+  };
+
+  const isInstagramUrl = (url?: string) => {
+    if (!url) return false;
+    return url.includes('instagram.com/reel/') || url.includes('instagram.com/p/');
+  };
+
+  // Prevent trying to play Instagram HTML as video
+  const effectiveKind = kind === 'video' && isInstagramUrl(src) ? 'image' : kind;
+  const effectiveSrc = isInstagramUrl(src) ? (poster || src) : src;
 
   return (
-    <div className={`relative overflow-hidden h-full w-full ${className}`} style={bg ? { backgroundColor: bg } : {}}>
-      <AnimatePresence>
+    <div 
+      className={`relative overflow-hidden h-full w-full ${className} ${onClick ? 'cursor-pointer' : ''}`} 
+      style={bg ? { backgroundColor: bg } : {}}
+      onClick={onClick}
+    >
+      <AnimatePresence mode="wait">
         {!loaded && (
           <motion.div
             key="placeholder"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6 }}
-            className="absolute inset-0"
+            className="absolute inset-0 z-10"
           >
             <Placeholder
-              icon={icon ?? (kind === "video" ? "video" : "image")}
+              icon={icon ?? (effectiveKind === "video" ? "video" : "image")}
               label={label}
               ornate={ornate}
             />
@@ -93,44 +142,57 @@ export function MediaSlot({
         )}
       </AnimatePresence>
 
-      {src && kind === "video" && (
-        <motion.video
-          className="h-full w-full object-cover"
-          src={src}
-          poster={poster}
-          autoPlay
-          muted
-          loop
-          playsInline
-          onLoadedData={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
+      {error ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-900 text-white/40 p-4 text-center">
+          <ImageIcon className="mb-2 h-6 w-6" />
+          <span className="text-[10px] uppercase tracking-widest">Mídia indisponível</span>
+        </div>
+      ) : (
+        <>
+          {effectiveSrc && effectiveKind === "video" && (
+            <motion.video
+              ref={videoRef}
+              className="h-full w-full object-cover"
+              src={effectiveSrc}
+              poster={poster}
+              autoPlay={autoPlay}
+              muted={muted}
+              loop={loop}
+              playsInline
+              onLoadedData={handleMediaLoad}
+              onError={handleMediaError}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loaded ? 1 : 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          )}
 
-      {src && kind !== "video" && (
-        <motion.img
-          className={`h-full w-full ${className.includes("object-contain") ? "object-contain" : "object-cover"}`}
-          src={src}
-          alt={alt ?? ""}
-          onLoad={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
-        />
-      )}
+          {effectiveSrc && effectiveKind !== "video" && (
+            <motion.img
+              className={`h-full w-full ${className.includes("object-contain") ? "object-contain" : "object-cover"}`}
+              src={effectiveSrc}
+              alt={alt ?? ""}
+              onLoad={handleMediaLoad}
+              onError={handleMediaError}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loaded ? 1 : 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          )}
 
-      {!src && poster && (
-        <motion.img
-          className="h-full w-full object-cover"
-          src={poster}
-          alt={alt ?? ""}
-          onLoad={() => setLoaded(true)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.6 }}
-        />
+          {!effectiveSrc && poster && (
+            <motion.img
+              className="h-full w-full object-cover"
+              src={poster}
+              alt={alt ?? ""}
+              onLoad={handleMediaLoad}
+              onError={handleMediaError}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: loaded ? 1 : 0 }}
+              transition={{ duration: 0.6 }}
+            />
+          )}
+        </>
       )}
     </div>
   );
