@@ -167,6 +167,7 @@ export interface VideoTestimonial {
   role: string;
   segment: string;
   quote: string;
+  quoteHighlight?: string;
   tags: string[];
   thumbnail: string;
   logo?: string;
@@ -189,6 +190,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "Proprietário",
     segment: "CONSTRUÇÃO DE CHALÉS",
     quote: "A GR7 conseguiu mostrar o valor do nosso trabalho antes mesmo do cliente conhecer o nosso projeto.",
+    quoteHighlight: "mostrar o valor do nosso trabalho",
     tags: ["POSICIONAMENTO", "CONTEÚDO", "ESTRATÉGIA"],
     thumbnail: chalesIaThumb,
     href: "https://www.instagram.com/chales_ia",
@@ -200,6 +202,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "CEO",
     segment: "MÓVEIS & DECORAÇÃO",
     quote: "A nossa comunicação finalmente começou a transmitir o nível dos produtos que realmente entregamos.",
+    quoteHighlight: "transmitir o nível dos produtos",
     tags: ["BRANDING", "CONTEÚDO", "POSICIONAMENTO"],
     thumbnail: bobbyThumb,
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
