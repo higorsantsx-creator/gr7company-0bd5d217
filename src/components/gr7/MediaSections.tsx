@@ -1025,7 +1025,7 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[500px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 2.4 : isAnyActive ? 0.65 : 1,
+        flexGrow: isActive ? 3.2 : isAnyActive ? 0.55 : 1,
       }}
       transition={{
         duration: 0.55,
@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "42%" : "100%",
-            width: isActive ? "42%" : "100%",
+            flexBasis: isActive ? "40%" : "100%",
+            width: isActive ? "40%" : "100%",
           }}
           transition={{
             duration: 0.42,
@@ -1118,10 +1118,14 @@ function TestimonialCard({
           {/* Desktop-only simple label when not active */}
           {!isActive && (
             <div className="absolute inset-x-0 bottom-0 hidden p-6 lg:block">
-              <div className="font-display text-xl text-white">{data.company}</div>
-              <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">
-                {data.segment.split(" ")[0]}
+              <div className={`font-display text-white transition-all duration-300 ${isAnyActive ? 'text-lg' : 'text-xl'}`}>
+                {data.company}
               </div>
+              {!isAnyActive && (
+                <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">
+                  {data.segment.split(" ")[0]}
+                </div>
+              )}
             </div>
           )}
         </motion.div>
@@ -1130,8 +1134,8 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "58%" : "0%",
-            width: isActive ? "58%" : "0%",
+            flexBasis: isActive ? "60%" : "0%",
+            width: isActive ? "60%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 12,
           }}
@@ -1153,7 +1157,7 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-6 lg:flex-none xl:p-8"
+          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-5 lg:flex-none xl:p-7"
         >
           <div className="relative">
             <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
@@ -1170,7 +1174,7 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-6">
               <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
@@ -1178,13 +1182,13 @@ function TestimonialCard({
                 {data.company}
               </h3>
             </div>
-
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-relaxed text-white/70 xl:text-base">
+ 
+            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm xl:text-[15px] italic leading-[1.6] text-white/70">
               “{data.quote}”
             </blockquote>
           </div>
 
-          <div className="mt-8 space-y-6">
+          <div className="mt-6 space-y-4">
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
