@@ -1010,6 +1010,7 @@ function TestimonialCard({
   index,
   data,
   isActive,
+  activeIndex,
   isAnyActive,
   onPointerEnter,
   onClick,
