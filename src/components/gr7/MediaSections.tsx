@@ -1049,7 +1049,7 @@ function TestimonialCard({
           zIndex: isActive ? 40 : isAnyActive ? 10 : 20,
           rotateY: isActive ? tiltY : 0,
           rotateX: isActive ? 1 : 0,
-          translateZ: isActive ? 34 : index === activeIndex + 1 || index === activeIndex - 1 ? -8 : isAnyActive ? -14 : 0,
+          translateZ: isActive ? 34 : activeIndex !== null && (index === activeIndex + 1 || index === activeIndex - 1) ? -8 : isAnyActive ? -14 : 0,
           opacity: isAnyActive && !isActive ? 0.52 : 1,
           filter: isAnyActive && !isActive ? "brightness(0.72) saturate(0.75)" : "brightness(1) saturate(1)",
         }}
