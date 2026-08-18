@@ -230,7 +230,8 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A GR7 conseguiu mostrar o valor do nosso trabalho antes mesmo do cliente conhecer o nosso projeto.",
     tags: ["POSICIONAMENTO", "CONTEÚDO", "ESTRATÉGIA"],
     thumbnail: "/src/assets/testimonials/test-01.jpg",
-    href: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/",
+    videoSrc: "PASTE_ECOCHALES_VIDEO_HERE",
+    href: "https://www.instagram.com/chales_ia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
   {
     name: "Ana C.",
@@ -240,8 +241,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A nossa comunicação finalmente começou a transmitir o nível dos produtos que realmente entregamos.",
     tags: ["BRANDING", "CONTEÚDO", "POSICIONAMENTO"],
     thumbnail: "/src/assets/testimonials/test-02.jpg",
+    videoSrc: "PASTE_BOBBY_VIDEO_HERE",
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
-    href: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/",
+    href: "https://www.instagram.com/bobbymoveis?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
   {
     name: "Carlos M.",
@@ -251,7 +253,8 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A GR7 fez nossa empresa parecer nas redes tão profissional quanto ela é no trabalho.",
     tags: ["ESTRATÉGIA", "MARCA", "PRESENÇA DIGITAL"],
     thumbnail: "/src/assets/testimonials/test-03.jpg",
-    href: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/",
+    videoSrc: "PASTE_JVE_VIDEO_HERE",
+    href: "https://www.instagram.com/jveforrosedivisorias?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
   {
     name: "Felipe G.",
@@ -261,8 +264,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A gente começou a mostrar a energia da academia de um jeito que realmente dá vontade de fazer parte.",
     tags: ["CONTEÚDO", "ENGAJAMENTO", "PERFORMANCE"],
     thumbnail: "/src/assets/testimonials/test-04.jpg",
+    videoSrc: "PASTE_LAGOSTA_VIDEO_HERE",
     logo: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png",
-    href: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/",
+    href: "https://www.instagram.com/lagostafitness?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
   {
     name: "Marcos L.",
@@ -272,8 +276,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A comunicação da nossa loja passou a ter a mesma presença que as motos que vendemos.",
     tags: ["MARCA", "PERFORMANCE", "PRESENÇA"],
     thumbnail: "/src/assets/testimonials/test-05.jpg",
+    videoSrc: "PASTE_SHINERAY_VIDEO_HERE",
     logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
-    href: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/",
+    href: "https://www.instagram.com/shineraymotonowpe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
   },
 ];
 
