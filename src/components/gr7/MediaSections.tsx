@@ -1196,12 +1196,12 @@ function TestimonialCard({
           {/* Desktop-only simple label when not active */}
           {!isActive && (
             <div className="absolute inset-x-0 bottom-0 hidden p-6 lg:block">
-              <div className={`font-display text-white transition-all duration-300 ${isAnyActive ? 'text-lg' : 'text-xl'}`}>
+              <div className={`font-display text-white transition-all duration-300 ${isAnyActive ? 'text-xs' : 'text-xl'}`}>
                 {data.company}
               </div>
               {!isAnyActive && (
                 <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">
-                  {data.segment.split(" ")[0]}
+                  {data.segment}
                 </div>
               )}
             </div>
