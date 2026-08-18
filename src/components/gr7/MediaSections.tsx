@@ -1171,8 +1171,6 @@ function TestimonialCard({
     </motion.div>
   );
 }
-  );
-}
 
 
 
