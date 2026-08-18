@@ -947,7 +947,7 @@ export function VideoTestimonialsSection() {
   return (
     <section 
       id="depoimentos" 
-      className="relative flex min-h-[800px] items-center overflow-visible py-32 md:py-48"
+      className="relative flex min-h-[900px] items-center overflow-visible py-32 md:py-48"
     >
       <div className="mx-auto flex w-full flex-col">
         {/* Heading contained */}
