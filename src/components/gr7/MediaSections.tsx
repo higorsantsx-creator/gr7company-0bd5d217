@@ -1018,32 +1018,6 @@ function TestimonialCard({
   const mid = (total - 1) / 2;
   const tiltY = (mid - index) * 2.5;
 
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoError, setVideoError] = useState(false);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isActive && data.videoSrc && !videoError) {
-      video.play().catch(() => {
-        // Fallback for browsers that block autoplay
-      });
-    } else {
-      video.pause();
-      try {
-        video.currentTime = 0;
-      } catch (e) {}
-      setIsMuted(true); // Reset audio on exit
-    }
-  }, [isActive, data.videoSrc, videoError]);
-
-  const toggleMute = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    setIsMuted((prev) => !prev);
-  };
 
 
   return (
@@ -1090,64 +1064,32 @@ function TestimonialCard({
         >
           <div className="absolute inset-0 overflow-hidden">
             <MediaSlot
-              poster={data.thumbnail}
+              src={data.thumbnail}
               kind="image"
               alt={data.company}
-              className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 ${
-                isActive && videoReady ? "opacity-0" : "opacity-100"
+              className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.03] group-hover:brightness-[1.05] ${
+                isActive ? "scale-[1.035] brightness-[1.08] grayscale-0" : ""
               }`}
               icon="reel"
               ornate={false}
             />
-
-            {data.videoSrc && !videoError && (
-              <video
-                ref={videoRef}
-                src={data.videoSrc}
-                muted={isMuted}
-                playsInline
-                loop
-                preload="metadata"
-                onCanPlay={() => setVideoReady(true)}
-                onError={() => setVideoError(true)}
-                className={`h-full w-full object-cover transition-opacity duration-500 ${
-                  isActive && videoReady ? "opacity-100" : "opacity-0"
-                }`}
-              />
-            )}
           </div>
 
           <div
-            className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-60"}`}
+            className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
           />
 
-          {/* Volume Control */}
-          <AnimatePresence>
-            {isActive && data.videoSrc && !videoError && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.25 }}
-                type="button"
-                onClick={toggleMute}
-                className="absolute right-4 top-4 z-40 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-[#0a0a0a]/70 text-white backdrop-blur-md transition-all hover:border-[#ff1a1a] hover:bg-[#0a0a0a]/90"
-                aria-label={isMuted ? "Ativar áudio" : "Desativar áudio"}
-                aria-pressed={!isMuted}
-              >
-                {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-              </motion.button>
-            )}
-          </AnimatePresence>
 
-          {/* Active indicator (only if not playing video or muted) */}
+
+          {/* Active indicator / Play Icon */}
           <div
             className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${
-              isActive && !videoReady ? "scale-100 opacity-100" : "scale-75 opacity-0"
+              isActive ? "scale-100 opacity-100" : "scale-75 opacity-70"
             }`}
           >
             <Play className="h-3 w-3 fill-[#ff1a1a] text-[#ff1a1a]" />
           </div>
+
 
 
           <div className="absolute inset-x-0 bottom-0 p-5 lg:hidden">
