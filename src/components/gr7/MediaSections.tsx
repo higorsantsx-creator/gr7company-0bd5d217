@@ -949,7 +949,8 @@ export function VideoTestimonialsSection() {
       id="depoimentos" 
       className="relative flex min-h-[800px] items-center overflow-visible py-32 md:py-48"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col px-6 md:px-10">
+      <div className="mx-auto flex w-full flex-col">
+        <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
