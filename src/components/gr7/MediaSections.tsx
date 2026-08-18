@@ -936,46 +936,39 @@ export function DashboardsSection() {
 /*  11. VIDEO TESTIMONIALS — carrossel horizontal                      */
 /* ================================================================== */
 export function VideoTestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
 
   return (
     <section id="depoimentos" className="relative py-32 md:py-48 overflow-hidden min-h-[900px] flex items-center">
       <div className="mx-auto max-w-7xl px-6 md:px-10 w-full">
-        {activeIndex === null && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <SectionHead
-              kicker="Depoimentos"
-              title={
-                <>
-                  Quem viveu <span className="italic text-white/50">conta melhor.</span>
-                </>
-              }
-              lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
-            />
-            <div className="mt-8 flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-[#ff1a1a]/60 uppercase">
-              <span className="h-px w-8 bg-[#ff1a1a]/30" />
-              Explore os depoimentos
-            </div>
-          </motion.div>
-        )}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <SectionHead
+            kicker="Depoimentos"
+            title={
+              <>
+                Quem viveu <span className="italic text-white/50">conta melhor.</span>
+              </>
+            }
+            lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
+          />
+        </motion.div>
 
-        <div className="relative flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20">
+        <div className="relative flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-20">
           {/* Info Panel */}
-          <AnimatePresence mode="wait">
-            {activeIndex !== null && (
+          <div className="relative z-20 w-full lg:w-[45%] min-h-[500px]">
+            <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
                 initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
                 animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative z-20 w-full lg:max-w-md order-2 lg:order-1"
+                className="relative space-y-8"
               >
                 {/* Ghost Logo Textures */}
                 <div className="pointer-events-none absolute -left-12 -top-12 select-none opacity-[0.03] transition-opacity duration-1000">
@@ -998,7 +991,7 @@ export function VideoTestimonialsSection() {
                         className="h-full object-contain object-left"
                       />
                     ) : (
-                      <div className="font-display text-xl tracking-tighter text-white/40">
+                      <div className="font-display text-2xl font-bold tracking-tighter text-white/40 uppercase">
                         {videoTestimonials[activeIndex].company}
                       </div>
                     )}
@@ -1027,29 +1020,44 @@ export function VideoTestimonialsSection() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="relative border-l-2 border-[#ff1a1a] pl-6 text-xl italic leading-relaxed text-white/90 md:text-2xl"
+                    className="relative border-l-2 border-[#ff1a1a] pl-6 text-xl italic leading-relaxed text-white/90 md:text-2xl font-light"
                   >
                     “{videoTestimonials[activeIndex].quote}”
                   </motion.blockquote>
 
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6 }}
-                  >
-                    <div className="text-sm font-semibold text-white">
-                      {videoTestimonials[activeIndex].name}
-                    </div>
-                    <div className="text-xs text-white/50">
-                      {videoTestimonials[activeIndex].role}
-                    </div>
-                  </motion.div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                    >
+                      <div className="text-sm font-semibold text-white">
+                        {videoTestimonials[activeIndex].name}
+                      </div>
+                      <div className="text-xs text-white/50">
+                        {videoTestimonials[activeIndex].role}
+                      </div>
+                    </motion.div>
+
+                    <motion.a
+                      href={videoTestimonials[activeIndex].href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8 }}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#ff1a1a] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+                    >
+                      <Play className="h-3 w-3 fill-current" />
+                      Assistir Depoimento
+                    </motion.a>
+                  </div>
 
                   <motion.div 
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.7 }}
-                    className="flex flex-wrap gap-2"
+                    className="flex flex-wrap gap-2 pt-4"
                   >
                     {videoTestimonials[activeIndex].tags.map((tag, idx) => (
                       <motion.span
@@ -1065,103 +1073,77 @@ export function VideoTestimonialsSection() {
                   </motion.div>
                 </div>
               </motion.div>
-            )}
-          </AnimatePresence>
+            </AnimatePresence>
+          </div>
 
           {/* Video Gallery */}
-          <div className={`relative z-10 grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 transition-all duration-700 order-1 lg:order-2 ${activeIndex !== null ? 'md:grid-cols-1 w-full lg:w-[400px]' : 'w-full'}`}>
+          <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 w-full lg:w-[50%]">
             {videoTestimonials.map((v, i) => {
               const isActive = activeIndex === i;
-              const isOtherActive = activeIndex !== null && !isActive;
 
               return (
-                <motion.div
+                <button
                   key={i}
-                  layout
-                  onMouseEnter={() => setActiveIndex(i)}
-                  onMouseLeave={() => setActiveIndex(null)}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl md:rounded-3xl border border-white/10 bg-[#0a0a0a] transition-all duration-700 will-change-transform ${
+                  onClick={() => setActiveIndex(i)}
+                  aria-label={`Ver depoimento de ${v.company}`}
+                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border transition-all duration-500 text-left ${
                     isActive 
-                      ? "z-30 scale-105 shadow-[0_40px_100px_-20px_rgba(255,26,26,0.2)]" 
-                      : isOtherActive 
-                        ? "opacity-30 blur-[2px] scale-95 saturate-50 brightness-50" 
-                        : "opacity-100 hover:scale-[1.02] shadow-xl"
+                      ? "border-[#ff1a1a] shadow-[0_20px_40px_-10px_rgba(255,26,26,0.3)] ring-1 ring-[#ff1a1a]/50" 
+                      : "border-white/10 opacity-70 hover:opacity-100 hover:border-white/20"
                   }`}
                   style={{
-                    aspectRatio: isActive ? "9/16" : "3/4",
-                    transformPerspective: 1200,
-                    rotateY: isActive ? -8 : 0,
+                    aspectRatio: "3/4",
                   }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <MediaSlot
-                    src={v.src}
-                    poster={v.poster}
-                    kind={isActive ? "video" : "image"}
+                    poster={v.thumbnail}
+                    kind="image"
                     alt={`${v.name} — ${v.company}`}
-                    className={`absolute inset-0 transition-all duration-700 ${isActive ? "scale-110 brightness-110 contrast-110" : "group-hover:scale-105"}`}
+                    className={`absolute inset-0 transition-all duration-700 ${isActive ? "scale-105 brightness-110" : "group-hover:scale-105"}`}
                     icon="reel"
-                    label={v.company}
+                    ornate={false}
                   />
 
-                  {/* Environment Glow */}
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 0.4 }}
-                        exit={{ opacity: 0 }}
-                        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.3)_0%,transparent_70%)]"
-                      />
-                    )}
-                  </AnimatePresence>
-
                   {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-40 group-hover:opacity-60'}`} />
+                  <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-80'}`} />
 
-                  {/* Play Button */}
-                  <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0a0a0a]/90 p-4 backdrop-blur transition-all duration-500 ${isActive ? 'scale-110 opacity-100' : 'scale-90 opacity-0 group-hover:opacity-100'}`}>
-                    <Play className="h-5 w-5 translate-x-0.5 fill-[#0a0a0a] text-white" />
+                  {/* Environment Glow (Active) */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="active-glow"
+                      className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.2)_0%,transparent_70%)]"
+                    />
+                  )}
+
+                  {/* Play Button Icon */}
+                  <div className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${isActive ? 'scale-100 opacity-100' : 'scale-75 opacity-0 group-hover:opacity-100'}`}>
+                    <Play className="h-3 w-3 fill-white text-white" />
                   </div>
-
-                  {/* Basic Info (Visible when not active) */}
-                  <AnimatePresence>
-                    {!isActive && (
-                      <motion.div 
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute inset-x-0 bottom-0 p-4 md:p-6 text-white z-20"
-                      >
-                        <div className="font-display text-sm md:text-lg">{v.company}</div>
-                        <div className="text-[10px] md:text-xs opacity-60 font-medium tracking-wider">{v.segment.split(" ")[0]}</div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
 
                   {/* Counter */}
                   <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-[#0a0a0a]/60 px-2 py-1 text-[9px] font-bold text-white/70 backdrop-blur-md">
-                    0{i + 1} / 05
+                    {String(i + 1).padStart(2, "0")} / {String(videoTestimonials.length).padStart(2, "0")}
                   </div>
-                </motion.div>
+
+                  {/* Basic Info */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-white z-20">
+                    <div className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-[#ff1a1a]' : 'text-white'}`}>{v.company}</div>
+                    <div className="text-[10px] opacity-60 font-medium tracking-wider uppercase mt-0.5">{v.segment.split(" ")[0]}</div>
+                  </div>
+                </button>
               );
             })}
           </div>
         </div>
 
         {/* Cinematic Ambient Lighting (Shared) */}
-        <AnimatePresence>
-          {activeIndex !== null && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-20"
-              style={{
-                background: "radial-gradient(circle, rgba(255,26,26,0.15) 0%, transparent 70%)",
-                filter: "blur(60px)",
-              }}
-            />
-          )}
-        </AnimatePresence>
+        <div
+          className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[800px] w-[800px] -translate-x-1/2 -translate-y-1/2 opacity-20"
+          style={{
+            background: "radial-gradient(circle, rgba(255,26,26,0.15) 0%, transparent 70%)",
+            filter: "blur(60px)",
+          }}
+        />
       </div>
     </section>
   );
