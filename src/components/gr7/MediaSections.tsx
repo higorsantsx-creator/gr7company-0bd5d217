@@ -1157,10 +1157,10 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-5 lg:flex-none xl:p-7"
+          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
         >
-          <div className="relative">
-            <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
               {data.logo ? (
                 <img
                   src={data.logo}
@@ -1174,21 +1174,21 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-6">
+            <div className="mt-5">
               <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
-              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-3xl">
+              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[28px]">
                 {data.company}
               </h3>
             </div>
  
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm xl:text-[15px] italic leading-[1.6] text-white/70">
+            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]">
               “{data.quote}”
             </blockquote>
           </div>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-5 shrink-0 space-y-3">
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
@@ -1212,7 +1212,7 @@ function TestimonialCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+              className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
             >
               <InstagramIcon className="h-3 w-3" />
               Ver no Instagram
