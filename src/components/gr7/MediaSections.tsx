@@ -1072,9 +1072,9 @@ function TestimonialCard({
               src={data.thumbnail}
               kind="image"
               alt={data.company}
-              className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.03] group-hover:brightness-[1.05] ${
-                isActive ? "scale-[1.035] brightness-[1.08] grayscale-0" : ""
-              }`}
+              className={`absolute inset-0 transition-all duration-700 group-hover:scale-[1.03] group-hover:brightness-[1.05] ${
+                isActive ? "scale-[1.035] brightness-[1.08]" : ""
+              } object-cover`}
               icon="reel"
               ornate={false}
             />
