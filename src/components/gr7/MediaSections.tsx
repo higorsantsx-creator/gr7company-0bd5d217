@@ -1134,21 +1134,26 @@ function TestimonialCard({
               transition={{ duration: 0.55 }}
             />
 
-            {/* LAYER C — ORIGINAL COVER / POSTER */}
-            <motion.img
-              src={data.thumbnail}
-              alt={`${data.company} — depoimento`}
-              className="pointer-events-none absolute inset-0 h-full w-full object-contain object-center"
+            {/* LAYER C — ORIGINAL COVER / POSTER (Active Poster Mode) */}
+            <motion.div
+              className="absolute inset-[15px] z-20 h-[calc(100%-30px)] w-[calc(100%-30px)]"
               initial={false}
               animate={{
                 opacity: isActive ? 1 : 0,
-                scale: isActive ? 1 : 0.985,
+                scale: isActive ? 1 : 0.95,
+                translateZ: isActive ? 12 : 0,
               }}
               transition={{
-                duration: 0.42,
+                duration: 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
-            />
+            >
+              <img
+                src={data.thumbnail}
+                alt={`${data.company} — depoimento`}
+                className="h-full w-full object-contain object-center shadow-2xl"
+              />
+            </motion.div>
           </div>
 
           <div
