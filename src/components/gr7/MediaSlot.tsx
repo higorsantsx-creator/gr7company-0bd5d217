@@ -17,10 +17,7 @@ interface SlotProps extends MediaItem {
   label?: string;
   /** Controla exibição de gradiente decorativo. */
   ornate?: boolean;
-  /** Estilos customizados para a camada de mídia (ex: objectPosition). */
-  style?: React.CSSProperties;
 }
-
 
 /* ------------------------------------------------------------------ */
 /*  Placeholder elegante e animado                                     */
@@ -72,7 +69,6 @@ export function MediaSlot({
   icon,
   label,
   ornate = false,
-  style,
   bg,
   autoPlay = true,
   muted = true,
@@ -85,7 +81,6 @@ export function MediaSlot({
   loop?: boolean;
   onClick?: () => void;
 }) {
-
   const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -158,7 +153,6 @@ export function MediaSlot({
             <motion.video
               ref={videoRef}
               className="h-full w-full object-cover"
-              style={style}
               src={effectiveSrc}
               poster={poster}
               autoPlay={autoPlay}
@@ -171,13 +165,11 @@ export function MediaSlot({
               animate={{ opacity: loaded ? 1 : 0 }}
               transition={{ duration: 0.6 }}
             />
-
           )}
 
           {effectiveSrc && effectiveKind !== "video" && (
             <motion.img
               className={`h-full w-full ${className.includes("object-contain") ? "object-contain" : "object-cover"}`}
-              style={style}
               src={effectiveSrc}
               alt={alt ?? ""}
               onLoad={handleMediaLoad}
@@ -186,7 +178,6 @@ export function MediaSlot({
               animate={{ opacity: loaded ? 1 : 0 }}
               transition={{ duration: 0.6 }}
             />
-
           )}
 
           {!effectiveSrc && poster && (

@@ -169,14 +169,12 @@ export interface VideoTestimonial {
   quote: string;
   tags: string[];
   thumbnail: string;
-  thumbnailPosition?: string;
   logo?: string;
   // perfil oficial do cliente
   href: string;
   // Reel específico do depoimento
   reelHref: string;
 }
-
 
 const chalesIaThumb = new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href;
 const bobbyThumb = new URL("../../assets/testimonials/test-02.jpg", import.meta.url).href;
@@ -204,11 +202,9 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A nossa comunicação finalmente começou a transmitir o nível dos produtos que realmente entregamos.",
     tags: ["BRANDING", "CONTEÚDO", "POSICIONAMENTO"],
     thumbnail: bobbyThumb,
-    thumbnailPosition: "50% 40%",
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
     href: "https://www.instagram.com/bobbymoveis",
     reelHref: "https://www.instagram.com/p/DbDzpvYyB4z/",
-
   },
   {
     name: "Carlos M.",
@@ -218,10 +214,8 @@ export const videoTestimonials: VideoTestimonial[] = [
     quote: "A GR7 fez nossa empresa parecer nas redes tão profissional quanto ela é no trabalho.",
     tags: ["ESTRATÉGIA", "MARCA", "PRESENÇA DIGITAL"],
     thumbnail: jveThumb,
-    thumbnailPosition: "50% 15%",
     href: "https://www.instagram.com/jveforrosedivisorias",
     reelHref: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/",
-
   },
   {
     name: "Felipe G.",
