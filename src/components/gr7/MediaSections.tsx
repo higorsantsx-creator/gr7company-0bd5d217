@@ -1006,6 +1006,26 @@ export function VideoTestimonialsSection() {
   );
 }
 
+function HighlightedQuote({
+  quote,
+  highlight,
+}: {
+  quote: string;
+  highlight?: string;
+}) {
+  if (!highlight || !quote.includes(highlight)) {
+    return <>{quote}</>;
+  }
+  const parts = quote.split(highlight);
+  return (
+    <>
+      {parts[0]}
+      <span className="font-medium text-white">{highlight}</span>
+      {parts[1]}
+    </>
+  );
+}
+
 function TestimonialCard({
   index,
   data,
@@ -1216,7 +1236,7 @@ function TestimonialCard({
           }}
           transition={{
             opacity: {
-              duration: isActive ? 0.35 : 0.15,
+              duration: isActive ? 0.35 : 0.20,
               delay: isActive ? 0.15 : 0,
             },
             x: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
@@ -1227,46 +1247,65 @@ function TestimonialCard({
         >
 
           <div className="flex min-h-0 flex-1 flex-col">
-            <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
-              {data.logo ? (
-                <img
-                  src={data.logo}
-                  alt={data.company}
-                  className="h-full object-contain object-left"
-                />
-              ) : (
-                <div className="max-w-full truncate font-display text-sm font-bold uppercase tracking-tight text-white/20">
-                  {data.company}
-                </div>
-              )}
-            </div>
-
-            <div className="mt-6">
-              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
-                {data.segment}
+            <header className="shrink-0">
+              <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
+                {data.logo ? (
+                  <img
+                    src={data.logo}
+                    alt={data.company}
+                    className="h-full object-contain object-left"
+                  />
+                ) : (
+                  <div className="max-w-full truncate font-display text-sm font-bold uppercase tracking-tight text-white/20">
+                    {data.company}
+                  </div>
+                )}
               </div>
-              <h3 className="mt-2 font-display text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[38px]">
-                {data.company}
-              </h3>
-            </div>
+
+              <div className="mt-6">
+                <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a] xl:text-[10px]">
+                  {data.segment}
+                </div>
+                <h3 className="mt-2 font-display text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[36px] 2xl:text-[40px]">
+                  {data.company}
+                </h3>
+              </div>
+            </header>
  
-            <div className="relative mt-8">
-              <motion.div 
-                initial={{ height: 0 }}
-                animate={isActive ? { height: "100%" } : { height: 0 }}
-                transition={{ duration: 0.42 }}
-                className="absolute left-0 top-0 w-[1px] bg-[#ff1a1a]" 
-              />
-              <blockquote className="max-w-[520px] pl-6 text-base italic leading-[1.55] text-white/70 xl:text-[18px]">
-                “{data.quote}”
-              </blockquote>
+            <div className="relative flex flex-1 items-center">
+              {/* Big Quotation Mark Decor */}
+              <motion.span 
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={isActive ? { opacity: 0.035, scale: 1 } : { opacity: 0, scale: 0.92 }}
+                transition={{ duration: 0.6, delay: 0.18 }}
+                className="pointer-events-none absolute -left-8 -top-8 select-none font-display text-[160px] leading-none text-white xl:text-[200px]"
+              >
+                “
+              </motion.span>
+
+              <div className="relative z-10 w-full pl-6 xl:pl-8">
+                <motion.div 
+                  initial={{ scaleY: 0 }}
+                  animate={isActive ? { scaleY: 1 } : { scaleY: 0 }}
+                  transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.12 }}
+                  className="absolute left-0 top-0 h-full w-[1.5px] origin-top bg-[#ff1a1a]" 
+                />
+                <motion.blockquote 
+                  initial={{ opacity: 0, y: 14, filter: "blur(3px)" }}
+                  animate={isActive ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 14, filter: "blur(3px)" }}
+                  transition={{ duration: 0.45, delay: 0.14 }}
+                  className="max-w-[680px] text-[20px] italic leading-[1.5] text-white/65 xl:text-[24px] 2xl:text-[26px]"
+                >
+                  “<HighlightedQuote quote={data.quote} highlight={data.quoteHighlight} />”
+                </motion.blockquote>
+              </div>
             </div>
           </div>
 
-          <div className="mt-8 shrink-0 space-y-4 pb-2">
+          <footer className="mt-4 shrink-0 space-y-4 pb-1">
             <div>
-              <div className="text-base font-semibold text-white">{data.name}</div>
-              <div className="text-[11px] uppercase tracking-widest text-white/40">
+              <div className="text-[16px] font-semibold text-white xl:text-[18px]">{data.name}</div>
+              <div className="text-[10px] uppercase tracking-[0.2em] text-white/40 xl:text-[11px]">
                 {data.role}
               </div>
             </div>
@@ -1287,13 +1326,13 @@ function TestimonialCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-7 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+              className="group inline-flex h-[46px] w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-7 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95 xl:h-[48px]"
             >
               <InstagramIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
               Ver no Instagram
-              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-[3px]" />
             </a>
-          </div>
+          </footer>
         </motion.div>
       </motion.article>
     </motion.div>

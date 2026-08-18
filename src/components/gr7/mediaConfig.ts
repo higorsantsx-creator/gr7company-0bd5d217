@@ -167,6 +167,7 @@ export interface VideoTestimonial {
   role: string;
   segment: string;
   quote: string;
+  quoteHighlight?: string;
   tags: string[];
   thumbnail: string;
   logo?: string;
@@ -189,6 +190,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "Proprietário",
     segment: "CONSTRUÇÃO DE CHALÉS",
     quote: "A GR7 conseguiu mostrar o valor do nosso trabalho antes mesmo do cliente conhecer o nosso projeto.",
+    quoteHighlight: "mostrar o valor do nosso trabalho",
     tags: ["POSICIONAMENTO", "CONTEÚDO", "ESTRATÉGIA"],
     thumbnail: chalesIaThumb,
     href: "https://www.instagram.com/chales_ia",
@@ -200,6 +202,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "CEO",
     segment: "MÓVEIS & DECORAÇÃO",
     quote: "A nossa comunicação finalmente começou a transmitir o nível dos produtos que realmente entregamos.",
+    quoteHighlight: "transmitir o nível dos produtos",
     tags: ["BRANDING", "CONTEÚDO", "POSICIONAMENTO"],
     thumbnail: bobbyThumb,
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
@@ -212,6 +215,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "Diretor Comercial",
     segment: "FORROS & DIVISÓRIAS",
     quote: "A GR7 fez nossa empresa parecer nas redes tão profissional quanto ela é no trabalho.",
+    quoteHighlight: "tão profissional quanto ela é",
     tags: ["ESTRATÉGIA", "MARCA", "PRESENÇA DIGITAL"],
     thumbnail: jveThumb,
     href: "https://www.instagram.com/jveforrosedivisorias",
@@ -223,6 +227,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "Fundador",
     segment: "FITNESS & PERFORMANCE",
     quote: "A gente começou a mostrar a energia da academia de um jeito que realmente dá vontade de fazer parte.",
+    quoteHighlight: "mostrar a energia da academia",
     tags: ["CONTEÚDO", "ENGAJAMENTO", "PERFORMANCE"],
     thumbnail: lagostaThumb,
     logo: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png",
@@ -235,6 +240,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     role: "Gestor",
     segment: "MOTOCICLETAS & AUTOMOTIVO",
     quote: "A comunicação da nossa loja passou a ter a mesma presença que as motos que vendemos.",
+    quoteHighlight: "mesma presença que as motos",
     tags: ["MARCA", "PERFORMANCE", "PRESENÇA"],
     thumbnail: shinerayThumb,
     logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
