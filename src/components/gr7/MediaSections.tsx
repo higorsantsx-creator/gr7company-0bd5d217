@@ -983,8 +983,9 @@ export function VideoTestimonialsSection() {
                 key={i}
                 index={i}
                 data={v}
-                isActive={activeIndex === i}
-                isAnyActive={hasActiveCard}
+              isActive={activeIndex === i}
+              activeIndex={activeIndex}
+              isAnyActive={hasActiveCard}
                 onPointerEnter={() => setHoveredIndex(i)}
                 onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
               />
