@@ -1016,7 +1016,7 @@ function TestimonialCard({
 }) {
   const total = videoTestimonials.length;
   const mid = (total - 1) / 2;
-  const tiltY = (mid - index) * 2.2; // Limitado a ±4.4deg
+  const tiltY = Math.max(-4.5, Math.min(4.5, (mid - index) * 2.2));
 
   return (
     <motion.div
@@ -1026,10 +1026,11 @@ function TestimonialCard({
         flexGrow: isActive ? 3.8 : isAnyActive ? 0.48 : 1,
       }}
       transition={{
-        duration: 0.55,
+        duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
+
       <motion.article
         onClick={onClick}
         initial={false}
@@ -1063,20 +1064,27 @@ function TestimonialCard({
           style={{
             background: "radial-gradient(circle at 45% 50%, rgba(255,26,26,0.12), transparent 48%)"
           }}
+          transition={{ duration: 0.6 }}
         />
 
         {/* Border Energy Sweep */}
         <AnimatePresence>
           {isActive && (
             <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: "200%" }}
+              initial={{ x: "-100%", opacity: 0 }}
+              animate={{ x: "200%", opacity: [0, 1, 1, 0] }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut", delay: 0.4 }}
-              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-[1px] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
+              transition={{ 
+                duration: 0.9, 
+                ease: "easeInOut", 
+                delay: 0.45,
+                opacity: { times: [0, 0.2, 0.8, 1] }
+              }}
+              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-[1.5px] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
             />
           )}
         </AnimatePresence>
+
 
         {/* Media Column */}
         <motion.div
@@ -1118,11 +1126,12 @@ function TestimonialCard({
                 scale: isActive ? 1.15 : 1.05,
                 opacity: isActive ? 0.65 : 0,
                 filter: isActive
-                  ? "blur(18px) brightness(0.40) saturate(0.75)"
+                  ? "blur(20px) brightness(0.40) saturate(0.75)"
                   : "blur(8px) brightness(0.7)"
               }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.7 }}
             />
+
 
             {/* Layer 2: Original Poster (Active Only) */}
             <motion.img
