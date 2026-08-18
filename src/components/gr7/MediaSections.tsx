@@ -1017,6 +1017,7 @@ function TestimonialCard({
   index: number;
   data: typeof videoTestimonials[0];
   isActive: boolean;
+  activeIndex: number | null;
   isAnyActive: boolean;
   onPointerEnter: () => void;
   onClick: () => void;
