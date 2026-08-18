@@ -1025,7 +1025,7 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 4.2 : isAnyActive ? 0.35 : 1,
+        flexGrow: isActive ? 4.8 : isAnyActive ? 0.3 : 1,
       }}
       transition={{
         duration: 0.55,
@@ -1157,7 +1157,7 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:pb-6 xl:pl-6 xl:pr-6 xl:pt-5"
+          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:pb-6 xl:pl-8 xl:pr-6 xl:pt-5"
         >
           <div className="flex min-h-0 flex-1 flex-col">
             <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
