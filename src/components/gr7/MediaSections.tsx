@@ -1025,7 +1025,7 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 4.8 : isAnyActive ? 0.3 : 1,
+        flexGrow: isActive ? 10 : isAnyActive ? 0.2 : 1,
       }}
       transition={{
         duration: 0.55,
@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "40%" : "100%",
-            width: isActive ? "40%" : "100%",
+            flexBasis: isActive ? "320px" : "100%",
+            width: isActive ? "320px" : "100%",
           }}
           transition={{
             duration: 0.42,
@@ -1134,8 +1134,8 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "60%" : "0%",
-            width: isActive ? "60%" : "0%",
+            flexBasis: isActive ? "100%" : "0%",
+            width: isActive ? "100%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 12,
           }}
