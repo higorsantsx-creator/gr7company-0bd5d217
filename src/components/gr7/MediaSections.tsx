@@ -1243,33 +1243,41 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-5">
-              <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+            <div className="mt-6">
+              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
-              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[28px]">
+              <h3 className="mt-2 font-display text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[38px]">
                 {data.company}
               </h3>
             </div>
  
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]">
-              “{data.quote}”
-            </blockquote>
+            <div className="relative mt-8">
+              <motion.div 
+                initial={{ height: 0 }}
+                animate={isActive ? { height: "100%" } : { height: 0 }}
+                transition={{ duration: 0.42 }}
+                className="absolute left-0 top-0 w-[1px] bg-[#ff1a1a]" 
+              />
+              <blockquote className="max-w-[520px] pl-6 text-base italic leading-[1.55] text-white/70 xl:text-[18px]">
+                “{data.quote}”
+              </blockquote>
+            </div>
           </div>
 
-          <div className="mt-5 shrink-0 space-y-3">
+          <div className="mt-8 shrink-0 space-y-4 pb-2">
             <div>
-              <div className="text-sm font-semibold text-white">{data.name}</div>
-              <div className="text-[10px] uppercase tracking-widest text-white/40">
+              <div className="text-base font-semibold text-white">{data.name}</div>
+              <div className="text-[11px] uppercase tracking-widest text-white/40">
                 {data.role}
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
-              {data.tags.slice(0, 2).map((tag: string) => (
+            <div className="flex flex-wrap gap-2">
+              {data.tags.slice(0, 3).map((tag: string) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40"
+                  className="rounded-full border border-white/5 bg-white/5 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-white/40"
                 >
                   {tag}
                 </span>
@@ -1281,10 +1289,11 @@ function TestimonialCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+              className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-7 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
             >
-              <InstagramIcon className="h-3 w-3" />
+              <InstagramIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
               Ver no Instagram
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </motion.div>
