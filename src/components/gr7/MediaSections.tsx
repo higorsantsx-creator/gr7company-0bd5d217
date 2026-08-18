@@ -1157,7 +1157,7 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
+          className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:pb-6 xl:pl-6 xl:pr-6 xl:pt-5"
         >
           <div className="flex min-h-0 flex-1 flex-col">
             <div className="flex h-9 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
@@ -1174,21 +1174,21 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-5">
+            <div className="mt-4">
               <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
-              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[28px]">
+              <h3 className="mt-1 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[26px]">
                 {data.company}
               </h3>
             </div>
  
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]">
+            <blockquote className="mt-4 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.45] text-white/70 xl:text-[14.5px]">
               “{data.quote}”
             </blockquote>
           </div>
 
-          <div className="mt-5 shrink-0 space-y-3">
+          <div className="mt-4 shrink-0 space-y-3">
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
