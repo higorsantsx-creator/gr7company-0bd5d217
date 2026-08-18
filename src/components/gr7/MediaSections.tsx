@@ -1008,7 +1008,7 @@ function TestimonialCard({
   onClick,
 }: {
   index: number;
-  data: any;
+  data: typeof videoTestimonials[0];
   isActive: boolean;
   isAnyActive: boolean;
   onPointerEnter: () => void;
@@ -1055,12 +1055,17 @@ function TestimonialCard({
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Media Column */}
-        <div
-          className={
-            isActive
-              ? "relative h-full w-full lg:w-[42%] lg:flex-none"
-              : "relative h-full w-full"
-          }
+        <motion.div
+          className="relative h-full w-full lg:flex-none"
+          initial={false}
+          animate={{
+            flexBasis: isActive ? "42%" : "100%",
+            width: isActive ? "42%" : "100%",
+          }}
+          transition={{
+            duration: 0.42,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <div className="absolute inset-0 overflow-hidden">
             <MediaSlot
@@ -1079,18 +1084,29 @@ function TestimonialCard({
             className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
           />
 
+          {/* Hit area for Reel Play (Central) */}
+          <a
+            href={data.reelHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Assistir depoimento de ${data.company}`}
+            className="absolute left-1/2 top-1/2 z-30 h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#ff1a1a]"
+          />
 
-
-          {/* Active indicator / Play Icon */}
-          <div
-            className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${
+          {/* Small Play Button (Top Left) */}
+          <a
+            href={data.reelHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            aria-label={`Assistir depoimento de ${data.company} no Instagram`}
+            className={`absolute left-4 top-4 z-30 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 hover:bg-[#ff1a1a]/20 hover:scale-110 active:scale-95 ${
               isActive ? "scale-100 opacity-100" : "scale-75 opacity-70"
             }`}
           >
             <Play className="h-3 w-3 fill-[#ff1a1a] text-[#ff1a1a]" />
-          </div>
-
-
+          </a>
 
           <div className="absolute inset-x-0 bottom-0 p-5 lg:hidden">
             <div className="font-display text-lg text-white">{data.company}</div>
@@ -1108,80 +1124,97 @@ function TestimonialCard({
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* Content Column (Revealed on active) */}
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              initial={{ opacity: 0, x: 16, filter: "blur(2px)" }}
-              animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
-              transition={{ duration: 0.4, delay: 0.15 }}
-              className="flex min-w-0 lg:w-[58%] lg:flex-none flex-col justify-between p-6 xl:p-8"
-            >
-              <div className="relative">
-                <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
-                  {data.logo ? (
-                    <img
-                      src={data.logo}
-                      alt={data.company}
-                      className="h-full object-contain object-left"
-                    />
-                  ) : (
-                    <div className="max-w-full truncate font-display text-sm font-bold uppercase tracking-tight text-white/20">
-                      {data.company}
-                    </div>
-                  )}
+        <motion.div
+          initial={false}
+          animate={{
+            flexBasis: isActive ? "58%" : "0%",
+            width: isActive ? "58%" : "0%",
+            opacity: isActive ? 1 : 0,
+            x: isActive ? 0 : 12,
+          }}
+          transition={{
+            flexBasis: {
+              duration: 0.42,
+              ease: [0.22, 1, 0.36, 1],
+            },
+            width: {
+              duration: 0.42,
+              ease: [0.22, 1, 0.36, 1],
+            },
+            opacity: {
+              duration: isActive ? 0.28 : 0.12,
+              delay: isActive ? 0.10 : 0,
+            },
+            x: {
+              duration: 0.30,
+              ease: [0.22, 1, 0.36, 1],
+            },
+          }}
+          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-6 lg:flex-none xl:p-8"
+        >
+          <div className="relative">
+            <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
+              {data.logo ? (
+                <img
+                  src={data.logo}
+                  alt={data.company}
+                  className="h-full object-contain object-left"
+                />
+              ) : (
+                <div className="max-w-full truncate font-display text-sm font-bold uppercase tracking-tight text-white/20">
+                  {data.company}
                 </div>
+              )}
+            </div>
 
-                <div className="mt-8">
-                  <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
-                    {data.segment}
-                  </div>
-                  <h3 className="mt-2 font-display text-2xl xl:text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none">
-                    {data.company}
-                  </h3>
-                </div>
-
-                <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm xl:text-base italic leading-relaxed text-white/70">
-                  “{data.quote}”
-                </blockquote>
+            <div className="mt-8">
+              <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+                {data.segment}
               </div>
+              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-3xl">
+                {data.company}
+              </h3>
+            </div>
 
-              <div className="mt-8 space-y-6">
-                <div>
-                  <div className="text-sm font-semibold text-white">{data.name}</div>
-                  <div className="text-[10px] uppercase tracking-widest text-white/40">
-                    {data.role}
-                  </div>
-                </div>
+            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-relaxed text-white/70 xl:text-base">
+              “{data.quote}”
+            </blockquote>
+          </div>
 
-                <div className="flex flex-wrap gap-1.5">
-                  {data.tags.slice(0, 2).map((tag: string) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+          <div className="mt-8 space-y-6">
+            <div>
+              <div className="text-sm font-semibold text-white">{data.name}</div>
+              <div className="text-[10px] uppercase tracking-widest text-white/40">
+                {data.role}
+              </div>
+            </div>
 
-                <a
-                  href={data.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+            <div className="flex flex-wrap gap-1.5">
+              {data.tags.slice(0, 2).map((tag: string) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40"
                 >
-                  <InstagramIcon className="h-3 w-3" />
-                  Ver no Instagram
-                </a>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href={data.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+            >
+              <InstagramIcon className="h-3 w-3" />
+              Ver no Instagram
+            </a>
+          </div>
+        </motion.div>
       </motion.article>
     </motion.div>
   );

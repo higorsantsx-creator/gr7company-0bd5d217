@@ -170,7 +170,10 @@ export interface VideoTestimonial {
   tags: string[];
   thumbnail: string;
   logo?: string;
+  // perfil oficial do cliente
   href: string;
+  // Reel específico do depoimento
+  reelHref: string;
 }
 
 const testimonial01Thumb = new URL("../../assets/testimonials/test-01.jpg", import.meta.url).href;
@@ -189,6 +192,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     tags: ["POSICIONAMENTO", "CONTEÚDO", "ESTRATÉGIA"],
     thumbnail: testimonial01Thumb,
     href: "https://www.instagram.com/chales_ia?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    reelHref: "https://www.instagram.com/gr7company/reel/DajRUOoSTU6/",
   },
   {
     name: "Ana C.",
@@ -200,6 +204,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     thumbnail: testimonial02Thumb,
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
     href: "https://www.instagram.com/bobbymoveis?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    reelHref: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/",
   },
   {
     name: "Carlos M.",
@@ -210,6 +215,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     tags: ["ESTRATÉGIA", "MARCA", "PRESENÇA DIGITAL"],
     thumbnail: testimonial03Thumb,
     href: "https://www.instagram.com/jveforrosedivisorias?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    reelHref: "https://www.instagram.com/gr7company/reel/DZ0RrtmS7Ni/",
   },
   {
     name: "Felipe G.",
@@ -221,6 +227,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     thumbnail: testimonial04Thumb,
     logo: "/__l5e/assets-v1/d8da49b7-d726-463b-b41c-78142c4440a8/lagosta-fitness-new.png",
     href: "https://www.instagram.com/lagostafitness?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    reelHref: "https://www.instagram.com/ruivoo_g/reel/DZLdj8HxzgZ/",
   },
   {
     name: "Marcos L.",
@@ -232,6 +239,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     thumbnail: testimonial05Thumb,
     logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
     href: "https://www.instagram.com/shineraymotonowpe?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    reelHref: "https://www.instagram.com/ruivoo_g/reel/DZOKcfAxRUo/",
   },
 ];
 
