@@ -1025,7 +1025,7 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 16 : isAnyActive ? 0.15 : 1,
+        flexGrow: isActive ? 24 : isAnyActive ? 0.08 : 1,
       }}
       transition={{
         duration: 0.6,
@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "420px" : "100%",
-            width: isActive ? "420px" : "100%",
+            flexBasis: isActive ? "460px" : "100%",
+            width: isActive ? "460px" : "100%",
           }}
           transition={{
             duration: 0.42,
@@ -1183,7 +1183,7 @@ function TestimonialCard({
               </h3>
             </div>
  
-            <blockquote className="mt-4 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.45] text-white/70 xl:text-[14.5px]">
+            <blockquote className="mt-4 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.4] text-white/70 xl:text-[14px]">
               “{data.quote}”
             </blockquote>
           </div>
