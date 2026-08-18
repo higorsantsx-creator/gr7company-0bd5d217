@@ -1316,10 +1316,6 @@ function TestimonialCard({
   );
 }
 
-      </motion.article>
-    </motion.div>
-  );
-}
 
 
 
