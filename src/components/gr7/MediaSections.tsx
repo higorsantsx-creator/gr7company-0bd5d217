@@ -1157,7 +1157,7 @@ function TestimonialCard({
           </div>
 
           <div
-            className={`absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
+            className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-30" : "opacity-60"}`}
           />
 
           {/* Hit area for Reel Play (Central) */}
@@ -1167,8 +1167,10 @@ function TestimonialCard({
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             aria-label={`Assistir depoimento de ${data.company}`}
-            className="absolute left-1/2 top-1/2 z-30 h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#ff1a1a]"
-          />
+            className="absolute left-1/2 top-1/2 z-40 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-[#ff1a1a] focus-visible:ring-2 focus-visible:ring-[#ff1a1a]"
+          >
+            <Play className="h-6 w-6 translate-x-0.5 fill-white text-white transition-colors hover:fill-[#ff1a1a] hover:text-[#ff1a1a]" />
+          </a>
 
           {/* Small Play Button (Top Left) */}
           <a
