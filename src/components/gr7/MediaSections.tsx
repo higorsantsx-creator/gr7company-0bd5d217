@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "42%" : "100%",
-            width: isActive ? "42%" : "100%",
+            flexBasis: isActive ? "40%" : "100%",
+            width: isActive ? "40%" : "100%",
           }}
           transition={{
             duration: 0.42,
