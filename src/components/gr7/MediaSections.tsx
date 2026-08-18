@@ -1000,106 +1000,123 @@ export function VideoTestimonialsSection() {
 function TestimonialCard({
   index,
   data,
-  isHovered,
-  isAnyHovered,
-  isSelected,
-  onHover,
-  onLeave,
+  isActive,
+  isAnyActive,
+  onPointerEnter,
   onClick,
 }: {
   index: number;
   data: any;
-  isHovered: boolean;
-  isAnyHovered: boolean;
-  isSelected: boolean;
-  onHover: () => void;
-  onLeave: () => void;
+  isActive: boolean;
+  isAnyActive: boolean;
+  onPointerEnter: () => void;
   onClick: () => void;
 }) {
-  const active = isHovered || isSelected;
-  const othersActive = isAnyHovered && !isHovered;
-
-  // Direction-aware 3D: cards on edges tilt more inwards
   const total = videoTestimonials.length;
   const mid = (total - 1) / 2;
-  const tiltY = (mid - index) * 2.5; // subtle tilt based on position
+  const tiltY = (mid - index) * 2.5;
 
   return (
-    <div
-      className="testimonial-slot relative h-[450px] w-full lg:h-[500px] lg:flex-1"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+    <motion.div
+      className="testimonial-slot relative h-[450px] w-full lg:h-[500px] lg:basis-0"
+      onPointerEnter={onPointerEnter}
+      animate={{
+        flexGrow: isActive ? 2.4 : isAnyActive ? 0.65 : 1,
+      }}
+      transition={{
+        duration: 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       <motion.article
         onClick={onClick}
         initial={false}
         animate={{
-          width: active ? "130%" : "100%",
-          x: active ? (index < mid ? "-5%" : index > mid ? "5%" : "0%") : "0%",
-          scale: active ? 1.05 : othersActive ? 0.97 : 1,
-          zIndex: active ? 30 : isAnyHovered ? 10 : 20,
-          rotateY: active ? tiltY : 0,
-          rotateX: active ? 1 : 0,
-          translateZ: active ? 40 : 0,
+          scale: isActive ? 1.015 : isAnyActive ? 0.985 : 1,
+          zIndex: isActive ? 30 : isAnyActive ? 10 : 20,
+          rotateY: isActive ? tiltY : 0,
+          rotateX: isActive ? 1 : 0,
+          translateZ: isActive ? 24 : 0,
+          opacity: isAnyActive && !isActive ? 0.58 : 1,
         }}
         transition={{
           duration: 0.5,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className={`testimonial-visual group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 will-change-transform lg:absolute lg:inset-0 lg:flex-row ${
-          active
+        className={`testimonial-visual group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 will-change-transform lg:flex-row ${
+          isActive
             ? "border-[#ff1a1a]/50 shadow-[0_30px_60px_-15px_rgba(255,26,26,0.25)]"
             : "border-white/10"
         }`}
         style={{ transformStyle: "preserve-3d" }}
       >
         {/* Media Column */}
-        <div className={`relative h-full transition-all duration-500 ${active ? "w-full lg:w-[45%]" : "w-full"}`}>
+        <div
+          className={
+            isActive
+              ? "relative h-full w-full lg:w-[42%] lg:flex-none"
+              : "relative h-full w-full"
+          }
+        >
           <MediaSlot
             poster={data.thumbnail}
             kind="image"
             alt={data.company}
-            className="absolute inset-0 grayscale-[0.2] group-hover:grayscale-0 transition-all duration-700"
+            className="absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0"
             icon="reel"
             ornate={false}
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${active ? "opacity-100" : "opacity-60"}`} />
-          
+          <div
+            className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-100" : "opacity-60"}`}
+          />
+
           {/* Active indicator */}
-          <div className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${active ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}>
+          <div
+            className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${isActive ? "scale-100 opacity-100" : "scale-75 opacity-0"}`}
+          >
             <Play className="h-3 w-3 fill-[#ff1a1a] text-[#ff1a1a]" />
           </div>
 
           <div className="absolute inset-x-0 bottom-0 p-5 lg:hidden">
             <div className="font-display text-lg text-white">{data.company}</div>
-            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff1a1a]">{data.segment}</div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#ff1a1a]">
+              {data.segment}
+            </div>
           </div>
-          
+
           {/* Desktop-only simple label when not active */}
-          {!active && (
+          {!isActive && (
             <div className="absolute inset-x-0 bottom-0 hidden p-6 lg:block">
               <div className="font-display text-xl text-white">{data.company}</div>
-              <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">{data.segment.split(" ")[0]}</div>
+              <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">
+                {data.segment.split(" ")[0]}
+              </div>
             </div>
           )}
         </div>
 
         {/* Content Column (Revealed on active) */}
         <AnimatePresence>
-          {active && (
+          {isActive && (
             <motion.div
-              initial={{ opacity: 0, x: 20, filter: "blur(4px)" }}
+              initial={{ opacity: 0, x: 16, filter: "blur(2px)" }}
               animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               exit={{ opacity: 0, x: 10, filter: "blur(4px)" }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="flex flex-1 flex-col justify-between overflow-hidden p-8 lg:p-10"
+              transition={{ duration: 0.4, delay: 0.15 }}
+              className="flex min-w-0 lg:w-[58%] lg:flex-none flex-col justify-between p-6 xl:p-8"
             >
               <div className="relative">
                 <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
                   {data.logo ? (
-                    <img src={data.logo} alt={data.company} className="h-full object-contain object-left" />
+                    <img
+                      src={data.logo}
+                      alt={data.company}
+                      className="h-full object-contain object-left"
+                    />
                   ) : (
-                    <div className="font-display text-xl font-bold tracking-tighter text-white/20 uppercase">{data.company}</div>
+                    <div className="max-w-full truncate font-display text-sm font-bold uppercase tracking-tight text-white/20">
+                      {data.company}
+                    </div>
                   )}
                 </div>
 
@@ -1107,12 +1124,12 @@ function TestimonialCard({
                   <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                     {data.segment}
                   </div>
-                  <h3 className="mt-2 font-display text-3xl leading-none text-white">
+                  <h3 className="mt-2 font-display text-2xl xl:text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none">
                     {data.company}
                   </h3>
                 </div>
 
-                <blockquote className="mt-6 border-l border-[#ff1a1a] pl-4 text-sm italic leading-relaxed text-white/70 lg:text-base">
+                <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm xl:text-base italic leading-relaxed text-white/70">
                   “{data.quote}”
                 </blockquote>
               </div>
@@ -1120,12 +1137,17 @@ function TestimonialCard({
               <div className="mt-8 space-y-6">
                 <div>
                   <div className="text-sm font-semibold text-white">{data.name}</div>
-                  <div className="text-[10px] uppercase tracking-widest text-white/40">{data.role}</div>
+                  <div className="text-[10px] uppercase tracking-widest text-white/40">
+                    {data.role}
+                  </div>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
                   {data.tags.slice(0, 2).map((tag: string) => (
-                    <span key={tag} className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40">
+                    <span
+                      key={tag}
+                      className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -1135,7 +1157,8 @@ function TestimonialCard({
                   href={data.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex w-fit items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
                 >
                   <Play className="h-2.5 w-2.5 fill-current" />
                   Assistir
@@ -1145,7 +1168,9 @@ function TestimonialCard({
           )}
         </AnimatePresence>
       </motion.article>
-    </div>
+    </motion.div>
+  );
+}
   );
 }
 
