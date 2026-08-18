@@ -1218,22 +1218,13 @@ function TestimonialCard({
             x: isActive ? 0 : 20,
           }}
           transition={{
-            flexBasis: {
-              duration: 0.42,
-              ease: [0.22, 1, 0.36, 1],
-            },
-            width: {
-              duration: 0.42,
-              ease: [0.22, 1, 0.36, 1],
-            },
+            flexBasis: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+            width: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
             opacity: {
-              duration: isActive ? 0.28 : 0.12,
-              delay: isActive ? 0.10 : 0,
+              duration: isActive ? 0.35 : 0.15,
+              delay: isActive ? 0.15 : 0,
             },
-            x: {
-              duration: 0.30,
-              ease: [0.22, 1, 0.36, 1],
-            },
+            x: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
           }}
           className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
         >
