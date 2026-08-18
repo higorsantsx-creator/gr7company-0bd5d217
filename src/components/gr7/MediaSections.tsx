@@ -1125,13 +1125,13 @@ function TestimonialCard({
               className="pointer-events-none absolute inset-0 h-full w-full object-cover"
               initial={false}
               animate={{
-                opacity: isActive ? 0.55 : 0,
-                scale: isActive ? 1.1 : 1.03,
+                opacity: isActive ? 0.45 : 0,
+                scale: isActive ? 1.15 : 1.05,
                 filter: isActive
-                  ? "blur(18px) brightness(0.42) saturate(0.8)"
+                  ? "blur(22px) brightness(0.4) saturate(0.85)"
                   : "blur(8px) brightness(0.7)",
               }}
-              transition={{ duration: 0.42 }}
+              transition={{ duration: 0.55 }}
             />
 
             {/* LAYER C — ORIGINAL COVER / POSTER */}
