@@ -1042,24 +1042,46 @@ function TestimonialCard({
         onClick={onClick}
         initial={false}
         animate={{
-          scale: isActive ? 1.015 : isAnyActive ? 0.985 : 1,
-          zIndex: isActive ? 30 : isAnyActive ? 10 : 20,
+          scale: isActive ? 1.025 : isAnyActive ? 0.975 : 1,
+          zIndex: isActive ? 40 : isAnyActive ? 10 : 20,
           rotateY: isActive ? tiltY : 0,
           rotateX: isActive ? 1 : 0,
-          translateZ: isActive ? 24 : 0,
-          opacity: isAnyActive && !isActive ? 0.58 : 1,
+          translateZ: isActive ? 34 : index === activeIndex + 1 || index === activeIndex - 1 ? -8 : isAnyActive ? -14 : 0,
+          opacity: isAnyActive && !isActive ? 0.52 : 1,
+          filter: isAnyActive && !isActive ? "brightness(0.72) saturate(0.75)" : "brightness(1) saturate(1)",
         }}
         transition={{
-          duration: 0.5,
+          duration: 0.55,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className={`testimonial-visual group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 will-change-transform lg:flex-row ${
+        className={`testimonial-visual group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 shadow-2xl will-change-transform lg:flex-row ${
           isActive
-            ? "border-[#ff1a1a]/50 shadow-[0_30px_60px_-15px_rgba(255,26,26,0.25)]"
+            ? "border-[#ff1a1a]/40 shadow-[0_30px_60px_-15px_rgba(255,26,26,0.3)]"
             : "border-white/10"
         }`}
         style={{ transformStyle: "preserve-3d" }}
       >
+        {/* Active Edge Light */}
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="pointer-events-none absolute inset-0 z-10"
+            style={{
+              background: "radial-gradient(circle at 42% 50%, rgba(255,26,26,0.12), transparent 42%)",
+            }}
+          />
+        )}
+        
+        {/* Border Light Sweep */}
+        {isActive && (
+          <motion.div
+            initial={{ left: "-100%" }}
+            animate={{ left: "100%" }}
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+            className="absolute top-0 h-[1px] w-[30%] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
+          />
+        )}
         {/* Media Column */}
         <motion.div
           className="relative h-full w-full lg:flex-none"
