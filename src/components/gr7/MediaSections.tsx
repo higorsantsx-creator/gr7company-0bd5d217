@@ -947,43 +947,50 @@ export function VideoTestimonialsSection() {
   return (
     <section 
       id="depoimentos" 
-      className="relative flex min-h-[800px] items-center overflow-visible py-32 md:py-48"
+      className="relative flex min-h-[900px] items-center overflow-visible py-32 md:py-48"
     >
-      <div className="mx-auto flex w-full max-w-7xl flex-col px-6 md:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <SectionHead
-            kicker="Depoimentos"
-            title={
-              <>
-                Quem viveu <span className="italic text-white/50">conta melhor.</span>
-              </>
-            }
-            lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
-          />
-        </motion.div>
-
-        {/* Testimonials Row */}
-        <div 
-          className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-2"
-          style={{ transformStyle: "preserve-3d" }}
-          onPointerLeave={() => setHoveredIndex(null)}
-        >
-          {videoTestimonials.map((v, i) => (
-            <TestimonialCard
-              key={i}
-              index={i}
-              data={v}
-              isActive={activeIndex === i}
-              isAnyActive={hasActiveCard}
-              onPointerEnter={() => setHoveredIndex(i)}
-              onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
+      <div className="mx-auto flex w-full flex-col">
+        {/* Heading contained */}
+        <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <SectionHead
+              kicker="Depoimentos"
+              title={
+                <>
+                  Quem viveu <span className="italic text-white/50">conta melhor.</span>
+                </>
+              }
+              lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
             />
-          ))}
+          </motion.div>
+        </div>
+
+        {/* Testimonials breakout */}
+        <div className="mx-auto w-[94vw] max-w-[1680px]">
+          {/* Testimonials Row */}
+          <div 
+            className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-2"
+            style={{ transformStyle: "preserve-3d" }}
+            onPointerLeave={() => setHoveredIndex(null)}
+          >
+            {videoTestimonials.map((v, i) => (
+              <TestimonialCard
+                key={i}
+                index={i}
+                data={v}
+              isActive={activeIndex === i}
+              activeIndex={activeIndex}
+              isAnyActive={hasActiveCard}
+                onPointerEnter={() => setHoveredIndex(i)}
+                onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Cinematic Ambient Lighting */}
@@ -1003,6 +1010,7 @@ function TestimonialCard({
   index,
   data,
   isActive,
+  activeIndex,
   isAnyActive,
   onPointerEnter,
   onClick,
@@ -1010,6 +1018,7 @@ function TestimonialCard({
   index: number;
   data: typeof videoTestimonials[0];
   isActive: boolean;
+  activeIndex: number | null;
   isAnyActive: boolean;
   onPointerEnter: () => void;
   onClick: () => void;
@@ -1022,10 +1031,10 @@ function TestimonialCard({
 
   return (
     <motion.div
-      className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
+      className="testimonial-slot relative h-[450px] w-full lg:h-[620px] xl:h-[640px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 4.2 : isAnyActive ? 0.5 : 1,
+        flexGrow: isActive ? 5.2 : isAnyActive ? 0.45 : 1,
       }}
       transition={{
         duration: 0.55,
@@ -1036,34 +1045,56 @@ function TestimonialCard({
         onClick={onClick}
         initial={false}
         animate={{
-          scale: isActive ? 1.015 : isAnyActive ? 0.985 : 1,
-          zIndex: isActive ? 30 : isAnyActive ? 10 : 20,
+          scale: isActive ? 1.025 : isAnyActive ? 0.975 : 1,
+          zIndex: isActive ? 40 : isAnyActive ? 10 : 20,
           rotateY: isActive ? tiltY : 0,
           rotateX: isActive ? 1 : 0,
-          translateZ: isActive ? 24 : 0,
-          opacity: isAnyActive && !isActive ? 0.58 : 1,
+          translateZ: isActive ? 34 : activeIndex !== null && (index === activeIndex + 1 || index === activeIndex - 1) ? -8 : isAnyActive ? -14 : 0,
+          opacity: isAnyActive && !isActive ? 0.52 : 1,
+          filter: isAnyActive && !isActive ? "brightness(0.72) saturate(0.75)" : "brightness(1) saturate(1)",
         }}
         transition={{
-          duration: 0.5,
+          duration: 0.55,
           ease: [0.22, 1, 0.36, 1],
         }}
-        className={`testimonial-visual group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 will-change-transform lg:flex-row ${
+        className={`testimonial-visual group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border bg-[#0a0a0a] transition-colors duration-500 shadow-2xl will-change-transform lg:flex-row ${
           isActive
-            ? "border-[#ff1a1a]/50 shadow-[0_30px_60px_-15px_rgba(255,26,26,0.25)]"
+            ? "border-[#ff1a1a]/40 shadow-[0_30px_60px_-15px_rgba(255,26,26,0.3)]"
             : "border-white/10"
         }`}
         style={{ transformStyle: "preserve-3d" }}
       >
+        {/* Active Edge Light */}
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="pointer-events-none absolute inset-0 z-10"
+            style={{
+              background: "radial-gradient(circle at 42% 50%, rgba(255,26,26,0.12), transparent 42%)",
+            }}
+          />
+        )}
+        
+        {/* Border Light Sweep */}
+        {isActive && (
+          <motion.div
+            initial={{ left: "-100%" }}
+            animate={{ left: "100%" }}
+            transition={{ duration: 0.65, ease: "easeInOut" }}
+            className="absolute top-0 h-[1px] w-[30%] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
+          />
+        )}
         {/* Media Column */}
         <motion.div
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "44%" : "100%",
-            width: isActive ? "44%" : "100%",
+            flexBasis: isActive ? "42%" : "100%",
+            width: isActive ? "42%" : "100%",
           }}
           transition={{
-            duration: 0.42,
+            duration: 0.55,
             ease: [0.22, 1, 0.36, 1],
           }}
         >
@@ -1094,34 +1125,39 @@ function TestimonialCard({
               className="pointer-events-none absolute inset-0 h-full w-full object-cover"
               initial={false}
               animate={{
-                opacity: isActive ? 0.55 : 0,
-                scale: isActive ? 1.1 : 1.03,
+                opacity: isActive ? 0.45 : 0,
+                scale: isActive ? 1.15 : 1.05,
                 filter: isActive
-                  ? "blur(18px) brightness(0.42) saturate(0.8)"
+                  ? "blur(22px) brightness(0.4) saturate(0.85)"
                   : "blur(8px) brightness(0.7)",
               }}
-              transition={{ duration: 0.42 }}
+              transition={{ duration: 0.55 }}
             />
 
-            {/* LAYER C — ORIGINAL COVER / POSTER */}
-            <motion.img
-              src={data.thumbnail}
-              alt={`${data.company} — depoimento`}
-              className="pointer-events-none absolute inset-0 h-full w-full object-contain object-center"
+            {/* LAYER C — ORIGINAL COVER / POSTER (Active Poster Mode) */}
+            <motion.div
+              className="absolute inset-[15px] z-20 h-[calc(100%-30px)] w-[calc(100%-30px)]"
               initial={false}
               animate={{
                 opacity: isActive ? 1 : 0,
-                scale: isActive ? 1 : 0.985,
+                scale: isActive ? 1 : 0.95,
+                translateZ: isActive ? 12 : 0,
               }}
               transition={{
-                duration: 0.42,
+                duration: 0.5,
                 ease: [0.22, 1, 0.36, 1],
               }}
-            />
+            >
+              <img
+                src={data.thumbnail}
+                alt={`${data.company} — depoimento`}
+                className="h-full w-full object-contain object-center shadow-2xl"
+              />
+            </motion.div>
           </div>
 
           <div
-            className={`absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
+            className={`absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-30" : "opacity-60"}`}
           />
 
           {/* Hit area for Reel Play (Central) */}
@@ -1131,8 +1167,10 @@ function TestimonialCard({
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
             aria-label={`Assistir depoimento de ${data.company}`}
-            className="absolute left-1/2 top-1/2 z-30 h-11 w-11 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#ff1a1a]"
-          />
+            className="absolute left-1/2 top-1/2 z-40 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-white/15 bg-black/50 backdrop-blur transition-all duration-300 hover:scale-110 hover:border-[#ff1a1a] focus-visible:ring-2 focus-visible:ring-[#ff1a1a]"
+          >
+            <Play className="h-6 w-6 translate-x-0.5 fill-white text-white transition-colors hover:fill-[#ff1a1a] hover:text-[#ff1a1a]" />
+          </a>
 
           {/* Small Play Button (Top Left) */}
           <a
@@ -1158,12 +1196,12 @@ function TestimonialCard({
           {/* Desktop-only simple label when not active */}
           {!isActive && (
             <div className="absolute inset-x-0 bottom-0 hidden p-6 lg:block">
-              <div className={`font-display text-white transition-all duration-300 ${isAnyActive ? 'text-lg' : 'text-xl'}`}>
+              <div className={`font-display text-white transition-all duration-300 ${isAnyActive ? 'text-xs' : 'text-xl'}`}>
                 {data.company}
               </div>
               {!isAnyActive && (
                 <div className="mt-1 text-[9px] font-bold uppercase tracking-widest text-white/40">
-                  {data.segment.split(" ")[0]}
+                  {data.segment}
                 </div>
               )}
             </div>
@@ -1174,28 +1212,19 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "56%" : "0%",
-            width: isActive ? "56%" : "0%",
+            flexBasis: isActive ? "58%" : "0%",
+            width: isActive ? "58%" : "0%",
             opacity: isActive ? 1 : 0,
-            x: isActive ? 0 : 12,
+            x: isActive ? 0 : 20,
           }}
           transition={{
-            flexBasis: {
-              duration: 0.42,
-              ease: [0.22, 1, 0.36, 1],
-            },
-            width: {
-              duration: 0.42,
-              ease: [0.22, 1, 0.36, 1],
-            },
+            flexBasis: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
+            width: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
             opacity: {
-              duration: isActive ? 0.28 : 0.12,
-              delay: isActive ? 0.10 : 0,
+              duration: isActive ? 0.35 : 0.15,
+              delay: isActive ? 0.15 : 0,
             },
-            x: {
-              duration: 0.30,
-              ease: [0.22, 1, 0.36, 1],
-            },
+            x: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
           }}
           className="relative flex h-full min-h-0 min-w-0 flex-col overflow-hidden p-5 lg:flex-none xl:p-6"
         >
@@ -1214,33 +1243,41 @@ function TestimonialCard({
               )}
             </div>
 
-            <div className="mt-5">
-              <div className="text-[9px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+            <div className="mt-6">
+              <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
                 {data.segment}
               </div>
-              <h3 className="mt-2 font-display text-2xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[28px]">
+              <h3 className="mt-2 font-display text-3xl leading-[1.05] text-white whitespace-normal break-normal hyphens-none xl:text-[38px]">
                 {data.company}
               </h3>
             </div>
  
-            <blockquote className="mt-5 border-l border-[#ff1a1a] pl-4 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]">
-              “{data.quote}”
-            </blockquote>
+            <div className="relative mt-8">
+              <motion.div 
+                initial={{ height: 0 }}
+                animate={isActive ? { height: "100%" } : { height: 0 }}
+                transition={{ duration: 0.42 }}
+                className="absolute left-0 top-0 w-[1px] bg-[#ff1a1a]" 
+              />
+              <blockquote className="max-w-[520px] pl-6 text-base italic leading-[1.55] text-white/70 xl:text-[18px]">
+                “{data.quote}”
+              </blockquote>
+            </div>
           </div>
 
-          <div className="mt-5 shrink-0 space-y-3">
+          <div className="mt-8 shrink-0 space-y-4 pb-2">
             <div>
-              <div className="text-sm font-semibold text-white">{data.name}</div>
-              <div className="text-[10px] uppercase tracking-widest text-white/40">
+              <div className="text-base font-semibold text-white">{data.name}</div>
+              <div className="text-[11px] uppercase tracking-widest text-white/40">
                 {data.role}
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-1.5">
-              {data.tags.slice(0, 2).map((tag: string) => (
+            <div className="flex flex-wrap gap-2">
+              {data.tags.slice(0, 3).map((tag: string) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-white/5 bg-white/5 px-2 py-0.5 text-[8px] font-bold uppercase tracking-widest text-white/40"
+                  className="rounded-full border border-white/5 bg-white/5 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-white/40"
                 >
                   {tag}
                 </span>
@@ -1252,10 +1289,11 @@ function TestimonialCard({
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-5 py-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+              className="group inline-flex w-fit shrink-0 items-center gap-2 rounded-full bg-[#ff1a1a] px-7 py-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
             >
-              <InstagramIcon className="h-3 w-3" />
+              <InstagramIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
               Ver no Instagram
+              <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
             </a>
           </div>
         </motion.div>
