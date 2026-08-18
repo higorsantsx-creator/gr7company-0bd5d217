@@ -1130,8 +1130,8 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "58%" : "0%",
-            width: isActive ? "58%" : "0%",
+            flexBasis: isActive ? "60%" : "0%",
+            width: isActive ? "60%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 12,
           }}
@@ -1153,7 +1153,7 @@ function TestimonialCard({
               ease: [0.22, 1, 0.36, 1],
             },
           }}
-          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-6 lg:flex-none xl:p-8"
+          className="relative flex min-w-0 flex-col justify-between overflow-hidden p-5 lg:flex-none xl:p-7"
         >
           <div className="relative">
             <div className="flex h-12 w-24 items-center justify-start opacity-60 grayscale transition-all hover:opacity-100 hover:grayscale-0">
