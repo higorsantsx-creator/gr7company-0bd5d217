@@ -1016,7 +1016,7 @@ function TestimonialCard({
 }) {
   const total = videoTestimonials.length;
   const mid = (total - 1) / 2;
-  const tiltY = (mid - index) * 2.2; // Limitado a ±4.4deg
+  const tiltY = Math.max(-4.5, Math.min(4.5, (mid - index) * 2.2));
 
   return (
     <motion.div
@@ -1026,10 +1026,11 @@ function TestimonialCard({
         flexGrow: isActive ? 3.8 : isAnyActive ? 0.48 : 1,
       }}
       transition={{
-        duration: 0.55,
+        duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       }}
     >
+
       <motion.article
         onClick={onClick}
         initial={false}
@@ -1063,20 +1064,27 @@ function TestimonialCard({
           style={{
             background: "radial-gradient(circle at 45% 50%, rgba(255,26,26,0.12), transparent 48%)"
           }}
+          transition={{ duration: 0.6 }}
         />
 
         {/* Border Energy Sweep */}
         <AnimatePresence>
           {isActive && (
             <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: "200%" }}
+              initial={{ x: "-100%", opacity: 0 }}
+              animate={{ x: "200%", opacity: [0, 1, 1, 0] }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut", delay: 0.4 }}
-              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-[1px] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
+              transition={{ 
+                duration: 0.9, 
+                ease: "easeInOut", 
+                delay: 0.45,
+                opacity: { times: [0, 0.2, 0.8, 1] }
+              }}
+              className="pointer-events-none absolute inset-x-0 top-0 z-50 h-[1.5px] bg-gradient-to-r from-transparent via-[#ff1a1a] to-transparent"
             />
           )}
         </AnimatePresence>
+
 
         {/* Media Column */}
         <motion.div
@@ -1100,9 +1108,13 @@ function TestimonialCard({
               className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 ${
                 isActive ? "opacity-0" : "opacity-100 scale-[1.03] brightness-[1.05]"
               }`}
+              style={{
+                objectPosition: data.thumbnailPosition ?? "50% 50%"
+              }}
               icon="reel"
               ornate={false}
             />
+
 
             {/* Layer 1: Atmospheric Background (Active Only) */}
             <motion.img
@@ -1114,17 +1126,20 @@ function TestimonialCard({
                 scale: isActive ? 1.15 : 1.05,
                 opacity: isActive ? 0.65 : 0,
                 filter: isActive
-                  ? "blur(18px) brightness(0.40) saturate(0.75)"
+                  ? "blur(20px) brightness(0.40) saturate(0.75)"
                   : "blur(8px) brightness(0.7)"
               }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.7 }}
             />
+
 
             {/* Layer 2: Original Poster (Active Only) */}
             <motion.img
               src={data.thumbnail}
               alt={`${data.company} — capa do depoimento`}
-              className="absolute inset-0 h-full w-full object-contain p-[4%]"
+              className="absolute inset-0 h-full w-full object-contain p-[5%]"
+              style={{ objectPosition: data.thumbnailPosition ?? "50% 50%" }}
+
               initial={{ opacity: 0, scale: 0.97, translateZ: 0 }}
               animate={{
                 opacity: isActive ? 1 : 0,
@@ -1264,12 +1279,12 @@ function TestimonialCard({
             <motion.blockquote 
               animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : 8 }}
               transition={{ delay: 0.20 }}
-              className="relative mt-5 pl-5 text-sm italic leading-[1.5] text-white/70 xl:text-[15px]"
+              className="relative mt-5 pl-5 text-sm italic leading-[1.45] text-white/70 xl:text-[14.5px]"
             >
               <motion.div 
                 initial={{ height: "0%" }}
                 animate={{ height: isActive ? "100%" : "0%" }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
                 className="absolute left-0 top-0 w-[1px] bg-[#ff1a1a]"
               />
               “{data.quote}”
@@ -1278,9 +1293,10 @@ function TestimonialCard({
 
           <motion.div 
             animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-            transition={{ delay: 0.25 }}
-            className="mt-5 shrink-0 space-y-3"
+            transition={{ delay: 0.28 }}
+            className="mt-4 shrink-0 space-y-3 pb-2"
           >
+
             <div>
               <div className="text-sm font-semibold text-white">{data.name}</div>
               <div className="text-[10px] uppercase tracking-widest text-white/40">
