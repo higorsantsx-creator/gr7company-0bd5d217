@@ -936,11 +936,14 @@ export function DashboardsSection() {
 /*  11. VIDEO TESTIMONIALS — carrossel horizontal                      */
 /* ================================================================== */
 export function VideoTestimonialsSection() {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const displayIndex = hoveredIndex ?? selectedIndex;
 
   return (
     <section id="depoimentos" className="relative py-32 md:py-48 overflow-hidden min-h-[900px] flex items-center">
-      <div className="mx-auto max-w-7xl px-6 md:px-10 w-full">
+      <div className="mx-auto max-w-7xl px-6 md:px-10 w-full flex flex-col">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -959,180 +962,173 @@ export function VideoTestimonialsSection() {
         </motion.div>
 
         <div className="relative flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-20">
-          {/* Info Panel */}
-          <div className="relative z-20 w-full lg:w-[45%] min-h-[500px]">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeIndex}
-                initial={{ opacity: 0, x: -40, filter: "blur(10px)" }}
-                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, x: -20, filter: "blur(10px)" }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="relative space-y-8"
-              >
-                {/* Ghost Logo Textures */}
-                <div className="pointer-events-none absolute -left-12 -top-12 select-none opacity-[0.03] transition-opacity duration-1000">
-                  <div className="font-display text-[12rem] leading-none uppercase text-white whitespace-nowrap">
-                    {videoTestimonials[activeIndex].company.split(" ")[0]}
-                  </div>
-                </div>
-
-                <div className="relative space-y-8">
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex h-16 w-32 items-center justify-start overflow-hidden"
-                  >
-                    {videoTestimonials[activeIndex].logo ? (
-                      <img 
-                        src={videoTestimonials[activeIndex].logo} 
-                        alt={videoTestimonials[activeIndex].company}
-                        className="h-full object-contain object-left"
-                      />
-                    ) : (
-                      <div className="font-display text-2xl font-bold tracking-tighter text-white/40 uppercase">
-                        {videoTestimonials[activeIndex].company}
-                      </div>
-                    )}
-                  </motion.div>
-
-                  <div>
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]"
-                    >
-                      {videoTestimonials[activeIndex].segment}
-                    </motion.div>
-                    <motion.h3 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="mt-2 font-display text-4xl leading-[1.1] text-white md:text-5xl"
-                    >
-                      {videoTestimonials[activeIndex].company}
-                    </motion.h3>
-                  </div>
-
-                  <motion.blockquote 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="relative border-l-2 border-[#ff1a1a] pl-6 text-xl italic leading-relaxed text-white/90 md:text-2xl font-light"
-                  >
-                    “{videoTestimonials[activeIndex].quote}”
-                  </motion.blockquote>
-
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                    >
-                      <div className="text-sm font-semibold text-white">
-                        {videoTestimonials[activeIndex].name}
-                      </div>
-                      <div className="text-xs text-white/50">
-                        {videoTestimonials[activeIndex].role}
-                      </div>
-                    </motion.div>
-
-                    <motion.a
-                      href={videoTestimonials[activeIndex].href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.8 }}
-                      className="inline-flex items-center gap-2 rounded-full bg-[#ff1a1a] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
-                    >
-                      <Play className="h-3 w-3 fill-current" />
-                      Assistir Depoimento
-                    </motion.a>
-                  </div>
-
-                  <motion.div 
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                    className="flex flex-wrap gap-2 pt-4"
-                  >
-                    {videoTestimonials[activeIndex].tags.map((tag, idx) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.7 + idx * 0.1 }}
-                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white/60"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </motion.div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Video Gallery */}
-          <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 w-full lg:w-[50%]">
+          {/* Video Gallery - Positioned TOP on Mobile (order-1) */}
+          <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6 w-full lg:w-[50%] order-2 lg:order-2">
             {videoTestimonials.map((v, i) => {
-              const isActive = activeIndex === i;
+              const isSelected = selectedIndex === i;
+              const isHovered = hoveredIndex === i;
+              const isDisplaying = displayIndex === i;
+              const otherIsHovered = hoveredIndex !== null && !isHovered;
 
               return (
                 <button
                   key={i}
-                  onClick={() => setActiveIndex(i)}
+                  type="button"
+                  onClick={() => setSelectedIndex(i)}
+                  onMouseEnter={() => setHoveredIndex(i)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  onFocus={() => setHoveredIndex(i)}
+                  onBlur={() => setHoveredIndex(null)}
+                  aria-pressed={isSelected}
                   aria-label={`Ver depoimento de ${v.company}`}
-                  className={`group relative cursor-pointer overflow-hidden rounded-2xl border transition-all duration-500 text-left ${
-                    isActive 
-                      ? "border-[#ff1a1a] shadow-[0_20px_40px_-10px_rgba(255,26,26,0.3)] ring-1 ring-[#ff1a1a]/50" 
-                      : "border-white/10 opacity-70 hover:opacity-100 hover:border-white/20"
+                  className={`group relative cursor-pointer overflow-visible rounded-2xl border transition-all duration-500 text-left outline-none ${
+                    isSelected
+                      ? "border-[#ff1a1a] shadow-[0_20px_40px_-10px_rgba(255,26,26,0.3)] ring-1 ring-[#ff1a1a]/50"
+                      : isHovered
+                      ? "border-white/40 ring-1 ring-white/20"
+                      : "border-white/10"
                   }`}
                   style={{
                     aspectRatio: "3/4",
+                    perspective: "1000px",
+                    transformStyle: "preserve-3d",
+                    opacity: otherIsHovered ? 0.6 : 1,
                   }}
                 >
-                  <MediaSlot
-                    poster={v.thumbnail}
-                    kind="image"
-                    alt={`${v.name} — ${v.company}`}
-                    className={`absolute inset-0 transition-all duration-700 ${isActive ? "scale-105 brightness-110" : "group-hover:scale-105"}`}
-                    icon="reel"
-                    ornate={false}
-                  />
-
-                  {/* Gradient Overlay */}
-                  <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-80'}`} />
-
-                  {/* Environment Glow (Active) */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-glow"
-                      className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.2)_0%,transparent_70%)]"
+                  {/* Visual Layer (Inner Content) */}
+                  <motion.div
+                    className="relative h-full w-full overflow-hidden rounded-2xl"
+                    initial={false}
+                    animate={{
+                      scale: isHovered ? 1.025 : otherIsHovered ? 0.985 : 1,
+                      rotateY: isHovered ? -4 : 0,
+                      rotateX: isHovered ? 1 : 0,
+                      z: isHovered ? 10 : 0,
+                      filter: otherIsHovered ? "saturate(0.8)" : "saturate(1)",
+                    }}
+                    transition={{
+                      duration: 0.35,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                  >
+                    <MediaSlot
+                      poster={v.thumbnail}
+                      kind="image"
+                      alt={`${v.name} — ${v.company}`}
+                      className="absolute inset-0"
+                      icon="reel"
+                      ornate={false}
                     />
-                  )}
 
-                  {/* Play Button Icon */}
-                  <div className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${isActive ? 'scale-100 opacity-100' : 'scale-75 opacity-0 group-hover:opacity-100'}`}>
-                    <Play className="h-3 w-3 fill-white text-white" />
-                  </div>
+                    {/* Gradient Overlay */}
+                    <div className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isDisplaying ? 'opacity-100' : 'opacity-60 group-hover:opacity-80'}`} />
 
-                  {/* Counter */}
-                  <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-[#0a0a0a]/60 px-2 py-1 text-[9px] font-bold text-white/70 backdrop-blur-md">
-                    {String(i + 1).padStart(2, "0")} / {String(videoTestimonials.length).padStart(2, "0")}
-                  </div>
+                    {/* Active/Hover Effect Glow */}
+                    {isDisplaying && (
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,26,26,0.2)_0%,transparent_70%)]" />
+                    )}
 
-                  {/* Basic Info */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 text-white z-20">
-                    <div className={`font-display text-sm transition-colors duration-300 ${isActive ? 'text-[#ff1a1a]' : 'text-white'}`}>{v.company}</div>
-                    <div className="text-[10px] opacity-60 font-medium tracking-wider uppercase mt-0.5">{v.segment.split(" ")[0]}</div>
-                  </div>
+                    {/* Play Button Icon */}
+                    <div className={`absolute left-4 top-4 rounded-full bg-[#0a0a0a]/80 p-2 backdrop-blur transition-all duration-500 ${isDisplaying ? 'scale-100 opacity-100' : 'scale-75 opacity-0 group-hover:opacity-100'}`}>
+                      <Play className="h-3 w-3 fill-white text-white" />
+                    </div>
+
+                    {/* Counter */}
+                    <div className="absolute right-4 top-4 z-20 rounded-full border border-white/10 bg-[#0a0a0a]/60 px-2 py-1 text-[9px] font-bold text-white/70 backdrop-blur-md">
+                      {String(i + 1).padStart(2, "0")} / {String(videoTestimonials.length).padStart(2, "0")}
+                    </div>
+
+                    {/* Basic Info */}
+                    <div className="absolute inset-x-0 bottom-0 p-4 text-white z-20">
+                      <div className={`font-display text-sm transition-colors duration-300 ${isDisplaying ? 'text-[#ff1a1a]' : 'text-white'}`}>{v.company}</div>
+                      <div className="text-[10px] opacity-60 font-medium tracking-wider uppercase mt-0.5">{v.segment.split(" ")[0]}</div>
+                    </div>
+                  </motion.div>
                 </button>
               );
             })}
+          </div>
+
+          {/* Info Panel - order-2 on Mobile (below gallery) */}
+          <div className="relative z-20 w-full lg:w-[45%] min-h-[500px] order-3 lg:order-1">
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.div
+                key={displayIndex}
+                initial={{ opacity: 0, x: -12, filter: "blur(3px)" }}
+                animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                exit={{ opacity: 0, x: 8, filter: "blur(3px)" }}
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="relative space-y-8"
+              >
+                {/* Ghost Logo Textures */}
+                <div className="pointer-events-none absolute -left-12 -top-12 select-none opacity-[0.03] transition-opacity duration-1000 hidden md:block">
+                  <div className="font-display text-[12rem] leading-none uppercase text-white whitespace-nowrap">
+                    {videoTestimonials[displayIndex].company.split(" ")[0]}
+                  </div>
+                </div>
+
+                <div className="relative space-y-8">
+                  <div className="flex h-16 w-32 items-center justify-start overflow-hidden">
+                    {videoTestimonials[displayIndex].logo ? (
+                      <img 
+                        src={videoTestimonials[displayIndex].logo} 
+                        alt={videoTestimonials[displayIndex].company}
+                        className="h-full object-contain object-left"
+                      />
+                    ) : (
+                      <div className="font-display text-2xl font-bold tracking-tighter text-white/40 uppercase">
+                        {videoTestimonials[displayIndex].company}
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#ff1a1a]">
+                      {videoTestimonials[displayIndex].segment}
+                    </div>
+                    <h3 className="mt-2 font-display text-4xl leading-[1.1] text-white md:text-5xl">
+                      {videoTestimonials[displayIndex].company}
+                    </h3>
+                  </div>
+
+                  <blockquote className="relative border-l-2 border-[#ff1a1a] pl-6 text-xl italic leading-relaxed text-white/90 md:text-2xl font-light">
+                    “{videoTestimonials[displayIndex].quote}”
+                  </blockquote>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div>
+                      <div className="text-sm font-semibold text-white">
+                        {videoTestimonials[displayIndex].name}
+                      </div>
+                      <div className="text-xs text-white/50">
+                        {videoTestimonials[displayIndex].role}
+                      </div>
+                    </div>
+
+                    <a
+                      href={videoTestimonials[displayIndex].href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full bg-[#ff1a1a] px-6 py-3 text-xs font-bold uppercase tracking-widest text-white transition-all hover:bg-[#d90000] hover:scale-105 active:scale-95"
+                    >
+                      <Play className="h-3 w-3 fill-current" />
+                      Assistir Depoimento
+                    </a>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 pt-4">
+                    {videoTestimonials[displayIndex].tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white/60"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
 
@@ -1148,6 +1144,7 @@ export function VideoTestimonialsSection() {
     </section>
   );
 }
+
 
 
 /* ================================================================== */
