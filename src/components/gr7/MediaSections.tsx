@@ -1212,10 +1212,10 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "56%" : "0%",
-            width: isActive ? "56%" : "0%",
+            flexBasis: isActive ? "58%" : "0%",
+            width: isActive ? "58%" : "0%",
             opacity: isActive ? 1 : 0,
-            x: isActive ? 0 : 12,
+            x: isActive ? 0 : 20,
           }}
           transition={{
             flexBasis: {
