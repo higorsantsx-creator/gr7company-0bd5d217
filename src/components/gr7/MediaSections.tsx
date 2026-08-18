@@ -1025,7 +1025,7 @@ function TestimonialCard({
       className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 3.2 : isAnyActive ? 0.55 : 1,
+        flexGrow: isActive ? 4.2 : isAnyActive ? 0.5 : 1,
       }}
       transition={{
         duration: 0.55,
@@ -1059,8 +1059,8 @@ function TestimonialCard({
           className="relative h-full w-full lg:flex-none"
           initial={false}
           animate={{
-            flexBasis: isActive ? "40%" : "100%",
-            width: isActive ? "40%" : "100%",
+            flexBasis: isActive ? "44%" : "100%",
+            width: isActive ? "44%" : "100%",
           }}
           transition={{
             duration: 0.42,
@@ -1068,20 +1068,60 @@ function TestimonialCard({
           }}
         >
           <div className="absolute inset-0 overflow-hidden">
-            <MediaSlot
+            {/* LAYER A — CLOSED COVER */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                opacity: isActive ? 0 : 1,
+              }}
+              transition={{ duration: 0.3 }}
+            >
+              <MediaSlot
+                src={data.thumbnail}
+                kind="image"
+                alt={data.company}
+                className="absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:scale-[1.03] group-hover:brightness-[1.05] group-hover:grayscale-0 object-cover"
+                icon="reel"
+                ornate={false}
+              />
+            </motion.div>
+
+            {/* LAYER B — ACTIVE ATMOSPHERIC BACKGROUND */}
+            <motion.img
               src={data.thumbnail}
-              kind="image"
-              alt={data.company}
-              className={`absolute inset-0 grayscale-[0.2] transition-all duration-700 group-hover:grayscale-0 group-hover:scale-[1.03] group-hover:brightness-[1.05] ${
-                isActive ? "scale-[1.035] brightness-[1.08] grayscale-0" : ""
-              }`}
-              icon="reel"
-              ornate={false}
+              alt=""
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+              initial={false}
+              animate={{
+                opacity: isActive ? 0.55 : 0,
+                scale: isActive ? 1.1 : 1.03,
+                filter: isActive
+                  ? "blur(18px) brightness(0.42) saturate(0.8)"
+                  : "blur(8px) brightness(0.7)",
+              }}
+              transition={{ duration: 0.42 }}
+            />
+
+            {/* LAYER C — ORIGINAL COVER / POSTER */}
+            <motion.img
+              src={data.thumbnail}
+              alt={`${data.company} — depoimento`}
+              className="pointer-events-none absolute inset-0 h-full w-full object-contain object-center"
+              initial={false}
+              animate={{
+                opacity: isActive ? 1 : 0,
+                scale: isActive ? 1 : 0.985,
+              }}
+              transition={{
+                duration: 0.42,
+                ease: [0.22, 1, 0.36, 1],
+              }}
             />
           </div>
 
           <div
-            className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
+            className={`absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/20 to-transparent transition-opacity duration-500 ${isActive ? "opacity-40" : "opacity-60"}`}
           />
 
           {/* Hit area for Reel Play (Central) */}
@@ -1134,8 +1174,8 @@ function TestimonialCard({
         <motion.div
           initial={false}
           animate={{
-            flexBasis: isActive ? "60%" : "0%",
-            width: isActive ? "60%" : "0%",
+            flexBasis: isActive ? "56%" : "0%",
+            width: isActive ? "56%" : "0%",
             opacity: isActive ? 1 : 0,
             x: isActive ? 0 : 12,
           }}
