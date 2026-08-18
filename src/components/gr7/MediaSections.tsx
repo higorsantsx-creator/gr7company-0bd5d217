@@ -950,41 +950,46 @@ export function VideoTestimonialsSection() {
       className="relative flex min-h-[800px] items-center overflow-visible py-32 md:py-48"
     >
       <div className="mx-auto flex w-full flex-col">
+        {/* Heading contained */}
         <div className="mx-auto w-full max-w-7xl px-6 md:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-20"
-        >
-          <SectionHead
-            kicker="Depoimentos"
-            title={
-              <>
-                Quem viveu <span className="italic text-white/50">conta melhor.</span>
-              </>
-            }
-            lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
-          />
-        </motion.div>
-
-        {/* Testimonials Row */}
-        <div 
-          className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-2"
-          style={{ transformStyle: "preserve-3d" }}
-          onPointerLeave={() => setHoveredIndex(null)}
-        >
-          {videoTestimonials.map((v, i) => (
-            <TestimonialCard
-              key={i}
-              index={i}
-              data={v}
-              isActive={activeIndex === i}
-              isAnyActive={hasActiveCard}
-              onPointerEnter={() => setHoveredIndex(i)}
-              onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-20"
+          >
+            <SectionHead
+              kicker="Depoimentos"
+              title={
+                <>
+                  Quem viveu <span className="italic text-white/50">conta melhor.</span>
+                </>
+              }
+              lead="Explore a experiência de quem já transformou seu posicionamento digital com a GR7."
             />
-          ))}
+          </motion.div>
+        </div>
+
+        {/* Testimonials breakout */}
+        <div className="mx-auto w-[94vw] max-w-[1680px]">
+          {/* Testimonials Row */}
+          <div 
+            className="relative flex w-full flex-col gap-4 perspective-[1200px] lg:flex-row lg:items-stretch lg:justify-between lg:gap-2"
+            style={{ transformStyle: "preserve-3d" }}
+            onPointerLeave={() => setHoveredIndex(null)}
+          >
+            {videoTestimonials.map((v, i) => (
+              <TestimonialCard
+                key={i}
+                index={i}
+                data={v}
+                isActive={activeIndex === i}
+                isAnyActive={hasActiveCard}
+                onPointerEnter={() => setHoveredIndex(i)}
+                onClick={() => setSelectedIndex(selectedIndex === i ? null : i)}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Cinematic Ambient Lighting */}
