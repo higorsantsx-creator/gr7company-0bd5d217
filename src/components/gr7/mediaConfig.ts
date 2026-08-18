@@ -204,7 +204,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     thumbnail: bobbyThumb,
     logo: "/__l5e/assets-v1/b1aa1ca6-7663-4eb1-a07a-208b9c231551/logo.png",
     href: "https://www.instagram.com/bobbymoveis",
-    reelHref: "https://www.instagram.com/gr7company/reel/DbDzpvYyB4z/",
+    reelHref: "https://www.instagram.com/p/DbDzpvYyB4z/",
   },
   {
     name: "Carlos M.",
@@ -239,7 +239,7 @@ export const videoTestimonials: VideoTestimonial[] = [
     thumbnail: shinerayThumb,
     logo: new URL("../../assets/projects/shineray/logo.png", import.meta.url).href,
     href: "https://www.instagram.com/shineraymotonowpe",
-    reelHref: "https://www.instagram.com/gr7company/reel/DZNZZw2SaqV/",
+    reelHref: "https://www.instagram.com/p/DZNZZw2SaqV/",
   },
 ];
 
