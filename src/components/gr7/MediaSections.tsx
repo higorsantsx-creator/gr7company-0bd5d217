@@ -1028,10 +1028,10 @@ function TestimonialCard({
 
   return (
     <motion.div
-      className="testimonial-slot relative h-[450px] w-full lg:h-[560px] xl:h-[570px] lg:basis-0"
+      className="testimonial-slot relative h-[450px] w-full lg:h-[620px] xl:h-[640px] lg:basis-0"
       onPointerEnter={onPointerEnter}
       animate={{
-        flexGrow: isActive ? 4.2 : isAnyActive ? 0.5 : 1,
+        flexGrow: isActive ? 5.2 : isAnyActive ? 0.45 : 1,
       }}
       transition={{
         duration: 0.55,
